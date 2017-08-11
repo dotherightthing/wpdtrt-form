@@ -71,9 +71,9 @@ if ( !function_exists( 'wpdtrt_forms_shortcode' ) ) {
     ob_start();
 
     if ( $template === 'contact' ) {
-      wpdtrt_forms_sendmail();
+      $sent = wpdtrt_forms_sendmail();
 
-      if ( ! isset( $_POST['wpdtrt_forms_submitted'] ) ) {
+      if ( ! isset( $_POST['wpdtrt_forms_submitted'] ) || ( $sent === false ) ) {
         require(WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-template-contact.php');
       }
     }
