@@ -1,0 +1,92 @@
+/**
+ * Styles for the public front-end
+ *
+ * This file contains CSS.
+ *
+ * @link        http://dotherightthing.co.nz
+ * @since       0.1.0
+ *
+ * @package     Wpdtrt_Forms
+ * @subpackage  Wpdtrt_Forms/views
+ */
+
+.wpdtrt-forms-template,
+.wpdtrt-forms-message {
+  margin-top: 48px;
+}
+
+.wpdtrt-forms-template ul,
+.wpdtrt-forms-template li {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.wpdtrt-forms-message {
+  color: #999;
+}
+
+.wpdtrt-forms-fieldset {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+.wpdtrt-forms-fields {}
+
+.wpdtrt-forms-field {}
+
+.wpdtrt-forms-label {
+  display: block;
+  cursor: pointer;
+  margin-bottom: 3px;
+}
+
+.wpdtrt-forms-field > * {
+  width: 100%;
+}
+
+.wpdtrt-forms-field > input[type="text"] {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 1px solid #999;
+  padding: 5px;
+}
+
+.wpdtrt-forms-field > input[type="checkbox"],
+.wpdtrt-forms-field > input[type="checkbox"] + .wpdtrt-forms-label {
+  width: auto;
+}
+
+.wpdtrt-forms-field > input[type="checkbox"] {
+  float: left;
+  margin-top: .4em;
+}
+
+.wpdtrt-forms-field > input[type="checkbox"] + .wpdtrt-forms-label {
+  margin-left: 1.5em;
+}
+
+.wpdtrt-forms-label_required::after {
+  content: "*";
+  color: red;
+}
+
+.wpdtrt-forms-submit {
+  background-color: #444;
+  color: #aaa;
+  border: 0;
+  padding: 5px 10px;
+  margin-top: 30px;
+}
+
+.wpdtrt-forms-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute !important;
+  width: 1px;
+  /* many screen reader and browser combinations announce broken words as they would appear visually */
+  word-wrap: normal !important;
+}
