@@ -19,49 +19,34 @@ Author simple and accessible forms
 
 1. Upload the plugin files to the `/wp-content/plugins/wpdtrt-forms` directory, or install the plugin through the WordPress plugins screen directly.
 1. Activate the plugin through the 'Plugins' screen in WordPress
-1. Use the Settings->Plugin Name screen to configure the plugin
 
 == Frequently Asked Questions ==
 
-= How do I use the widget? =
+= How do I embed a form? =
 
-One or more widgets can be displayed within one or more sidebars:
-
-1. Locate the widget: Appearance > Widgets > *WPDTRT Forms Widget*
-2. Drag and drop the widget into one of your sidebars
-3. Add a *Title*
-4. Specify *Number of blocks to display*
-5. Toggle *Link to enlargement?*
-
-= How do I use the shortcode? =
-
-One or more shortcodes can be used within the content editor:
-
-* Specify *Number of blocks to display* - `number`
-* Toggle *Link to enlargement?* - `enlargement` (`yes` | `no`)
+Please use the provided shortcode to embed a form:
 
 ```
-[wpdtrt_forms_blocks number="2" enlargement="yes"]
+<!-- within the editor -->
+[wpdtrt_forms option="value"]
 
-[wpdtrt_forms_blocks number="4" enlargement="no"]
+// in a PHP template, as a template tag
+<?php echo do_shortcode( '[wpdtrt_forms option="value"]' ); ?>
 ```
 
-= How do I use the template tag? =
-
-One or more template tags can be used within your `.php` templates:
-
-* Specify *Number of blocks to display* - `number`
-* Toggle *Link to enlargement?* - `enlargement` (`yes` | `no`)
+This will load the following data file:
 
 ```
-<?php
-    do_shortcode( '[wpdtrt_forms_blocks number="2" enlargement="yes"]' );
-?>
-
-<?php
-    do_shortcode( '[wpdtrt_forms_blocks number="4" enlargement="no"]' );
-?>
+./data/wpdtrt-forms-form-<strong>contact</strong>.json
 ```
+
+Edit the data file to change the field attributes or order.
+
+= Shortcode options =
+
+1. `template="contact"` - generate a form from the template and JSON data
+2. `errors_list="true|false"` - display a list of errors above the form; clicking an error jumps the user to the affected field
+3. `errors_inline="true|false"` - display each error directly after the affected field;
 
 == Screenshots ==
 

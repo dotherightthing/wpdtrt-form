@@ -11,14 +11,14 @@
  * @subpackage  Wpdtrt_Forms/views
  */
 
-  $class = ( $sentmail ? $template_data['success_class'] : $template_data['error_class'] );
-  $message = ( $sentmail ? $template_data['success_message'] : $template_data['error_message'] );
-
+$class = ( $sentmail ? $template_data['success_class'] : $template_data['error_class'] );
+$message = ( $sentmail ? $template_data['success_message'] : $template_data['error_message'] );
 ?>
 
 <div class="wpdtrt-forms-status wpdtrt-forms-status_<?php echo $class; ?>">
 <p><?php echo $message; ?></p>
-<ol>
+<?php if ( $errors_list === 'true' ): ?>
+<ol class="wpdtrt-forms-error-list">
 	<?php foreach ( $submitted_data as $key => $sanitized_value ): ?>
 	<?php if ( $sanitized_value === '' ): ?>
 		<?php
@@ -39,4 +39,5 @@
 	<?php endif; ?>
 	<?php endforeach; ?>
 </ol>
+<?php endif; ?>
 </div>

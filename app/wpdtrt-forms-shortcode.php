@@ -42,6 +42,8 @@ if ( !function_exists( 'wpdtrt_forms_shortcode' ) ) {
     $after_title = null;
     $after_widget = null;
     $template = null;
+    $errors_list = null;
+    $errors_inline = null;
     $shortcode = 'wpdtrt_forms';
 
     /**
@@ -50,7 +52,9 @@ if ( !function_exists( 'wpdtrt_forms_shortcode' ) ) {
      */
     $atts = shortcode_atts(
       array(
-        'template' => ''
+        'template' => 'contact',
+        'errors_list' => 'true',
+        'errors_inline' => 'true',
       ),
       $atts,
       $shortcode
@@ -67,9 +71,14 @@ if ( !function_exists( 'wpdtrt_forms_shortcode' ) ) {
      */
     ob_start();
 
-    // store the template type in the options table
-    // $wpdtrt_forms_options = get_option('wpdtrt_forms'); // option doesn't exist yet
+    /**
+     * store the shortcode options in the options table
+     * $wpdtrt_forms_options = get_option('wpdtrt_forms'); // option doesn't exist yet
+     * @todo test/update for multiple forms
+     */
     $wpdtrt_forms_options['wpdtrt_forms_datatype'] = $template;
+    $wpdtrt_forms_options['errors_list'] = $errors_list;
+    $wpdtrt_forms_options['errors_inline'] = $errors_inline;
     update_option('wpdtrt_forms', $wpdtrt_forms_options);
 
     // store the template data in the options table

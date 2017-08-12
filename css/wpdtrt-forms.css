@@ -44,7 +44,7 @@
 
 .wpdtrt-forms-field > input[type="text"],
 .wpdtrt-forms-field > textarea,
-.wpdtrt-forms-error p {
+.wpdtrt-forms-error-inline p {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -52,14 +52,43 @@
   padding: .3em;
 }
 
+.wpdtrt-forms-error-list {
+  margin-top: 0.5em;
+}
+
+.wpdtrt-forms-error-list,
+.wpdtrt-forms-error-list li {
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.wpdtrt-forms-error-list {
+  font-size: 0.9em;
+  counter-reset: error-counter;
+}
+
+.wpdtrt-forms-error-list > li {
+  counter-increment: error-counter;
+}
+
+.wpdtrt-forms-error-list > li::before {
+  content: counter(error-counter) ".";
+  color: #999;
+}
+
+.wpdtrt-forms-error-list a {
+  color: #fff;
+}
+
 .wpdtrt-forms-field > input[type="text"][aria-invalid="true"],
 .wpdtrt-forms-field > textarea[aria-invalid="true"],
-.wpdtrt-forms-error p {
+.wpdtrt-forms-error-inline p {
   background-color: #ffdcdc;
   border-color: #d00000;
 }
 
-.wpdtrt-forms-error p {
+.wpdtrt-forms-error-inline p {
   display: inline-block;
   position: relative;
   top: -.1em;

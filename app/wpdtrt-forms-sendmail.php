@@ -94,6 +94,7 @@ if ( !function_exists( 'wpdtrt_forms_sendmail' ) ) {
 
 			$sentmail = wp_mail( $to, $submitted_data['subject'], $message, $headers );
 
+			$errors_list = $wpdtrt_forms_options['errors_list'];
 		    require( WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-status.php' );
 
 			return $sentmail;

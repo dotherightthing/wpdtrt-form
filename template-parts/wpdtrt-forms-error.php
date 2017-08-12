@@ -12,8 +12,8 @@
  */
 ?>
 
-<?php if ( $sent === false ): ?>
-<div id="<?php echo $id; ?>_error" class="wpdtrt-forms-error">
+<?php if ( ( $sent === false ) && ( $errors_inline === 'true' ) ): ?>
+<div id="<?php echo $id; ?>_error" class="wpdtrt-forms-error-inline">
 	<p><?php echo $error; ?></p>
 </div>
 <?php endif; ?>
