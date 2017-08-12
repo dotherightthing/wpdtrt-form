@@ -96,7 +96,7 @@ if ( !function_exists( 'wpdtrt_forms_sendmail' ) ) {
 
 			if ( $submitted_data['message'] !== '' ) {
 
-				$message = "\r\n\r\n";
+				$message = $submitted_data['message'] . "\r\n\r\n";
 
 				if ( isset ( $_POST['wpdtrt_forms_email_updates'] ) ) {
 					$message .= 'I would like to receive email updates.' . "\r\n\r\n";

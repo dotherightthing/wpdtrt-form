@@ -14,9 +14,10 @@
 $submitted_data = wpdtrt_forms_sanitize_form_data();
 
 ?>
-
+<?php if ( isset( $submitted_data[$name] ) ): ?>
 <?php if ( ( $submitted_data[$name] === '' ) && ( $errors_inline === 'true' ) ): ?>
 <div id="<?php echo $id; ?>_error" class="wpdtrt-forms-error-inline">
 	<p><?php echo $error; ?></p>
 </div>
+<?php endif; ?>
 <?php endif; ?>

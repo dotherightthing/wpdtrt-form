@@ -18,8 +18,10 @@
  rows="<?php echo $rows; ?>"
  cols="<?php echo $cols; ?>"
 <?php if ( isset( $required ) ): ?> aria-required="true"<?php endif; ?>
+<?php if ( isset( $submitted_data[$name] ) ): ?>
 <?php if ( $submitted_data[$name] === '' ): ?> aria-invalid="true"<?php endif; ?>
 <?php if ( ( $submitted_data[$name] === '' ) && ( $errors_inline === 'true' ) ): ?> aria-describedby="<?php echo $id; ?>_error"<?php endif; ?>
+<?php endif; ?>
 >
 <?php echo $value; ?>
 </textarea>
