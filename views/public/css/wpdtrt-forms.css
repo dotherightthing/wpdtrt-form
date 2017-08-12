@@ -46,12 +46,38 @@
   width: 100%;
 }
 
-.wpdtrt-forms-field > input[type="text"] {
+.wpdtrt-forms-field > input[type="text"],
+.wpdtrt-forms-field > textarea,
+.wpdtrt-forms-error p {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border: 1px solid #999;
   padding: 5px;
+}
+
+.wpdtrt-forms-field > input[type="text"][aria-invalid="true"],
+.wpdtrt-forms-field > textarea[aria-invalid="true"],
+.wpdtrt-forms-error p {
+  background-color: #ffdcdc;
+  border-color: #d00000;
+}
+
+.wpdtrt-forms-error p {
+  display: inline-block;
+  position: relative;
+  top: -.1em;
+
+  font-size: .8em;
+  background-color: #d00000;
+  color: #000;
+
+
+  padding-top: .1em;
+  padding-bottom: .1em;
+
+  margin-bottom: 1em;
+
 }
 
 .wpdtrt-forms-field > input[type="checkbox"],
@@ -69,8 +95,8 @@
 }
 
 .wpdtrt-forms-label_required::after {
-  content: "*";
-  color: red;
+  content: " *";
+  color: #d00000;
 }
 
 .wpdtrt-forms-submit {

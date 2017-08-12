@@ -13,8 +13,6 @@
 ?>
 
 <label class="wpdtrt-forms-label<?php echo $required_label_class; ?>" for="<?php echo $id; ?>">
-<?php echo $label; ?>:
-<?php if ( $required ): ?>
-  <span class="wpdtrt-forms-required-text wpdtrt-forms-hidden"> (required)</span>
-<?php endif; ?>
+<?php echo $label; ?>
+<?php if ( $required ): ?><span class="wpdtrt-forms-required-text wpdtrt-forms-hidden"> (required)</span><?php endif; ?>
 </label>

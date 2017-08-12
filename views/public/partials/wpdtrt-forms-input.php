@@ -21,4 +21,5 @@
 <?php if ( $type === 'text' ): ?> size="<?php echo $size; ?>"<?php endif; ?>
 <?php if ( isset( $html5_validation ) ): ?> pattern="<?php echo $html5_validation; ?>"<?php endif; ?>
 <?php if ( isset( $required ) ): ?> aria-required="true"<?php endif; ?>
+<?php if ( $sent === false ): ?> aria-invalid="true" aria-describedby="<?php echo $id; ?>_error"<?php endif; ?>
 />

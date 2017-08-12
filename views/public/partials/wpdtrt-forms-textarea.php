@@ -18,6 +18,7 @@
  rows="<?php echo $rows; ?>"
  cols="<?php echo $cols; ?>"
 <?php if ( isset( $required ) ): ?> aria-required="true"<?php endif; ?>
+<?php if ( $sent === false ): ?> aria-invalid="true" aria-describedby="<?php echo $id; ?>_error"<?php endif; ?>
 >
 <?php echo $value; ?>
 </textarea>

@@ -71,6 +71,7 @@
                   else {
                     require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-label.php' );
                     require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-input.php' );
+                    require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-error.php' );
                   }
 
                 break;
@@ -79,6 +80,7 @@
 
                   require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-label.php' );
                   require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-textarea.php' );
+                  require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-error.php' );
 
                 break;
               }
