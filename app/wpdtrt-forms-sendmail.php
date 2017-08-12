@@ -37,23 +37,49 @@ if ( !function_exists( 'wpdtrt_forms_sendmail' ) ) {
 		// if the submit button is clicked, send the email
 		if ( isset( $_POST['wpdtrt_forms_submitted'] ) ) {
 
-			// sanitize form values
-			// unsanitary values are output as ''
-			$name    		= sanitize_text_field( $_POST['wpdtrt_forms_name'] );
-			$email   		= sanitize_email( $_POST['wpdtrt_forms_email'] );
-			$subject 		= sanitize_text_field( $_POST['wpdtrt_forms_subject'] );
-			$message 		= sanitize_textarea_field( $_POST['wpdtrt_forms_message'] );
+			$wpdtrt_forms_options = get_option('wpdtrt_forms');
 
-			$blogname 		= get_option( 'blogname' );
+			// this requires json_decode to use the optional second argument
+			// to return an associative array
+			// @see wpdtrt_forms_get_data()
+			$template_data = $wpdtrt_forms_options['wpdtrt_forms_data'];
+			$template_fields = $template_data['template_fields'];
+
+			// sanitize form values
+			// empty or unsanitary values are output as ''
+			foreach( $template_fields as $template_field ) {
+
+				// some fields like checkbox don't need sanitizing
+				if ( isset( $template_field['sanitizer'] ) ) {
+
+					$sanitizer = $template_field['sanitizer'];
+
+					/**
+					 * Verify that the contents of a variable can be called as a function
+					 * @see http://php.net/is_callable
+					 */
+					if ( is_callable( $sanitizer ) ) {
+
+						/**
+						 * Call the callback given by the first parameter
+						 * @see http://php.net/manual/en/function.call-user-func.php
+						 */
+						$submitted_data[ $template_field['id'] ] = call_user_func( $sanitizer, $_POST[ 'wpdtrt_forms_' . $template_field['id'] ] );
+					}
+
+				}
+			}
+
+			$blogname = get_option( 'blogname' );
 
 			// get the blog administrator's email address
 			$to = get_option( 'admin_email' );
 
-			$headers = "From: $name <$email>" . "\r\n";
+			$headers = "From: " . $submitted_data['name'] . "<" . $submitted_data['email'] . ">" . "\r\n";
 
-			if ( $message !== '' ) {
+			if ( $submitted_data['message'] !== '' ) {
 
-				$message .= "\r\n\r\n";
+				$message = "\r\n\r\n";
 
 				if ( isset ( $_POST['wpdtrt_forms_email_updates'] ) ) {
 					$message .= 'I would like to receive email updates.' . "\r\n\r\n";
@@ -62,42 +88,15 @@ if ( !function_exists( 'wpdtrt_forms_sendmail' ) ) {
 				$message .= '---' . "\r\n\r\n";
 				$message .= 'Sent from the "' . $blogname . '" Contact Form.';
 			}
-
-			// If email has been processed for sending, display a success message
-			if ( wp_mail( $to, $subject, $message, $headers ) ) {
-				echo '<div class="wpdtrt-forms-message wpdtrt-forms-message_success">';
-				echo '<p>Thank you for contacting me! If needed, you will hear back within 24 hours.</p>';
-				echo '</div>';
-
-				$sent = true;
-			} else {
-				echo '<div class="wpdtrt-forms-message wpdtrt-forms-message_error">';
-				echo '<p>Please correct the following errors:</p>';
-				echo '<ol>';
-
-				if ( $name === '' ) {
-					echo '<li><a href="#wpdtrt_forms_name">Please enter your name</a></li>';
-				}
-
-				if ( $email === '' ) {
-					echo '<li><a href="#wpdtrt_forms_email">Please enter a valid email address</a></li>';
-				}
-
-				if ( $subject === '' ) {
-					echo '<li><a href="#wpdtrt_forms_subject">Please enter a subject</a></li>';
-				}
-
-				if ( $message === '' ) {
-					echo '<li><a href="#wpdtrt_forms_message">Please enter your message</a></li>';
-				}
-
-				echo '</ol>';
-				echo '</div>';
-
-				$sent = false;
+			else {
+				$message = '';
 			}
 
-			return $sent;
+			$sentmail = wp_mail( $to, $submitted_data['subject'], $message, $headers );
+
+		    require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-status.php' );
+
+			return $sentmail;
 		}
 	}
 

@@ -59,9 +59,6 @@ if ( !function_exists( 'wpdtrt_forms_shortcode' ) ) {
     // only overwrite predeclared variables
     extract( $atts, EXTR_IF_EXISTS );
 
-    $wpdtrt_forms_options = get_option('wpdtrt_forms');
-    $wpdtrt_forms_data = $wpdtrt_forms_options['wpdtrt_forms_data'];
-
     /**
      * ob_start — Turn on output buffering
      * This stores the HTML template in the buffer
@@ -70,20 +67,27 @@ if ( !function_exists( 'wpdtrt_forms_shortcode' ) ) {
      */
     ob_start();
 
-    if ( $template === 'contact' ) {
-      $sent = wpdtrt_forms_sendmail();
+    // store the template type in the options table
+    // $wpdtrt_forms_options = get_option('wpdtrt_forms'); // option doesn't exist yet
+    $wpdtrt_forms_options['wpdtrt_forms_datatype'] = $template;
+    update_option('wpdtrt_forms', $wpdtrt_forms_options);
 
-      if ( ! isset( $_POST['wpdtrt_forms_submitted'] ) || ( $sent === false ) ) {
-        require(WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-template-contact.php');
-      }
+    // store the template data in the options table
+    wpdtrt_forms_data_refresh();
+
+    $sent = wpdtrt_forms_sendmail();
+
+    // if the form hasn't been submitted yet
+    // or if it was submitted but couldn't be sent due to errors
+    if ( ! isset( $_POST['wpdtrt_forms_submitted'] ) || ( $sent === false ) ) {
+      // load form template
+      require(WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-template-' . $template . '.php');
     }
 
     /**
      * ob_get_clean — Get current buffer contents and delete current output buffer
      */
-    $content = ob_get_clean();
-
-    return $content;
+    return ob_get_clean();
   }
 
   add_shortcode( 'wpdtrt_forms', 'wpdtrt_forms_shortcode' );

@@ -17,62 +17,21 @@
   echo $before_widget;
   echo $before_title . $title . $after_title;
 
-  // content data
-  $legend = 'Contact';
-  $submit = 'Submit';
+  $wpdtrt_forms_options = get_option('wpdtrt_forms');
 
-  // structure
-  $fields = array(
-    array(
-      "id" => "name",
-      "label" => "Name",
-      "required" => "true",
-      "element" => "input",
-      "type" => "text",
-      "html5_validation" => "[a-zA-Z0-9 ]+",
-      "size" => "40"
-    ),
-    array(
-      "id" => "email",
-      "label" => "Email",
-      "required" => "true",
-      "element" => "input",
-      "type" => "text",
-      "size" => "40"
-    ),
-    array(
-      "id" => "email_updates",
-      "label" => "Check here to receive email updates",
-      "element" => "input",
-      "type" => "checkbox"
-    ),
-    array(
-      "id" => "subject",
-      "label" => "Subject",
-      "required" => "true",
-      "element" => "input",
-      "type" => "text",
-      "html5_validation" => "[a-zA-Z ]+",
-      "size" => "40"
-    ),
-    array(
-      "id" => "message",
-      "label" => "Message",
-      "required" => "true",
-      "element" => "textarea",
-      "rows" => "6",
-      "cols" => "35",
-    )
-  );
-
+  // this requires json_decode to use the optional second argument
+  // to return an associative array
+  // @see wpdtrt_forms_get_data()
+  $template_data = $wpdtrt_forms_options['wpdtrt_forms_data'];
+  $template_fields = $template_fields = $template_data['template_fields'];
 ?>
 
 <form action="<?php esc_url( $_SERVER['REQUEST_URI'] ) ?>" method="post" class="wpdtrt-forms-template wpdtrt-forms-template-contact">
   <fieldset class="wpdtrt-forms-fieldset">
-    <legend class="wpdtrt-forms-legend wpdtrt-forms-hidden"><?php echo $legend; ?></legend>
+    <legend class="wpdtrt-forms-legend wpdtrt-forms-hidden"><?php echo $template_data['legend']; ?></legend>
     <ul class="wpdtrt-forms-fields">
 
-      <?php foreach( $fields as $field ): ?>
+      <?php foreach( $template_fields as $field ): ?>
         <?php
 
           // predeclare variables
@@ -85,6 +44,7 @@
           $size                 = null;
           $rows                 = null;
           $cols                 = null;
+          $error                = null;
 
           // only overwrite predeclared variables
           extract ($field, EXTR_IF_EXISTS );
@@ -123,8 +83,7 @@
                 break;
               }
 
-              $content = ob_get_clean();
-              echo $content;
+              echo ob_get_clean();
           ?>
         </li>
 
@@ -133,7 +92,7 @@
     </ul>
 
     <div>
-      <input type="submit" name="wpdtrt_forms_submitted" class="wpdtrt-forms-submit" value="<?php echo $submit; ?>">
+      <input type="submit" name="wpdtrt_forms_submitted" class="wpdtrt-forms-submit" value="<?php echo $template_data['submit']; ?>">
     </div>
 
   </fieldset>

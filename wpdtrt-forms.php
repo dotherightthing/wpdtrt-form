@@ -77,6 +77,8 @@ if( ! defined( 'WPDTRT_FORMS_URL' ) ) {
  * So that we only use have to consume one row in the WP Options table
  * WordPress automatically serializes this (into a string)
  * because MySQL does not support arrays as a data type
+ * @example update_option('wpdtrt_forms', $wpdtrt_forms_options);
+ * @example $wpdtrt_forms_options = get_option('wpdtrt_forms');
  */
   $wpdtrt_forms_options = array();
 
@@ -86,6 +88,7 @@ if( ! defined( 'WPDTRT_FORMS_URL' ) ) {
 
   //require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-options-page.php');
   //require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-widget.php');
+  require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-api.php');
   require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-css.php');
   //require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-js.php');
   require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-sendmail.php');

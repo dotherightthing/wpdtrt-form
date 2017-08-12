@@ -11,7 +11,7 @@
  */
 
 .wpdtrt-forms-template,
-.wpdtrt-forms-message {
+.wpdtrt-forms-status {
   margin-top: 48px;
 }
 
@@ -22,7 +22,7 @@
   margin-left: 0;
 }
 
-.wpdtrt-forms-message {
+.wpdtrt-forms-status {
   color: #999;
 }
 
