@@ -21,7 +21,7 @@ if ( !function_exists( 'wpdtrt_forms_css_backend' ) ) {
   function wpdtrt_forms_css_backend() {
 
     wp_enqueue_style( 'wpdtrt_forms_css_backend',
-      WPDTRT_FORMS_URL . 'views/admin/css/wpdtrt-forms.css',
+      WPDTRT_FORMS_URL . 'css/wpdtrt-forms-admin.css',
       array(),
       WPDTRT_FORMS_VERSION
       //'all'
@@ -42,7 +42,7 @@ if ( !function_exists( 'wpdtrt_forms_css_frontend' ) ) {
   function wpdtrt_forms_css_frontend() {
 
     wp_enqueue_style( 'wpdtrt_forms_css_frontend',
-      WPDTRT_FORMS_URL . 'views/public/css/wpdtrt-forms.css',
+      WPDTRT_FORMS_URL . 'css/wpdtrt-forms.css',
       array(),
       WPDTRT_FORMS_VERSION
       //'all'

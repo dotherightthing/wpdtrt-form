@@ -128,7 +128,7 @@ if ( !function_exists( 'wpdtrt_forms_options_page' ) ) {
      * This function's variables will be available to this template.
      * @todo display the last generated timestamp on the options page
      */
-    require_once(WPDTRT_FORMS_PATH . 'views/admin/partials/wpdtrt-forms-options-page.php');
+    require_once(WPDTRT_FORMS_PATH . 'templates/wpdtrt-forms-options.php');
   }
 
 }

@@ -67,7 +67,7 @@ if ( !class_exists( 'Wpdtrt_Forms_Widget' ) ) {
      * Load the HTML template
      * This function's variables will be available to this template.
      */
-      require(WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-front-end.php');
+      require(WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-front-end.php');
     }
 
     /**
@@ -111,7 +111,7 @@ if ( !class_exists( 'Wpdtrt_Forms_Widget' ) ) {
      * Load the HTML template
      * This function's variables will be available to this template.
      */
-      require(WPDTRT_FORMS_PATH . 'views/admin/partials/wpdtrt-forms-widget.php');
+      require(WPDTRT_FORMS_PATH . 'templates/wpdtrt-forms-widget.php');
     }
   }
 

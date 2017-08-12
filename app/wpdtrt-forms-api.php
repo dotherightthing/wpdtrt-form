@@ -27,7 +27,7 @@ if ( !function_exists( 'wpdtrt_forms_get_data' ) ) {
    */
   function wpdtrt_forms_get_data( $wpdtrt_forms_datatype ) {
 
-    $endpoint = WPDTRT_FORMS_URL . 'app/wpdtrt-forms-data-' . $wpdtrt_forms_datatype . '.json';
+    $endpoint = WPDTRT_FORMS_URL . 'data/wpdtrt-forms-form-' . $wpdtrt_forms_datatype . '.json';
 
     $args = array(
       'timeout' => 30 // seconds to wait for the request to complete

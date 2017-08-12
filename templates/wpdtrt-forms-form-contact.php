@@ -65,22 +65,22 @@
                 case "input":
 
                   if ( $type === 'checkbox' ) {
-                    require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-input.php' );
-                    require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-label.php' );
+                    require( WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-input.php' );
+                    require( WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-label.php' );
                   }
                   else {
-                    require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-label.php' );
-                    require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-input.php' );
-                    require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-error.php' );
+                    require( WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-label.php' );
+                    require( WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-input.php' );
+                    require( WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-error.php' );
                   }
 
                 break;
 
                 case "textarea":
 
-                  require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-label.php' );
-                  require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-textarea.php' );
-                  require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-error.php' );
+                  require( WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-label.php' );
+                  require( WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-textarea.php' );
+                  require( WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-error.php' );
 
                 break;
               }

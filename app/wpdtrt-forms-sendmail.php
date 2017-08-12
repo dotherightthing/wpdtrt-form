@@ -94,7 +94,7 @@ if ( !function_exists( 'wpdtrt_forms_sendmail' ) ) {
 
 			$sentmail = wp_mail( $to, $submitted_data['subject'], $message, $headers );
 
-		    require( WPDTRT_FORMS_PATH . 'views/public/partials/wpdtrt-forms-status.php' );
+		    require( WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-status.php' );
 
 			return $sentmail;
 		}

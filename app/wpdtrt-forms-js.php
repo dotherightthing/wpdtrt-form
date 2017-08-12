@@ -26,7 +26,7 @@ if ( !function_exists( 'wpdtrt_forms_frontend_js' ) ) {
   function wpdtrt_forms_frontend_js() {
 
     wp_enqueue_script( 'wpdtrt_forms_frontend_js',
-      WPDTRT_FORMS_URL . 'views/public/js/wpdtrt-forms.js',
+      WPDTRT_FORMS_URL . 'js/wpdtrt-forms.js',
       array('jquery'),
       WPDTRT_FORMS_VERSION,
       true
