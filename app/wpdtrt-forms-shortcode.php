@@ -89,6 +89,12 @@ if ( !function_exists( 'wpdtrt_forms_shortcode' ) ) {
     // if the form hasn't been submitted yet
     // or if it was submitted but couldn't be sent due to errors
     if ( ! isset( $_POST['wpdtrt_forms_submitted'] ) || ( $sent === false ) ) {
+
+      if ( $sent === false ) {
+        // get submission data
+        $submitted_data = wpdtrt_forms_sanitize_form_data();
+      }
+
       // load form template
       require(WPDTRT_FORMS_PATH . 'templates/wpdtrt-forms-form-' . $template . '.php');
     }

@@ -30,9 +30,11 @@
  * @todo Form seems to submit even if Subject field is empty
  */
 
-if ( !function_exists( 'wpdtrt_forms_sendmail' ) ) {
+if ( !function_exists( 'wpdtrt_forms_sanitize_form_data' ) ) {
 
-	function wpdtrt_forms_sendmail() {
+	function wpdtrt_forms_sanitize_form_data() {
+
+		$submitted_data = array();
 
 		// if the submit button is clicked, send the email
 		if ( isset( $_POST['wpdtrt_forms_submitted'] ) ) {
@@ -69,6 +71,21 @@ if ( !function_exists( 'wpdtrt_forms_sendmail' ) ) {
 
 				}
 			}
+		}
+
+		return $submitted_data;
+
+	}
+}
+
+if ( !function_exists( 'wpdtrt_forms_sendmail' ) ) {
+
+	function wpdtrt_forms_sendmail() {
+
+		// if the submit button is clicked, send the email
+		if ( isset( $_POST['wpdtrt_forms_submitted'] ) ) {
+
+			$submitted_data = wpdtrt_forms_sanitize_form_data();
 
 			$blogname = get_option( 'blogname' );
 
@@ -94,7 +111,9 @@ if ( !function_exists( 'wpdtrt_forms_sendmail' ) ) {
 
 			$sentmail = wp_mail( $to, $submitted_data['subject'], $message, $headers );
 
+			$wpdtrt_forms_options = get_option('wpdtrt_forms');
 			$errors_list = $wpdtrt_forms_options['errors_list'];
+			$template_data = $wpdtrt_forms_options['wpdtrt_forms_data'];
 		    require( WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-status.php' );
 
 			return $sentmail;

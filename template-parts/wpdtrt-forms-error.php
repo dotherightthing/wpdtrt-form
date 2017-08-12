@@ -10,9 +10,12 @@
  * @package     Wpdtrt_Forms
  * @subpackage  Wpdtrt_Forms/views
  */
+
+$submitted_data = wpdtrt_forms_sanitize_form_data();
+
 ?>
 
-<?php if ( ( $sent === false ) && ( $errors_inline === 'true' ) ): ?>
+<?php if ( ( $submitted_data[$name] === '' ) && ( $errors_inline === 'true' ) ): ?>
 <div id="<?php echo $id; ?>_error" class="wpdtrt-forms-error-inline">
 	<p><?php echo $error; ?></p>
 </div>

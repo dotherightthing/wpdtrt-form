@@ -51,6 +51,7 @@
 
           $required             = isset( $required );
           $required_label_class = $required ? ' wpdtrt-forms-label_required' : '';
+          $name                 = $id;
           $id                   = 'wpdtrt_forms_' . $id;
           $value                = ( isset( $_POST[$id] ) ? esc_attr( $_POST[$id] ) : '' );
         ?>
