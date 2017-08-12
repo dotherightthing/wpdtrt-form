@@ -34,13 +34,13 @@ Please use the provided shortcode to embed a form:
 <?php echo do_shortcode( '[wpdtrt_forms option="value"]' ); ?>
 ```
 
-This will load the following data file:
+= How do I edit the form fields? =
+
+Edit the data file to change the field attributes or order:
 
 ```
 ./data/wpdtrt-forms-form-<strong>contact</strong>.json
 ```
-
-Edit the data file to change the field attributes or order.
 
 = Shortcode options =
 
@@ -48,10 +48,11 @@ Edit the data file to change the field attributes or order.
 2. `errors_list="true|false"` - display a list of errors above the form; clicking an error jumps the user to the affected field
 3. `errors_inline="true|false"` - display each error directly after the affected field;
 
-== Screenshots ==
+== Roadmap ==
 
-1. The caption for ./assets/screenshot-1.(png|jpg|jpeg|gif)
-2. The caption for ./assets/screenshot-2.(png|jpg|jpeg|gif)
+1. Anti-Spam
+2. Escaping of content in email
+3. Translation support
 
 == Changelog ==
 

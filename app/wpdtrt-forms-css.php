@@ -11,27 +11,6 @@
  * @subpackage  Wpdtrt_Forms/app
  */
 
-if ( !function_exists( 'wpdtrt_forms_css_backend' ) ) {
-
-  /**
-   * Attach CSS for Settings > WPDTRT Forms
-   *
-   * @since       0.1.0
-   */
-  function wpdtrt_forms_css_backend() {
-
-    wp_enqueue_style( 'wpdtrt_forms_css_backend',
-      WPDTRT_FORMS_URL . 'css/wpdtrt-forms-admin.css',
-      array(),
-      WPDTRT_FORMS_VERSION
-      //'all'
-    );
-  }
-
-  add_action( 'admin_head', 'wpdtrt_forms_css_backend' );
-
-}
-
 if ( !function_exists( 'wpdtrt_forms_css_frontend' ) ) {
 
   /**
