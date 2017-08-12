@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name:  WPDTRT Forms
-Plugin URI:   http://dotherightthing.co.nz
+Plugin URI:   https://github.com/dotherightthing/wpdtrt-forms
 Description:  Author simple and accessible forms
 Version:      0.1.0
 Author:       Dan Smith
