@@ -10,20 +10,13 @@
  * @subpackage  Wpdtrt_Forms/views
  */
 
-.wpdtrt-forms-template,
 .wpdtrt-forms-status {
-  margin-top: 48px;
+  color: #fff; /* #999; */
+  margin-bottom: 1em;
 }
 
-.wpdtrt-forms-template ul,
-.wpdtrt-forms-template li {
-  list-style-type: none;
-  padding-left: 0;
-  margin-left: 0;
-}
-
-.wpdtrt-forms-status {
-  color: #999;
+.wpdtrt-forms-status p {
+  padding-top: 0;
 }
 
 .wpdtrt-forms-fieldset {
@@ -32,14 +25,17 @@
   margin: 0;
 }
 
-.wpdtrt-forms-fields {}
-
-.wpdtrt-forms-field {}
+.wpdtrt-forms-fields,
+.wpdtrt-forms-field {
+  list-style-type: none;
+  padding-left: 0;
+  margin-left: 0;
+}
 
 .wpdtrt-forms-label {
   display: block;
   cursor: pointer;
-  margin-bottom: 3px;
+  margin-bottom: .2em;
 }
 
 .wpdtrt-forms-field > * {
@@ -53,7 +49,7 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border: 1px solid #999;
-  padding: 5px;
+  padding: .3em;
 }
 
 .wpdtrt-forms-field > input[type="text"][aria-invalid="true"],
@@ -67,17 +63,12 @@
   display: inline-block;
   position: relative;
   top: -.1em;
-
   font-size: .8em;
   background-color: #d00000;
   color: #000;
-
-
   padding-top: .1em;
   padding-bottom: .1em;
-
   margin-bottom: 1em;
-
 }
 
 .wpdtrt-forms-field > input[type="checkbox"],
@@ -101,10 +92,10 @@
 
 .wpdtrt-forms-submit {
   background-color: #444;
-  color: #aaa;
+  color: #ccc; /* #aaa */
+  padding: .3em .6em;
   border: 0;
-  padding: 5px 10px;
-  margin-top: 30px;
+  margin-top: 1.9em;
 }
 
 .wpdtrt-forms-hidden {
