@@ -86,11 +86,8 @@ if( ! defined( 'WPDTRT_FORMS_URL' ) ) {
  * Include plugin logic
  */
 
-  //require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-options-page.php');
-  //require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-widget.php');
   require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-api.php');
   require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-css.php');
-  //require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-js.php');
   require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-sendmail.php');
   require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-shortcode.php');
 
