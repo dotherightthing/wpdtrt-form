@@ -1,5 +1,5 @@
 
-=== WPDTRT Forms ===
+=== DTRT Forms ===
 Contributors: dotherightthingnz
 Donate link: http://dotherightthing.co.nz
 Tags: forms

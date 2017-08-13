@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name:  WPDTRT Forms
+Plugin Name:  DTRT Forms
 Plugin URI:   https://github.com/dotherightthing/wpdtrt-forms
 Description:  Author simple and accessible forms
 Version:      0.1.0

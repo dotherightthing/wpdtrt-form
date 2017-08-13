@@ -2,9 +2,9 @@
   "generator-wp-plugin-boilerplate": {
     "name": "wpdtrt-forms",
     "nameSafe": "wpdtrt_forms",
-    "nameFriendly": "WPDTRT Forms",
+    "nameFriendly": "DTRT Forms",
     "nameFriendlySafe": "Wpdtrt_Forms",
-    "nameAdminMenu": "WPDTRT Forms",
+    "nameAdminMenu": "DTRT Forms",
     "urlAdminMenu": "wpdtrt-forms",
     "description": "Author simple and accessible forms",
     "tags": "forms",
