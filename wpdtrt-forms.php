@@ -3,7 +3,7 @@
 Plugin Name:  DTRT Forms
 Plugin URI:   https://github.com/dotherightthing/wpdtrt-forms
 Description:  Author simple and accessible forms
-Version:      0.1.0
+Version:      0.1.1
 Author:       Dan Smith
 Author URI:   http://dotherightthing.co.nz
 License:      GPLv2 or later
