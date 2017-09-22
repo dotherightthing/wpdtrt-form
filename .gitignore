@@ -3,6 +3,5 @@ generators
 logs
 node_modules
 tests
-vendor
 composer.phar
 .DS_Store
