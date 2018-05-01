@@ -1,0 +1,35 @@
+{
+    "name": "dotherightthing/wpdtrt-forms",
+    "description": "A WordPress plugin to author simple, accessible forms.",
+    "type": "library",
+    "keywords": ["forms", "accessible", "WCAG"],
+    "license": "ISC",
+    "authors": [
+        {
+            "name": "Dan Smith",
+            "email": "dev@dotherightthing.co.nz",
+            "homepage": "https://github.com/dotherightthing/wpdtrt-forms",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "support@dotherightthing.co.nz",
+        "issues": "https://github.com/dotherightthing/wpdtrt-forms/issues"
+    },
+    "require": {
+        "dotherightthing/wpdtrt-plugin": "^1.0.0"
+    },
+    "minimum-stability": "stable",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.packagist.com/dotherightthing/"
+        },
+        {
+            "packagist.org": false
+        }
+    ],
+    "config": {
+        "vendor-dir": "vendor"
+    }
+}

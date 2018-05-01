@@ -1,21 +1,18 @@
 <?php
-/*
-Plugin Name:  DTRT Forms
-Plugin URI:   https://github.com/dotherightthing/wpdtrt-forms
-Description:  Author simple and accessible forms
-Version:      0.1.1
-Author:       Dan Smith
-Author URI:   http://dotherightthing.co.nz
-License:      GPLv2 or later
-License URI:  http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain:  wpdtrt-forms
-Domain Path:  /languages
-*/
-
 /**
- * @see https://www.sitepoint.com/build-your-own-wordpress-contact-form-plugin-in-5-minutes/
- * @see https://premium.wpmudev.org/blog/how-to-build-your-own-wordpress-contact-form-and-why/
+ * Plugin Name:  DTRT Forms
+ * Plugin URI:   
+ * Description:  A WordPress plugin to author simple, accessible forms.
+ * Version:      0.2.0
+ * Author:       Dan Smith
+ * Author URI:   https://profiles.wordpress.org/dotherightthingnz
+ * License:      GPLv2 or later
+ * License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:  wpdtrt-forms
+ * Domain Path:  /languages
  */
+
+require_once plugin_dir_path( __FILE__ ) . "vendor/autoload.php";
 
 /**
  * Constants
@@ -39,56 +36,269 @@ Domain Path:  /languages
  */
 
 /**
- * Plugin version
- * WP provides get_plugin_data(), but it only works within WP Admin,
- * so we define a constant instead.
- * @example $plugin_data = get_plugin_data( __FILE__ ); $plugin_version = $plugin_data['Version'];
- * @link https://wordpress.stackexchange.com/questions/18268/i-want-to-get-a-plugin-version-number-dynamically
- */
-if( ! defined( 'WPDTRT_FORMS_VERSION' ) ) {
-  define( 'WPDTRT_FORMS_VERSION', '0.1' );
+  * Determine the correct path to the autoloader
+  * @see https://github.com/dotherightthing/wpdtrt-plugin/issues/51
+  */
+if( ! defined( 'WPDTRT_PLUGIN_CHILD' ) ) {
+  define( 'WPDTRT_PLUGIN_CHILD', true );
 }
 
+if( ! defined( 'WPDTRT_FORMS_VERSION' ) ) {
 /**
- * plugin_dir_path
+ * Plugin version.
+ *
+ * WP provides get_plugin_data(), but it only works within WP Admin,
+ * so we define a constant instead.
+ *
+ * @example $plugin_data = get_plugin_data( __FILE__ ); $plugin_version = $plugin_data['Version'];
+ * @link https://wordpress.stackexchange.com/questions/18268/i-want-to-get-a-plugin-version-number-dynamically
+ *
+ * @version   0.0.1
+ * @since     0.7.10
+ */
+  define( 'WPDTRT_FORMS_VERSION', '0.2.0' );
+}
+
+if( ! defined( 'WPDTRT_FORMS_PATH' ) ) {
+/**
+ * Plugin directory filesystem path.
+ *
  * @param string $file
  * @return The filesystem directory path (with trailing slash)
+ *
  * @link https://developer.wordpress.org/reference/functions/plugin_dir_path/
  * @link https://developer.wordpress.org/plugins/the-basics/best-practices/#prefix-everything
+ *
+ * @version   0.0.1
+ * @since     0.7.10
  */
-if( ! defined( 'WPDTRT_FORMS_PATH' ) ) {
   define( 'WPDTRT_FORMS_PATH', plugin_dir_path( __FILE__ ) );
 }
 
+if( ! defined( 'WPDTRT_FORMS_URL' ) ) {
 /**
- * The version information is only available within WP Admin
+ * Plugin directory URL path.
+ *
  * @param string $file
  * @return The URL (with trailing slash)
+ *
  * @link https://codex.wordpress.org/Function_Reference/plugin_dir_url
  * @link https://developer.wordpress.org/plugins/the-basics/best-practices/#prefix-everything
+ *
+ * @version   0.0.1
+ * @since     0.7.10
  */
-if( ! defined( 'WPDTRT_FORMS_URL' ) ) {
   define( 'WPDTRT_FORMS_URL', plugin_dir_url( __FILE__ ) );
 }
 
-
-/**
- * Store all of our plugin options in an array
- * So that we only use have to consume one row in the WP Options table
- * WordPress automatically serializes this (into a string)
- * because MySQL does not support arrays as a data type
- * @example update_option('wpdtrt_forms', $wpdtrt_forms_options);
- * @example $wpdtrt_forms_options = get_option('wpdtrt_forms');
- */
-  $wpdtrt_forms_options = array();
-
 /**
  * Include plugin logic
+ *
+ * @version   0.0.1
+ * @since     0.7.10
  */
 
-  require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-api.php');
-  require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-css.php');
-  require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-sendmail.php');
-  require_once(WPDTRT_FORMS_PATH . 'app/wpdtrt-forms-shortcode.php');
+  // base class
+  // redundant, but includes the composer-generated autoload file if not already included
+  require_once(WPDTRT_FORMS_PATH . 'vendor/dotherightthing/wpdtrt-plugin/index.php');
+
+  // classes without composer.json files are loaded via Bower
+  //require_once(WPDTRT_FORMS_PATH . 'vendor/name/file.php');
+
+  // sub classes
+  require_once(WPDTRT_FORMS_PATH . 'src/class-wpdtrt-forms-plugin.php');
+  require_once(WPDTRT_FORMS_PATH . 'src/class-wpdtrt-forms-widgets.php');
+
+  // log & trace helpers
+  $debug = new DoTheRightThing\WPDebug\Debug;
+
+  /**
+   * Plugin initialisaton
+   *
+   * We call init before widget_init so that the plugin object properties are available to it.
+   * If widget_init is not working when called via init with priority 1, try changing the priority of init to 0.
+   * init: Typically used by plugins to initialize. The current user is already authenticated by this time.
+   * └─ widgets_init: Used to register sidebars. Fired at 'init' priority 1 (and so before 'init' actions with priority ≥ 1!)
+   *
+   * @see https://wp-mix.com/wordpress-widget_init-not-working/
+   * @see https://codex.wordpress.org/Plugin_API/Action_Reference
+   * @todo Add a constructor function to WPDTRT_Forms_Plugin, to explain the options array
+   */
+  function wpdtrt_forms_init() {
+    // pass object reference between classes via global
+    // because the object does not exist until the WordPress init action has fired
+    global $wpdtrt_forms_plugin;
+
+    /**
+     * Admin settings
+     * For array syntax, please view the field documentation:
+     * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-checkbox.php
+     * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-number.php
+     * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-password.php
+     * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-select.php
+     * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-text.php
+     */
+    $plugin_options = array(
+      'pluginoption1' => array(
+        'type' => 'text',
+        'label' => __('Field label', 'wpdtrt-forms'),
+        'size' => 10,
+        'tip' => __('Helper text', 'wpdtrt-forms')
+      )
+    );
+
+    /**
+     * All options available to Widgets and Shortcodes
+     * For array syntax, please view the field documentation:
+     * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-checkbox.php
+     * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-number.php
+     * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-password.php
+     * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-select.php
+     * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-text.php
+     */
+    $instance_options = array(
+      'instanceoption1' => array(
+        'type' => 'text',
+        'label' => __('Field label', 'wpdtrt-forms'),
+        'size' => 10,
+        'tip' => __('Helper text', 'wpdtrt-forms')
+      )
+    );
+
+    $wpdtrt_forms_plugin = new WPDTRT_Forms_Plugin(
+      array(
+        'url' => WPDTRT_FORMS_URL,
+        'prefix' => 'wpdtrt_forms',
+        'slug' => 'wpdtrt-forms',
+        'menu_title' => __('Forms', 'wpdtrt-forms'),
+        'developer_prefix' => 'DTRT',
+        'path' => WPDTRT_FORMS_PATH,
+        'messages' => array(
+          'loading' => __('Loading latest data...', 'wpdtrt-forms'),
+          'success' => __('settings successfully updated', 'wpdtrt-forms'),
+          'insufficient_permissions' => __('Sorry, you do not have sufficient permissions to access this page.', 'wpdtrt-forms'),
+          'options_form_title' => __('General Settings', 'wpdtrt-forms'),
+          'options_form_description' => __('Please enter your preferences.', 'wpdtrt-forms'),
+          'no_options_form_description' => __('There aren\'t currently any options.', 'wpdtrt-forms'),
+          'options_form_submit' => __('Save Changes', 'wpdtrt-forms'),
+          'noscript_warning' => __('Please enable JavaScript', 'wpdtrt-forms'),
+          'demo_sample_title' => __('Demo sample', 'wpdtrt-forms'),
+          'demo_data_title' => __('Demo data', 'wpdtrt-forms'),
+          'demo_shortcode_title' => __('Demo shortcode', 'wpdtrt-forms'),
+          'demo_data_description' => __('This demo was generated from the following data', 'wpdtrt-forms'),
+          'demo_date_last_updated' => __('Data last updated', 'wpdtrt-forms'),
+          'demo_data_length' => __('results', 'wpdtrt-forms'),
+          'demo_data_displayed_length' => __('results displayed', 'wpdtrt-forms'),
+        ),
+        'plugin_options' => $plugin_options,
+        'instance_options' => $instance_options,
+        'version' => WPDTRT_FORMS_VERSION,
+        /*
+        'plugin_dependencies' => array(
+          array(
+            'name'          => 'Plugin Name',
+            'slug'          => 'plugin-name',
+            'source'        => 'https://github.com/user/library/archive/master.zip',
+            'required'      => true,
+            'is_callable'   => 'function_name'
+          )
+        ),
+        */
+        'demo_shortcode_params' => null
+      )
+    );
+  }
+
+  add_action( 'init', 'wpdtrt_forms_init', 0 );
+
+  /**
+   * Register a WordPress widget, passing in an instance of our custom widget class
+   * The plugin does not require registration, but widgets and shortcodes do.
+   * Note: widget_init fires before init, unless init has a priority of 0
+   *
+   * @uses        ../../../../wp-includes/widgets.php
+   * @see         https://codex.wordpress.org/Function_Reference/register_widget#Example
+   * @see         https://wp-mix.com/wordpress-widget_init-not-working/
+   * @see         https://codex.wordpress.org/Plugin_API/Action_Reference
+   * @uses        https://github.com/dotherightthing/wpdtrt/tree/master/library/sidebars.php
+   *
+   * @version     0.0.1
+   * @since       0.7.10
+   * @todo        Add form field parameters to the options array
+   * @todo        Investigate the 'classname' option
+   */
+  function wpdtrt_forms_widget_1_init() {
+
+    global $wpdtrt_forms_plugin;
+
+    $wpdtrt_forms_widget_1 = new WPDTRT_Forms_Widget_1(
+      array(
+        'name' => 'wpdtrt_forms_widget_1',
+        'title' => __('DTRT Forms Widget', 'wpdtrt-forms'),
+        'description' => __('A WordPress plugin to author simple, accessible forms.', 'wpdtrt-forms'),
+        'plugin' => $wpdtrt_forms_plugin,
+        'template' => 'forms',
+        'selected_instance_options' => array(
+          'instanceoption1'
+        )
+      )
+    );
+
+    register_widget( $wpdtrt_forms_widget_1 );
+  }
+
+  add_action( 'widgets_init', 'wpdtrt_forms_widget_1_init' );
+
+  /**
+   * Register Shortcode
+   */
+  function wpdtrt_forms_shortcode_1_init() {
+
+    global $wpdtrt_forms_plugin;
+
+    $wpdtrt_forms_shortcode_1 = new DoTheRightThing\WPPlugin\Shortcode(
+      array(
+        'name' => 'wpdtrt_forms_shortcode_1',
+        'plugin' => $wpdtrt_forms_plugin,
+        'template' => 'forms',
+        'selected_instance_options' => array(
+          'instanceoption1'
+        )
+      )
+    );
+  }
+
+  add_action( 'init', 'wpdtrt_forms_shortcode_1_init', 100 );
+
+  /**
+   * Register functions to be run when the plugin is activated.
+   *
+   * @see https://codex.wordpress.org/Function_Reference/register_activation_hook
+   *
+   * @version   0.0.1
+   * @since     0.7.10
+   */
+  function wpdtrt_forms_activate() {
+    //wpdtrt_forms_rewrite_rules();
+    flush_rewrite_rules();
+  }
+
+  register_activation_hook(__FILE__, 'wpdtrt_forms_activate');
+
+  /**
+   * Register functions to be run when the plugin is deactivated.
+   *
+   * (WordPress 2.0+)
+   *
+   * @see https://codex.wordpress.org/Function_Reference/register_deactivation_hook
+   *
+   * @version   0.0.1
+   * @since     0.7.10
+   */
+  function wpdtrt_forms_deactivate() {
+    flush_rewrite_rules();
+  }
+
+  register_deactivation_hook(__FILE__, 'wpdtrt_forms_deactivate');
 
 ?>
