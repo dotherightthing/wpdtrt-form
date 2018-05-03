@@ -50,7 +50,7 @@ Please use the provided shortcode to embed a form:
 Edit the data file to change the field attributes or order:
 
 ```
-./data/wpdtrt-forms-form-<strong>contact</strong>.json
+./data/form-{templatename}.json
 ```
 
 = Shortcode options =
@@ -73,7 +73,11 @@ Edit the data file to change the field attributes or order:
 == Changelog ==
 
 = 0.2.0 =
-* Migrate to wpdtrt-plugin (1.3.2)
+* Refactor SCSS
+* Migrate to wpdtrt-plugin (1.3.3)
+
+= 0.1.1 =
+* Fix form spacing
 
 = 0.1.0 =
 * Initial version
