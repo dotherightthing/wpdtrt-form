@@ -11,7 +11,8 @@
  * @subpackage  Wpdtrt_Forms/views
  */
 
-$submitted_data = wpdtrt_forms_sanitize_form_data();
+global $wpdtrt_forms_plugin;
+$submitted_data = $wpdtrt_forms_plugin->helper_sanitize_form_data();
 
 ?>
 <?php if ( isset( $submitted_data[$name] ) ): ?>

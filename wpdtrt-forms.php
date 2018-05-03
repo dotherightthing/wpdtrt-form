@@ -139,12 +139,16 @@ if( ! defined( 'WPDTRT_FORMS_URL' ) ) {
      * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-text.php
      */
     $plugin_options = array(
-      'pluginoption1' => array(
-        'type' => 'text',
-        'label' => __('Field label', 'wpdtrt-forms'),
-        'size' => 10,
-        'tip' => __('Helper text', 'wpdtrt-forms')
-      )
+      'template' => array(
+        'type' => 'select',
+        'label' => __('Template', 'wpdtrt-forms'),
+        'options' => array(
+          'contact' => array(
+            'text' => __('Contact', 'wpdtrt-forms')
+          )
+        ),
+        'tip' => __('/data/form-{template}.json', 'wpdtrt-forms')
+      ),
     );
 
     /**
@@ -157,12 +161,22 @@ if( ! defined( 'WPDTRT_FORMS_URL' ) ) {
      * @see https://github.com/dotherightthing/wpdtrt-plugin/blob/master/views/form-element-text.php
      */
     $instance_options = array(
-      'instanceoption1' => array(
+      'template' => array(
         'type' => 'text',
         'label' => __('Field label', 'wpdtrt-forms'),
-        'size' => 10,
-        'tip' => __('Helper text', 'wpdtrt-forms')
-      )
+        'size' => 20,
+        'tip' => __('e.g. contact', 'wpdtrt-forms')
+      ),
+      'errors_list' => array(
+        'type' => 'checkbox',
+        'label' => __('Display errors as a list', 'wpdtrt-forms'),
+        'tip' => __('Errors list is output at the top of the form', 'wpdtrt-forms')
+      ),
+      'errors_inline' => array(
+        'type' => 'checkbox',
+        'label' => __('Display errors inline', 'wpdtrt-forms'),
+        'tip' => __('Errors are display adjacent to invalid fields', 'wpdtrt-forms')
+      ),
     );
 
     $wpdtrt_forms_plugin = new WPDTRT_Forms_Plugin(
@@ -204,7 +218,13 @@ if( ! defined( 'WPDTRT_FORMS_URL' ) ) {
           )
         ),
         */
-        'demo_shortcode_params' => null
+        'demo_shortcode_params' => array(
+          'name' => 'wpdtrt_forms_shortcode_1',
+          'template' => 'contact',
+          'errors_list' => true,
+          'errors_inline' => true,
+          'number' => 1
+        )
       )
     );
   }
@@ -235,11 +255,13 @@ if( ! defined( 'WPDTRT_FORMS_URL' ) ) {
       array(
         'name' => 'wpdtrt_forms_widget_1',
         'title' => __('DTRT Forms Widget', 'wpdtrt-forms'),
-        'description' => __('A WordPress plugin to author simple, accessible forms.', 'wpdtrt-forms'),
+        'description' => __('Insert a simple, accessible form.', 'wpdtrt-forms'),
         'plugin' => $wpdtrt_forms_plugin,
         'template' => 'forms',
         'selected_instance_options' => array(
-          'instanceoption1'
+          'template',
+          'errors_list',
+          'errors_inline',
         )
       )
     );
@@ -262,7 +284,9 @@ if( ! defined( 'WPDTRT_FORMS_URL' ) ) {
         'plugin' => $wpdtrt_forms_plugin,
         'template' => 'forms',
         'selected_instance_options' => array(
-          'instanceoption1'
+          'template',
+          'errors_list',
+          'errors_inline',
         )
       )
     );
