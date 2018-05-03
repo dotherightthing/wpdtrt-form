@@ -11,8 +11,8 @@
  * @subpackage  Wpdtrt_Forms/views
  */
 
-$class = ( $sentmail ? $template_data['success_class'] : $template_data['error_class'] );
-$message = ( $sentmail ? $template_data['success_message'] : $template_data['error_message'] );
+$class = ( $sentmail ? $data['success_class'] : $data['error_class'] );
+$message = ( $sentmail ? $data['success_message'] : $data['error_message'] );
 ?>
 
 <div class="wpdtrt-forms-status wpdtrt-forms-status_<?php echo $class; ?>">

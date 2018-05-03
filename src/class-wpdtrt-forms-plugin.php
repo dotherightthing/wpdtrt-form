@@ -186,7 +186,7 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPPlugin\Plugin {
         // if the submit button is clicked, send the email
         if ( isset( $_POST['wpdtrt_forms_submitted'] ) ) {
 
-            $submitted_data = helper_sanitize_form_data();
+            $submitted_data = $this->helper_sanitize_form_data();
 
             $blogname = get_option( 'blogname' );
 
@@ -213,7 +213,14 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPPlugin\Plugin {
             $sentmail = wp_mail( $to, $submitted_data['subject'], $message, $headers );
 
             $plugin_options = $this->get_plugin_options();
-            $errors_list = $plugin_options['errors_list'];
+
+            if ( key_exists('errors_list', $plugin_options) ) {
+                $errors_list = $plugin_options['errors_list'];                
+            }
+            else {
+                $errors_list = false;
+            }
+
             $data = $this->get_plugin_data();
             require( WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-status.php' );
 
