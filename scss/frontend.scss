@@ -29,123 +29,103 @@
 }
 
 .wpdtrt-forms-fieldset {
-	padding: 0;
-	border: 0;
-	margin: 0;
+	@extend %wpdtrt-plugin--fieldset-reset;
 }
 
-.wpdtrt-forms-fields,
-.wpdtrt-forms-field {
-	list-style-type: none;
-	padding-left: 0;
-	margin-left: 0;
-}
-
-.wpdtrt-forms-field {
-	margin-bottom: .3em;
+.wpdtrt-forms-fields {
+	@extend %wpdtrt-plugin--list-reset;
 }
 
 .wpdtrt-forms-label {
 	display: block;
 	cursor: pointer;
-	margin-bottom: .35em;
+	font-weight: 600;
+	margin-bottom: 5px;
 }
 
-.wpdtrt-forms-field > * {
-	width: 100%;
+.wpdtrt-forms-label_required {
+	&::after {
+		content: " *";
+		color: #d00000;
+	}
 }
 
-.wpdtrt-forms-field > input[type="text"],
-.wpdtrt-forms-field > textarea,
-.wpdtrt-forms-error-inline p {
-	box-sizing: border-box;
-	padding: .3em;
-	border: 1px solid #999;
+.wpdtrt-forms-field {
+	@extend %wpdtrt-plugin--list-reset;
+	margin-bottom: 16px;
+
+	> * {
+		width: 100%;
+	}
+
+	> input[type="text"],
+	> textarea {
+		@extend %wpdtrt-forms--block;
+
+		&[aria-invalid="true"] {
+			@extend %wpdtrt-forms--block-error;
+		}
+	}
+
+	> input[type="checkbox"] {
+		float: left;
+		width: auto;
+		margin-top: 3px;
+
+		+ .wpdtrt-forms-label {
+			width: auto;		
+			margin-left: 24px;
+		}
+	}
 }
 
 .wpdtrt-forms-error-list {
-	margin-top: 0.5em;
-}
-
-.wpdtrt-forms-error-list,
-.wpdtrt-forms-error-list li {
-	list-style: none;
-	padding-left: 0;
-	margin-left: 0;
-}
-
-.wpdtrt-forms-error-list {
+	@extend %wpdtrt-plugin--list-reset;
 	font-size: 0.9em;
 	counter-reset: error-counter;
+	margin-top: 0.5em;
+
+	> li {
+		@extend %wpdtrt-plugin--list-reset;
+		counter-increment: error-counter;
+
+		&::before {
+			content: counter(error-counter) ".";
+			color: #999;
+		}
+	}
+
+	a {
+		color: #fff;
+	}
 }
 
-.wpdtrt-forms-error-list > li {
-	counter-increment: error-counter;
-}
-
-.wpdtrt-forms-error-list > li::before {
-	content: counter(error-counter) ".";
-	color: #999;
-}
-
-.wpdtrt-forms-error-list a {
-	color: #fff;
-}
-
-.wpdtrt-forms-field > input[type="text"][aria-invalid="true"],
-.wpdtrt-forms-field > textarea[aria-invalid="true"],
-.wpdtrt-forms-error-inline p {
-	background-color: #ffdcdc;
-	border-color: #d00000;
-}
-
-.wpdtrt-forms-error-inline p {
-	display: inline-block;
-	position: relative;
-	top: -.1em;
-	font-size: .8em;
-	background-color: #d00000;
-	color: #000;
-	padding-top: .1em;
-	padding-bottom: .1em;
-	margin-bottom: 1em;
-}
-
-.wpdtrt-forms-field > input[type="checkbox"],
-.wpdtrt-forms-field > input[type="checkbox"] + .wpdtrt-forms-label {
-	width: auto;
-}
-
-.wpdtrt-forms-field > input[type="checkbox"] {
-	float: left;
-	margin-top: .2em;
-}
-
-.wpdtrt-forms-field > input[type="checkbox"] + .wpdtrt-forms-label {
-	margin-left: 1.5em;
-}
-
-.wpdtrt-forms-label_required::after {
-	content: " *";
-	color: #d00000;
+.wpdtrt-forms-error-inline {
+	p {
+		@extend %wpdtrt-forms--block;
+		display: inline-block;
+		position: relative;
+		top: -.1em;
+		font-size: .8em;
+		background-color: #d00000;
+		color: #000;
+		padding-top: .1em;
+		padding-bottom: .1em;
+		margin-bottom: 1em;
+	}
 }
 
 .wpdtrt-forms-submit {
 	background-color: #444;
 	color: #ccc; // #aaa
-	padding: .3em .6em;
+	font-weight: 600;
+	padding: 14px 28px;
 	border: 0;
-	margin-top: 1.9em;
+	margin-top: 26px;
 }
 
 .wpdtrt-forms-hidden {
-	clip: rect(1px, 1px, 1px, 1px);
-	height: 1px;
-	overflow: hidden;
-	position: absolute !important;
-	width: 1px;
-	// many screen reader and browser combinations announce broken words as they would appear visually
-	word-wrap: normal !important;
+	@extend %wpdtrt-plugin--screen-reader-text;
 }
 
 // -------------------------------------------------------------------

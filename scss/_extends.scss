@@ -6,3 +6,14 @@
 // @version 	0.0.1
 // @since       0.7.10
 //
+
+%wpdtrt-forms--block {
+	box-sizing: border-box;
+	padding: .3em;
+	border: 1px solid #999;
+}
+
+%wpdtrt-forms--block-error {
+	background-color: #ffdcdc;
+	border-color: #d00000;
+}
