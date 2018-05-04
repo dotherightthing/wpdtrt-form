@@ -52,58 +52,45 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPPlugin\Plugin {
     	parent::wp_setup();
 
 		// add actions and filters here
+        
+        // see wpplugin
+        // $this->get_prefix() . '_set_api_endpoint'
+        add_filter( 'wpdtrt_forms_set_api_endpoint', [$this, 'filter_set_api_endpoint'] );
     }
 
     //// END WORDPRESS INTEGRATION \\\\
 
     //// START SETTERS AND GETTERS \\\\
-
-    /**
-     * Request the data from the API
-     *  which in this case is a static JSON file.
-     *
-     * @return      object $data The body of the JSON response
-     *
-     * @since       0.1.0
-     * @uses        ../../../../wp-includes/http.php
-     * @see         https://developer.wordpress.org/reference/functions/wp_remote_get/
-     */
-    public function get_api_data() {
-
-        $plugin_options = $this->get_plugin_options();
-        $template = $plugin_options['template']['value']; // value must be set in options array
-        $endpoint = WPDTRT_FORMS_URL . 'data/form-' . $template . '.json';
-        $args = array(
-            'timeout' => 30, // seconds to wait for the request to complete
-            'blocking' => true // false = nothing loads
-        );
-
-        $response = wp_remote_get(
-            $endpoint,
-            $args
-        );
-
-        /**
-        * Return the body, not the header
-        * Note: There is an optional boolean argument, which returns an associative array if TRUE
-        */
-        $data = json_decode( $response['body'], true );
-
-        // Save the data and retrieval time
-        $this->set_plugin_data( $data );
-        $this->set_plugin_data_options( array(
-            'last_updated' => time()
-        ));
-
-        return $data;
-    }
-
     //// END SETTERS AND GETTERS \\\\
 
     //// START RENDERERS \\\\
     //// END RENDERERS \\\\
 
     //// START FILTERS \\\\
+
+    /**
+     * Set the API endpoint
+     *  The filter is applied in wpplugin->get_api_endpoint()
+     *
+     * @return      string $endpoint
+     *
+     * @since       1.3.4
+     *
+     * @example
+     *  add_filter( 'wpdtrt_forms_set_api_endpoint', [$this, 'filter_set_api_endpoint'] );
+     */
+    public function filter_set_api_endpoint() {
+        $plugin_options = $this->get_plugin_options();
+        $endpoint = '';
+
+        if ( key_exists('value', $plugin_options['template']) ) {
+            $template = $plugin_options['template']['value'];
+            $endpoint = ( WPDTRT_FORMS_URL . 'data/form-' . $template . '.json' );
+        }
+
+        return $endpoint;
+    }
+    
     //// END FILTERS \\\\
 
     //// START HELPERS \\\\
