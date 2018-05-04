@@ -185,6 +185,7 @@ if( ! defined( 'WPDTRT_FORMS_URL' ) ) {
         'prefix' => 'wpdtrt_forms',
         'slug' => 'wpdtrt-forms',
         'menu_title' => __('Forms', 'wpdtrt-forms'),
+        'settings_title' => __('Settings', 'wpdtrt-forms'),
         'developer_prefix' => 'DTRT',
         'path' => WPDTRT_FORMS_PATH,
         'messages' => array(
