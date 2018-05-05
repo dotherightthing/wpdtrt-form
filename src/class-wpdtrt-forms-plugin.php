@@ -70,7 +70,7 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPPlugin\Plugin {
 
     /**
      * Set the API endpoint
-     *  The filter is applied in wpplugin->get_api_endpoint()
+     *  The filter is applied in wpplugin->get_api_data()
      *
      * @return      string $endpoint
      *
