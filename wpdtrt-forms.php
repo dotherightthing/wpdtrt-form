@@ -3,7 +3,7 @@
  * Plugin Name:  DTRT Forms
  * Plugin URI:   
  * Description:  A WordPress plugin to author simple, accessible forms.
- * Version:      0.2.1
+ * Version:      0.2.2
  * Author:       Dan Smith
  * Author URI:   https://profiles.wordpress.org/dotherightthingnz
  * License:      GPLv2 or later
@@ -56,7 +56,7 @@ if( ! defined( 'WPDTRT_FORMS_VERSION' ) ) {
  * @version   0.0.1
  * @since     0.7.10
  */
-  define( 'WPDTRT_FORMS_VERSION', '0.2.1' );
+  define( 'WPDTRT_FORMS_VERSION', '0.2.2' );
 }
 
 if( ! defined( 'WPDTRT_FORMS_PATH' ) ) {

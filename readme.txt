@@ -6,7 +6,7 @@ Tags: forms, accessible, WCAG
 Requires at least: 4.9.5
 Tested up to: 4.9.5
 Requires PHP: 5.6.30
-Stable tag: 0.2.1
+Stable tag: 0.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,6 +71,10 @@ Edit the data file to change the field attributes or order:
 2. The caption for ./images/screenshot-2.(png|jpg|jpeg|gif)
 
 == Changelog ==
+
+= 0.2.2 =
+* Include release number in wpdtrt-plugin namespaces
+* Update wpdtrt-plugin to 1.4.6
 
 = 0.2.1 =
 * Add string for Settings link

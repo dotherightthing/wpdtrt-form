@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "wpdtrt-forms",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A WordPress plugin to author simple, accessible forms.",
   "main": "wpdtrt-forms.php",
   "person": {
