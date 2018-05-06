@@ -279,7 +279,7 @@ if( ! defined( 'WPDTRT_FORMS_URL' ) ) {
 
     global $wpdtrt_forms_plugin;
 
-    $wpdtrt_forms_shortcode_1 = new DoTheRightThing\WPPlugin\Shortcode(
+    $wpdtrt_forms_shortcode_1 = new DoTheRightThing\WPPlugin\r_1_4_6\Shortcode(
       array(
         'name' => 'wpdtrt_forms_shortcode_1',
         'plugin' => $wpdtrt_forms_plugin,
