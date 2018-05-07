@@ -8,7 +8,7 @@
  *    gulp dist --gulpfile ./vendor/dotherightthing/wpdtrt-plugin/gulpfile.js --cwd ./
  *
  * @package     WPDTRT_Forms
- * @version 	0.2.2
+ * @version 	0.2.3
  * @since       0.7.10
  */
  
