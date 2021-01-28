@@ -54,16 +54,16 @@
         },
         {
             "name": "dotherightthing/wpdtrt-plugin-boilerplate",
-            "version": "1.7.12",
+            "version": "1.7.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate.git",
-                "reference": "0a8cdd035ef96f075decabb7b2fc09ac1901ce57"
+                "reference": "3133f7ce03ed9756e77ba0c775871da3ff259d2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin-boilerplate/zipball/0a8cdd035ef96f075decabb7b2fc09ac1901ce57",
-                "reference": "0a8cdd035ef96f075decabb7b2fc09ac1901ce57",
+                "url": "https://api.github.com/repos/dotherightthing/wpdtrt-plugin-boilerplate/zipball/3133f7ce03ed9756e77ba0c775871da3ff259d2f",
+                "reference": "3133f7ce03ed9756e77ba0c775871da3ff259d2f",
                 "shasum": ""
             },
             "require": {
@@ -83,7 +83,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "DoTheRightThing\\WPDTRT_Plugin_Boilerplate\\r_1_7_12\\": "src"
+                    "DoTheRightThing\\WPDTRT_Plugin_Boilerplate\\r_1_7_13\\": "src"
                 }
             },
             "license": [
@@ -105,9 +105,9 @@
             "support": {
                 "email": "support@dotherightthing.co.nz",
                 "issues": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues",
-                "source": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/tree/1.7.12"
+                "source": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/tree/1.7.13"
             },
-            "time": "2021-01-27T01:01:17+00:00"
+            "time": "2021-01-28T09:55:45+00:00"
         },
         {
             "name": "gamajo/template-loader",
