@@ -240,7 +240,7 @@ function wpdtrt_forms_plugin_init() {
 			'label'   => __( 'Template', 'wpdtrt-forms' ),
 			'options' => array(
 				'contact' => array(
-					'text' => __( 'Contact', 'wpdtrt-forms' )
+					'text' => __( 'Contact', 'wpdtrt-forms' ),
 				),
 			),
 			'tip'     => __( '/data/form-{template}.json', 'wpdtrt-forms' ),
@@ -260,17 +260,17 @@ function wpdtrt_forms_plugin_init() {
 			'type'  => 'text',
 			'label' => __( 'Field label', 'wpdtrt-forms' ),
 			'size'  => 20,
-			'tip'   => __( 'e.g. contact', 'wpdtrt-forms' )
+			'tip'   => __( 'e.g. contact', 'wpdtrt-forms' ),
 		),
 		'errors_list'   => array(
 			'type'  => 'checkbox',
 			'label' => __( 'Display errors as a list', 'wpdtrt-forms' ),
-			'tip'   => __( 'Errors list is output at the top of the form', 'wpdtrt-forms' )
+			'tip'   => __( 'Errors list is output at the top of the form', 'wpdtrt-forms' ),
 		),
 		'errors_inline' => array(
 			'type'  => 'checkbox',
 			'label' => __( 'Display errors inline', 'wpdtrt-forms' ),
-			'tip'   => __( 'Errors are display adjacent to invalid fields', 'wpdtrt-forms' )
+			'tip'   => __( 'Errors are display adjacent to invalid fields', 'wpdtrt-forms' ),
 		),
 	);
 
