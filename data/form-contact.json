@@ -1,10 +1,10 @@
 {
-	"legend": "Contact",
-	"submit": "Submit",
-	"success_class": "success",
 	"error_class": "error",
-	"success_message": "Thank you for contacting me! If needed, you will hear back within 24 hours.",
 	"error_message": "Please correct the following errors:",
+	"legend": "Contact",
+	"success_class": "success",
+	"success_message": "Thank you for contacting me! I'll get back to you as soon as I can.",
+	"submit": "Submit",
 	"template_fields": [
 		{
 			"id": "name",
@@ -29,7 +29,7 @@
 		},
 		{
 	        "id": "email_updates",
-	        "label": "Check here to receive email updates",
+	        "label": "Check here to receive irregular emails about updates to the site",
 	        "element": "input",
 	        "type": "checkbox"
 		},
