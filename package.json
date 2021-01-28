@@ -3,30 +3,49 @@
   "name": "wpdtrt-forms",
   "version": "0.2.4",
   "description": "A WordPress plugin to author simple, accessible forms.",
+  "keywords": ["forms", "accessible", "WCAG", "wordpress-plugin"],
   "main": "wpdtrt-forms.php",
   "person": {
     "name": "Dan Smith",
     "email": "dev@dotherightthing.co.nz",
     "url": "https://profiles.wordpress.org/dotherightthingnz"
   },
-  "devDependencies": {
-    "gulp": "^3.9.1"
-  },
-  "workspaces": [
-    "vendor/dotherightthing/wpdtrt-plugin/"
+  "contributors": [
+    {
+      "name": "Dan Smith",
+      "email": "dev@dotherightthing.co.nz",
+      "url": "https://profiles.wordpress.org/dotherightthingnz"
+    }
   ],
+  "bugs": {
+    "url": "https://github.com/dotherightthing/wpdtrt-forms/issues"
+  },
+  "config": {
+    "wpdtrt_base_url_local": "http://localhostname.dan",
+    "wpdtrt_npm_scripts": "./node_modules/wpdtrt-npm-scripts"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "changelog": "npm run changelog --prefix $npm_package_config_wpdtrt_npm_scripts",
+    "compile": "npm run compile --prefix $npm_package_config_wpdtrt_npm_scripts",
+    "docs": "npm run docs --prefix $npm_package_config_wpdtrt_npm_scripts",
+    "lint": "npm run lint --prefix $npm_package_config_wpdtrt_npm_scripts",
+    "release": "npm run release --prefix $npm_package_config_wpdtrt_npm_scripts",
+    "test": "npm run test --prefix $npm_package_config_wpdtrt_npm_scripts",
+    "test:jsui": "npx cypress open",
+    "version": "npm run version --prefix $npm_package_config_wpdtrt_npm_scripts",
+    "watch": "nodemon"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:dotherightthing/wpdtrt-forms.git"
+    "url": "https://github.com/dotherightthing/wpdtrt-forms"
   },
-  "browserslist": [
-    "last 2 versions",
-    "ie >= 11"
-  ],
   "license": "ISC",
   "homepage": "https://github.com/dotherightthing/wpdtrt-forms",
-  "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-forms"
+  "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-forms",
+  "dependencies": {
+    "wpdtrt-scss": "github:dotherightthing/wpdtrt-scss#semver:*"
+  },
+  "devDependencies": {
+    "wpdtrt-npm-scripts": "github:dotherightthing/wpdtrt-npm-scripts#semver:*"
+  }
 }

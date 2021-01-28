@@ -10,18 +10,31 @@
  * @package     Wpdtrt_Forms
  * @subpackage  Wpdtrt_Forms/views
  */
+
+$attr_cols        = " cols='{$cols}'";
+$attr_describedby = '';
+$attr_id          = " id='{$id}'";
+$attr_invalid     = '';
+$attr_name        = " name='{$id}'";
+$attr_rows        = " rows='{$rows}'";
+$attr_required    = '';
+
+if ( isset( $required ) ) {
+	$attr_required = ' aria-required="true"';
+}
+
+if ( isset( $submitted_data[ $name ] ) ) {
+	if ( '' === $submitted_data[ $name ] ) {
+		$attr_invalid = ' aria-invalid="true"';
+	}
+
+	if ( ( '' === $submitted_data[ $name ] ) && ( 'true' === $errors_inline ) ) {
+		$attr_describedby = " aria-describedby='{$id}_error'";
+	}
+}
+
 ?>
 
-<textarea
- name="<?php echo $id; ?>"
- id="<?php echo $id; ?>"
- rows="<?php echo $rows; ?>"
- cols="<?php echo $cols; ?>"
-<?php if ( isset( $required ) ): ?> aria-required="true"<?php endif; ?>
-<?php if ( isset( $submitted_data[$name] ) ): ?>
-<?php if ( $submitted_data[$name] === '' ): ?> aria-invalid="true"<?php endif; ?>
-<?php if ( ( $submitted_data[$name] === '' ) && ( $errors_inline === 'true' ) ): ?> aria-describedby="<?php echo $id; ?>_error"<?php endif; ?>
-<?php endif; ?>
->
-<?php echo $value; ?>
+<textarea<?php echo $attr_name . $attr_id . $attr_rows . $attr_cols . $attr_required . $attr_invalid . $attr_describedby; ?>>
+	<?php echo $value; ?>
 </textarea>

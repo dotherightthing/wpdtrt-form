@@ -2,7 +2,7 @@
     "name": "dotherightthing/wpdtrt-forms",
     "description": "A WordPress plugin to author simple, accessible forms.",
     "type": "library",
-    "keywords": ["forms", "accessible", "WCAG"],
+    "keywords": ["forms", "accessible", "WCAG", "wordpress-plugin"],
     "license": "ISC",
     "authors": [
         {
@@ -14,19 +14,35 @@
     ],
     "support": {
         "email": "support@dotherightthing.co.nz",
-        "issues": "https://github.com/dotherightthing/wpdtrt-forms/issues"
+        "issues": "https://github.com/dotherightthing/wpdtrt-forms/issues",
+        "source": "https://github.com/dotherightthing/wpdtrt-forms",
+        "wiki": "https://github.com/dotherightthing/wpdtrt-forms/wiki"
     },
     "require": {
-        "dotherightthing/wpdtrt-plugin": "^1.0.0"
+        "dotherightthing/wpdtrt-plugin-boilerplate": "^1.7.12"
     },
-    "minimum-stability": "stable",
+    "require-dev": {
+        "composer-plugin-api": "^1.0",
+        "wp-coding-standards/wpcs": "^0.14.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
+        "phpunit/phpunit": "^7.5.14",
+        "psy/psysh": "~0.6",
+        "wp-cli/wp-cli": "^2.3"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "repositories": [
         {
-            "type": "composer",
-            "url": "https://repo.packagist.com/dotherightthing/"
+            "type": "vcs",
+            "url": "https://github.com/dotherightthing/wpdtrt-plugin-boilerplate"
         },
         {
-            "packagist.org": false
+            "type": "vcs",
+            "url": "https://github.com/dotherightthing/wpdtrt-debug"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/dotherightthing/tgm-plugin-activation"
         }
     ],
     "config": {

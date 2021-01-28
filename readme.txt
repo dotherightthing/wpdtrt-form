@@ -3,9 +3,9 @@
 Contributors: dotherightthingnz
 Donate link: http://dotherightthing.co.nz
 Tags: forms, accessible, WCAG
-Requires at least: 4.9.5
-Tested up to: 4.9.5
-Requires PHP: 5.6.30
+Requires at least: 5.6
+Tested up to: 5.6
+Requires PHP: 7.2.20
 Stable tag: 0.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -24,51 +24,7 @@ A WordPress plugin to author simple, accessible forms.
 
 == Frequently Asked Questions ==
 
-= How do I use the widget? =
-
-One or more widgets can be displayed within one or more sidebars:
-
-1. Locate the widget: Appearance > Widgets > *DTRT Forms Widget*
-2. Drag and drop the widget into one of your sidebars
-3. Add a *Title*
-4. Specify options
-
-= How do I embed a form? =
-
-Please use the provided shortcode to embed a form:
-
-```
-<!-- within the editor -->
-[wpdtrt_forms option="value"]
-
-// in a PHP template, as a template tag
-<?php echo do_shortcode( '[wpdtrt_forms option="value"]' ); ?>
-```
-
-= How do I edit the form fields? =
-
-Edit the data file to change the field attributes or order:
-
-```
-./data/form-{templatename}.json
-```
-
-= Shortcode options =
-
-1. `template="contact"` - generate a form from the template and JSON data
-2. `errors_list="true|false"` - display a list of errors above the form; clicking an error jumps the user to the affected field
-3. `errors_inline="true|false"` - display each error directly after the affected field;
-
-== Roadmap ==
-
-1. Anti-Spam
-2. Escaping of content in email
-3. Translation support
-
-== Screenshots ==
-
-1. The caption for ./images/screenshot-1.(png|jpg|jpeg|gif)
-2. The caption for ./images/screenshot-2.(png|jpg|jpeg|gif)
+See [WordPress Usage](README.md#wordpress-usage).
 
 == Changelog ==
 

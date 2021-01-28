@@ -1,7 +1,3 @@
-/* frontend.js - generated 28/01/2021 at 16:15:40 from: */
-/* 1 ./js/_polyfills.js */
-/* 2 ./js/_frontend.js */
-
 /**
  * @file js/_polyfills.js
  * @summary Front-end polyfills for MSIE.
@@ -92,38 +88,3 @@ if (!Array.prototype.includes) {
 };
 
 /* eslint-enable */
-/**
- * @file js/_frontend.js
- * @summary Scripting for the public front-end.
- * @description PHP variables are provided in wpdtrt_forms_config.
- * @requires DTRT WordPress Plugin Boilerplate Generator 0.9.1
- */
-
-/* globals jQuery, wpdtrt_forms_config */
-/* eslint-disable camelcase, no-unused-vars */
-
-/**
- * jQuery object
- *
- * @external jQuery
- * @see {@link http://api.jquery.com/jQuery/}
- */
-
-/**
- * @namespace wpdtrtFormsUi
- */
-const wpdtrtFormsUi = {
-
-    /**
-     * Method: init
-     *
-     * Initialise front-end scripting.
-     */
-    // init: () => {}
-};
-
-jQuery(($) => {
-    const config = wpdtrt_forms_config; // eslint-disable-line
-
-    console.log('wpdtrtFormsUi.init'); // eslint-disable-line no-console
-});

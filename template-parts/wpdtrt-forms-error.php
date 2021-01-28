@@ -14,11 +14,11 @@
 global $wpdtrt_forms_plugin;
 $submitted_data = $wpdtrt_forms_plugin->helper_sanitize_form_data();
 
-?>
-<?php if ( isset( $submitted_data[$name] ) ): ?>
-<?php if ( ( $submitted_data[$name] === '' ) && ( $errors_inline === 'true' ) ): ?>
-<div id="<?php echo $id; ?>_error" class="wpdtrt-forms-error-inline">
+if ( isset( $submitted_data[ $name ] ) ) :
+	if ( ( '' === $submitted_data[ $name ] ) && ( 'true' === $errors_inline ) ) : ?>
+<div id="<?php echo $id; ?>_error" class="wpdtrt-forms__error-inline">
 	<p><?php echo $error; ?></p>
 </div>
-<?php endif; ?>
-<?php endif; ?>
+		<?php
+	endif;
+endif;

@@ -1,0 +1,22 @@
+{
+  "generator-wpdtrt-plugin-boilerplate": {
+    "authorAbbreviation": "DTRT",
+    "authorEmail": "dev@dotherightthing.co.nz",
+    "authorName": "Dan Smith",
+    "authorSupportEmail": "support@dotherightthing.co.nz",
+    "authorWordPressName": "dotherightthingnz",
+    "description": "A WordPress plugin to author simple, accessible forms.",
+    "donateUrl": "http://dotherightthing.co.nz",
+    "generatorVersion": "0.9.1",
+    "githubUserName": "dotherightthing",
+    "license": "GPLv2 or later",
+    "licenseUrl": "http://www.gnu.org/licenses/gpl-2.0.html",
+    "name": "wpdtrt-forms",
+    "nameFriendly": "DTRT Forms",
+    "nameSafe": "wpdtrt_forms",
+    "phpVersion": "7.2.20",
+    "defaultVersion": "0.1.0",
+    "tags": "forms, accessible, WCAG",
+    "wpVersion": "5.6"
+  }
+}
