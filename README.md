@@ -2,7 +2,7 @@
 
 [![GitHub release](https://img.shields.io/github/v/tag/dotherightthing/wpdtrt-forms)](https://github.com/dotherightthing/wpdtrt-forms/releases) [![Build Status](https://github.com/dotherightthing/wpdtrt-forms/workflows/Build%20and%20release%20if%20tagged/badge.svg)](https://github.com/dotherightthing/wpdtrt-forms/actions?query=workflow%3A%22Build+and+release+if+tagged%22) [![GitHub issues](https://img.shields.io/github/issues/dotherightthing/wpdtrt-forms.svg)](https://github.com/dotherightthing/wpdtrt-forms/issues)
 
-A WordPress plugin to author simple, accessible forms.
+Simple, accessible forms.
 
 ## Setup and Maintenance
 

@@ -1,6 +1,6 @@
 {
     "name": "dotherightthing/wpdtrt-forms",
-    "description": "A WordPress plugin to author simple, accessible forms.",
+    "description": "Simple, accessible forms.",
     "type": "library",
     "keywords": ["forms", "accessible", "WCAG", "wordpress-plugin"],
     "license": "ISC",

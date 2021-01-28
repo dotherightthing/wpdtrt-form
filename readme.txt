@@ -10,11 +10,11 @@ Stable tag: 0.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A WordPress plugin to author simple, accessible forms.
+Simple, accessible forms.
 
 == Description ==
 
-A WordPress plugin to author simple, accessible forms.
+Simple, accessible forms.
 
 == Installation ==
 

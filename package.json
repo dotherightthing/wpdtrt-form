@@ -2,7 +2,7 @@
   "private": true,
   "name": "wpdtrt-forms",
   "version": "0.2.4",
-  "description": "A WordPress plugin to author simple, accessible forms.",
+  "description": "Simple, accessible forms.",
   "keywords": ["forms", "accessible", "WCAG", "wordpress-plugin"],
   "main": "wpdtrt-forms.php",
   "person": {
