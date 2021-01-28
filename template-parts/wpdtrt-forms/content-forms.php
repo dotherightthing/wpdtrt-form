@@ -48,8 +48,8 @@ $options = get_query_var( 'options', array() );
 // https://gist.github.com/dotherightthing/a1bde197a6ff5a9fddb886b0eb17ac79.
 extract( $options, EXTR_IF_EXISTS );
 
-// load the data
-// $plugin->get_api_data();
+// load the data.
+$plugin->get_api_data();
 // $foo = $plugin->get_api_data_bar();
 //
 // this requires json_decode to use the optional second argument
