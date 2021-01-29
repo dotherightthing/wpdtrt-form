@@ -36,6 +36,8 @@
 // Custom forms
 
 .wpdtrt-form {
+    $block: &;
+
     &__block {
         box-sizing: border-box;
         padding: .3em;
@@ -58,6 +60,21 @@
         border: 0;
         margin: 0;
         cursor: pointer;
+    }
+
+    &__checkbox {
+        float: left;
+        width: auto;
+        transform: scale(1.5);
+        border-radius: 0;
+        margin-top: 3px;
+        margin-right: .4em;
+        margin-left: .1em;
+
+        + #{$block}__label {
+            width: auto;
+            margin-left: 24px;
+        }
     }
 
     &__error {
@@ -106,30 +123,6 @@
     &__item {
         // label and input
         margin-bottom: 32px;
-
-        > * {
-            width: 100%;
-        }
-
-        > input[type='text'],
-        > textarea {
-            // @extend .wpdtrt-form__block;
-
-            &[aria-invalid='true'] {
-                @extend .wpdtrt-form__block-error;
-            }
-        }
-
-        > input[type='checkbox'] {
-            float: left;
-            width: auto;
-            margin-top: 3px;
-
-            + &__label {
-                width: auto;
-                margin-left: 24px;
-            }
-        }
     }
 
     &__label {
@@ -141,7 +134,12 @@
         &--required {
             &::after {
                 content: ' *';
-                color: var(--wpdtrt-form-error-color);
+            }
+
+            &.error {
+                &::after {
+                    color: var(--wpdtrt-form-error-color);
+                }
             }
         }
 
@@ -150,6 +148,15 @@
                 @extend .wpdtrt-form__error;
             }
         }
+    }
+
+    &__legend {
+        font-weight: bold;
+        margin-bottom: 32px;
+    }
+
+    &__required {
+        @extend %wpdtrt-scss-hide-visually;
     }
 
     &__select {
@@ -166,11 +173,19 @@
         }
     }
 
+    &__submit-wrapper {
+        text-align: right;
+    }
+
+    &__submit {
+        margin: 0;
+    }
+
     &__textfield {
         display: block;
         width: 100%;
         background-color: var(--wpdtrt-form-textfield-bgcolor);
-        font-size: .9em;
+        font-size: .8em;
         line-height: normal;
         padding: 8px;
         border: 1px solid var(--wpdtrt-form-textfield-bordercolor);
@@ -181,6 +196,10 @@
 
         &.error {
             @extend .wpdtrt-form__error;
+        }
+
+        &[aria-invalid='true'] {
+            @extend .wpdtrt-form__block-error;
         }
     }
 
@@ -249,6 +268,10 @@ input {
         &[type='week'] {
             @extend .wpdtrt-form__textfield;
         }
+
+        &[type='checkbox'] {
+            @extend .wpdtrt-form__checkbox;
+        }
     }
 }
 
@@ -259,6 +282,10 @@ textarea {
 }
 
 .comment-form {
+    .form-submit {
+        @extend .wpdtrt-form__submit-wrapper;
+    }
+
     label {
         @extend .wpdtrt-form__label;
     }

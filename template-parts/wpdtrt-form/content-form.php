@@ -82,10 +82,10 @@ echo $before_title . $title . $after_title;
 if ( $render_form ) :
 	?>
 
-<div class="wpdtrt-form">
-	<form action="<?php esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" class="comment-form wpdtrt-form-template wpdtrt-form-template-<?php echo $template; ?>">
+<div class="wpdtrt-form" id="wpdtrt-form-<?php echo $template; ?>">
+	<form action="<?php esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" class="wpdtrt-form-template wpdtrt-form-template-<?php echo $template; ?>">
 		<fieldset class="wpdtrt-form__fieldset">
-			<legend class="wpdtrt-form-legend wpdtrt-form__hidden"><?php echo $data['legend']; ?></legend>
+			<legend class="wpdtrt-form__legend wpdtrt-form__hidden"><?php echo $data['legend']; ?></legend>
 
 			<?php
 			foreach ( $template_fields as $field ) :
@@ -144,9 +144,8 @@ if ( $render_form ) :
 
 			<?php endforeach; ?>
 
-
-			<div>
-				<input type="submit" name="wpdtrt_form_submitted" class="wpdtrt-form__submit" value="<?php echo $data['submit']; ?>">
+			<div class="wpdtrt-form__submit-wrapper">
+				<input type="submit" name="wpdtrt_form_submitted" id="wpdtrt_form_submitted" class="wpdtrt-form__submit" value="<?php echo $data['submit']; ?>">
 			</div>
 		</fieldset>
 	</form>

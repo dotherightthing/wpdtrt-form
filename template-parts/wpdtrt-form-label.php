@@ -18,6 +18,6 @@
 echo $label;
 if ( $required ) :
 	?>
-	<span class="wpdtrt-form-required-text wpdtrt-form__hidden"> (required)</span>
+	<span class="wpdtrt-form__required"> (required)</span>
 <?php endif; ?>
 </label>
