@@ -1,13 +1,13 @@
 <?php
 /**
- * File: tests/test-wpdtrt-forms.php
+ * File: tests/test-wpdtrt-form.php
  *
  * Unit tests, using PHPUnit, wp-cli, WP_UnitTestCase.
  *
  * Note:
  * - The plugin is 'active' within a WP test environment
  *   so the plugin class has already been instantiated
- *   with the options set in wpdtrt-forms.php
+ *   with the options set in wpdtrt-form.php
  * - Only function names prepended with test_ are run.
  * - $debug logs are output with the test output in Terminal
  * - A failed assertion may obscure other failed assertions in the same test.
@@ -20,11 +20,11 @@
  */
 
 /**
- * Class: WPDTRT_FormsTest
+ * Class: WPDTRT_FormTest
  *
- * WP_UnitTestCase unit tests for wpdtrt_forms.
+ * WP_UnitTestCase unit tests for wpdtrt_form.
  */
-class WPDTRT_FormsTest extends WP_UnitTestCase {
+class WPDTRT_FormTest extends WP_UnitTestCase {
 
 	/**
 	 * Group: Lifecycle Events
@@ -42,7 +42,7 @@ class WPDTRT_FormsTest extends WP_UnitTestCase {
 		parent::setUp();
 
 		$this->post_id_1 = $this->create_post( array(
-			'post_title'   => 'DTRT Forms test',
+			'post_title'   => 'DTRT Form test',
 			'post_content' => 'This is a simple test',
 		));
 	}

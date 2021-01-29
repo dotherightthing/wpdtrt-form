@@ -1,5 +1,5 @@
 /**
- * File: cypress/integration/flows/wpdtrt-forms.js
+ * File: cypress/integration/flows/wpdtrt-form.js
  *
  * Dummy Cypress spec for UI testing. Edit to suit your needs.
  *
@@ -63,11 +63,11 @@ describe('Test Name', function () {
     describe('Setup', function () {
         it('Has prerequisites', function () {
             // check that the plugin object is available
-            cy.window().should('have.property', 'wpdtrt_forms_ui');
+            cy.window().should('have.property', 'wpdtrt_form_ui');
 
             // check that it's an object
             cy.window().then((win) => {
-                expect(win.wpdtrt_forms_ui).to.be.a('object');
+                expect(win.wpdtrt_form_ui).to.be.a('object');
             });
         });
     });

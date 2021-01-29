@@ -7,8 +7,8 @@
  * @link        http://dotherightthing.co.nz
  * @since       0.1.0
  *
- * @package     Wpdtrt_Forms
- * @subpackage  Wpdtrt_Forms/views
+ * @package     Wpdtrt_Form
+ * @subpackage  Wpdtrt_Form/views
  */
 
 $attr_checked     = '';

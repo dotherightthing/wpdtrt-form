@@ -1,6 +1,6 @@
 <?php
 /**
- * File: template-parts/wpdtrt-forms/content-forms.php
+ * File: template-parts/wpdtrt-form/content-forms.php
  *
  * Template to display plugin output in shortcodes and widgets.
  *
@@ -32,14 +32,14 @@ $options = get_query_var( 'options', array() );
 /**
  * Store the shortcode options in the options table
  *
- * $wpdtrt_forms_options = get_option('wpdtrt_forms'); // option doesn't exist yet
+ * $wpdtrt_form_options = get_option('wpdtrt_form'); // option doesn't exist yet
  *
  * @todo test/update for multiple forms
  */
-// $wpdtrt_forms_options['wpdtrt_forms_datatype'] = $template;
-// $wpdtrt_forms_options['errors_list'] = $errors_list;
-// $wpdtrt_forms_options['errors_inline'] = $errors_inline;
-// update_option('wpdtrt_forms', $wpdtrt_forms_options);.
+// $wpdtrt_form_options['wpdtrt_form_datatype'] = $template;
+// $wpdtrt_form_options['errors_list'] = $errors_list;
+// $wpdtrt_form_options['errors_inline'] = $errors_inline;
+// update_option('wpdtrt_form', $wpdtrt_form_options);.
 //
 // store the template data in the options table.
 // $plugin->refresh_api_data();.
@@ -54,7 +54,7 @@ $plugin->get_api_data();
 //
 // this requires json_decode to use the optional second argument
 // to return an associative array
-// @see wpdtrt_forms_get_data().
+// @see wpdtrt_form_get_data().
 $render_form = false;
 
 // get existing plugin data (not get_api_data).
@@ -71,7 +71,7 @@ if ( key_exists( 'template_fields', $data ) ) {
 
 	// if the form hasn't been submitted yet
 	// or if it was submitted but couldn't be sent due to errors.
-	if ( ! isset( $_POST['wpdtrt_forms_submitted'] ) || ( false === $sent ) ) {
+	if ( ! isset( $_POST['wpdtrt_form_submitted'] ) || ( false === $sent ) ) {
 		$render_form = true;
 	}
 }
@@ -82,10 +82,10 @@ echo $before_title . $title . $after_title;
 if ( $render_form ) :
 	?>
 
-<div class="wpdtrt-forms">
-	<form action="<?php esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" class="comment-form wpdtrt-forms-template wpdtrt-forms-template-<?php echo $template; ?>">
-		<fieldset class="wpdtrt-forms__fieldset">
-			<legend class="wpdtrt-forms-legend wpdtrt-forms__hidden"><?php echo $data['legend']; ?></legend>
+<div class="wpdtrt-form">
+	<form action="<?php esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" class="comment-form wpdtrt-form-template wpdtrt-form-template-<?php echo $template; ?>">
+		<fieldset class="wpdtrt-form__fieldset">
+			<legend class="wpdtrt-form-legend wpdtrt-form__hidden"><?php echo $data['legend']; ?></legend>
 
 			<?php
 			foreach ( $template_fields as $field ) :
@@ -106,13 +106,13 @@ if ( $render_form ) :
 				extract( $field, EXTR_IF_EXISTS );
 
 				$required             = isset( $required );
-				$required_label_class = $required ? ' wpdtrt-forms__label--required' : '';
+				$required_label_class = $required ? ' wpdtrt-form__label--required' : '';
 				$name                 = $id;
-				$id                   = 'wpdtrt_forms_' . $id;
+				$id                   = 'wpdtrt_form_' . $id;
 				$value                = ( isset( $_POST[ $id ] ) ? esc_attr( $_POST[ $id ] ) : '' );
 				?>
 
-			<div class="wpdtrt-forms__item">
+			<div class="wpdtrt-form__item">
 
 				<?php
 				ob_start();
@@ -120,20 +120,20 @@ if ( $render_form ) :
 				switch ( $element ) {
 					case 'input':
 						if ( 'checkbox' === $type ) {
-							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-input.php';
-							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-label.php';
+							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-form-input.php';
+							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-form-label.php';
 						} else {
-							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-label.php';
-							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-input.php';
-							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-error.php';
+							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-form-label.php';
+							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-form-input.php';
+							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-form-error.php';
 						}
 
 						break;
 
 					case 'textarea':
-						require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-label.php';
-						require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-textarea.php';
-						require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-error.php';
+						require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-form-label.php';
+						require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-form-textarea.php';
+						require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-form-error.php';
 
 						break;
 				}
@@ -146,7 +146,7 @@ if ( $render_form ) :
 
 
 			<div>
-				<input type="submit" name="wpdtrt_forms_submitted" class="wpdtrt-forms__submit" value="<?php echo $data['submit']; ?>">
+				<input type="submit" name="wpdtrt_form_submitted" class="wpdtrt-form__submit" value="<?php echo $data['submit']; ?>">
 			</div>
 		</fieldset>
 	</form>

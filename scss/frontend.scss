@@ -35,21 +35,21 @@
 
 // Custom forms
 
-.wpdtrt-forms {
+.wpdtrt-form {
     &__block {
         box-sizing: border-box;
         padding: .3em;
-        border: 1px solid var(--wpdtrt-forms-border-color);
+        border: 1px solid var(--wpdtrt-form-border-color);
     }
 
     &__block-error {
-        background-color: var(--wpdtrt-forms-error-bgcolor);
-        border-color: var(--wpdtrt-forms-error-color);
+        background-color: var(--wpdtrt-form-error-bgcolor);
+        border-color: var(--wpdtrt-form-error-color);
     }
 
     &__button {
-        background-color: var(--wpdtrt-forms-button-bgcolor);
-        color: var(--wpdtrt-forms-button-color);
+        background-color: var(--wpdtrt-form-button-bgcolor);
+        color: var(--wpdtrt-form-button-color);
         font-size: .7em;
         line-height: normal;
         font-weight: bold;
@@ -61,9 +61,9 @@
     }
 
     &__error {
-        color: var(--wpdtrt-forms-error-color);
+        color: var(--wpdtrt-form-error-color);
         font-weight: normal;
-        border-color: var(--wpdtrt-forms-error-color);
+        border-color: var(--wpdtrt-form-error-color);
     }
 
     &__error-list {
@@ -78,12 +78,12 @@
 
             &::before {
                 content: counter(error-counter) '.';
-                color: var(--wpdtrt-forms-error-list-bullet-color);
+                color: var(--wpdtrt-form-error-list-bullet-color);
             }
         }
 
         a {
-            color: var(--wpdtrt-forms-error-list-link-color);
+            color: var(--wpdtrt-form-error-list-link-color);
         }
     }
 
@@ -113,10 +113,10 @@
 
         > input[type='text'],
         > textarea {
-            // @extend .wpdtrt-forms__block;
+            // @extend .wpdtrt-form__block;
 
             &[aria-invalid='true'] {
-                @extend .wpdtrt-forms__block-error;
+                @extend .wpdtrt-form__block-error;
             }
         }
 
@@ -141,13 +141,13 @@
         &--required {
             &::after {
                 content: ' *';
-                color: var(--wpdtrt-forms-error-color);
+                color: var(--wpdtrt-form-error-color);
             }
         }
 
         &.error {
             > .required {
-                @extend .wpdtrt-forms__error;
+                @extend .wpdtrt-form__error;
             }
         }
     }
@@ -157,8 +157,8 @@
     }
 
     &__status {
-        background-color: var(--wpdtrt-forms-status-bgcolor);
-        color: var(--wpdtrt-forms-status-color);
+        background-color: var(--wpdtrt-form-status-bgcolor);
+        color: var(--wpdtrt-form-status-color);
         margin-bottom: 1em;
 
         p {
@@ -169,18 +169,18 @@
     &__textfield {
         display: block;
         width: 100%;
-        background-color: var(--wpdtrt-forms-textfield-bgcolor);
+        background-color: var(--wpdtrt-form-textfield-bgcolor);
         font-size: .9em;
         line-height: normal;
         padding: 8px;
-        border: 1px solid var(--wpdtrt-forms-textfield-bordercolor);
+        border: 1px solid var(--wpdtrt-form-textfield-bordercolor);
 
         &:focus {
-            background-color: var(--wpdtrt-forms-textfield-bgcolor-focus);
+            background-color: var(--wpdtrt-form-textfield-bgcolor-focus);
         }
 
         &.error {
-            @extend .wpdtrt-forms__error;
+            @extend .wpdtrt-form__error;
         }
     }
 
@@ -203,14 +203,14 @@
     }
 
     &__validation {
-        @extend .wpdtrt-forms__hint;
+        @extend .wpdtrt-form__hint;
 
         strong {
             font-weight: normal;
         }
 
         > .error {
-            @extend .wpdtrt-forms__error;
+            @extend .wpdtrt-form__error;
         }
     }
 }
@@ -226,11 +226,11 @@ input {
         &[type='submit'] {
             &,
             &[disabled] {
-                @extend .wpdtrt-forms__button;
+                @extend .wpdtrt-form__button;
 
                 &:hover,
                 &:focus {
-                    @extend .wpdtrt-forms__button;
+                    @extend .wpdtrt-form__button;
                 }
             }
         }
@@ -247,33 +247,33 @@ input {
         &[type='time'],
         &[type='url'],
         &[type='week'] {
-            @extend .wpdtrt-forms__textfield;
+            @extend .wpdtrt-form__textfield;
         }
     }
 }
 
 textarea {
     &[id] { // override noramlize
-        @extend .wpdtrt-forms__textfield;
+        @extend .wpdtrt-form__textfield;
     }
 }
 
 .comment-form {
     label {
-        @extend .wpdtrt-forms__label;
+        @extend .wpdtrt-form__label;
     }
 
     .validation {
-        @extend .wpdtrt-forms__validation;
+        @extend .wpdtrt-form__validation;
     }
 
     > p {
         .entry-content & {
-            @extend .wpdtrt-forms__item;
+            @extend .wpdtrt-form__item;
         }
     }
 }
 
 .comment-notes {
-    @extend .wpdtrt-forms__intro;
+    @extend .wpdtrt-form__intro;
 }

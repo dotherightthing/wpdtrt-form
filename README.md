@@ -1,6 +1,6 @@
-# DTRT Forms
+# DTRT Form
 
-[![GitHub release](https://img.shields.io/github/v/tag/dotherightthing/wpdtrt-forms)](https://github.com/dotherightthing/wpdtrt-forms/releases) [![Build Status](https://github.com/dotherightthing/wpdtrt-forms/workflows/Build%20and%20release%20if%20tagged/badge.svg)](https://github.com/dotherightthing/wpdtrt-forms/actions?query=workflow%3A%22Build+and+release+if+tagged%22) [![GitHub issues](https://img.shields.io/github/issues/dotherightthing/wpdtrt-forms.svg)](https://github.com/dotherightthing/wpdtrt-forms/issues)
+[![GitHub release](https://img.shields.io/github/v/tag/dotherightthing/wpdtrt-form)](https://github.com/dotherightthing/wpdtrt-form/releases) [![Build Status](https://github.com/dotherightthing/wpdtrt-form/workflows/Build%20and%20release%20if%20tagged/badge.svg)](https://github.com/dotherightthing/wpdtrt-form/actions?query=workflow%3A%22Build+and+release+if+tagged%22) [![GitHub issues](https://img.shields.io/github/issues/dotherightthing/wpdtrt-form.svg)](https://github.com/dotherightthing/wpdtrt-form/issues)
 
 Simple, accessible forms.
 
@@ -28,10 +28,10 @@ Please use the provided shortcode to embed a custom form:
 
 ```php
 <!-- within the editor -->
-[wpdtrt_forms option="value"]
+[wpdtrt_form option="value"]
 
 // in a PHP template, as a template tag
-<?php echo do_shortcode( '[wpdtrt_forms option="value"]' ); ?>
+<?php echo do_shortcode( '[wpdtrt_form option="value"]' ); ?>
 ```
 
 Options

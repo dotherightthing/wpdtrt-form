@@ -1,6 +1,6 @@
 <?php
 /**
- * File: src/class-wpdtrt-forms-widget.php
+ * File: src/class-wpdtrt-form-widget.php
  *
  * Widget sub class.
  *
@@ -9,14 +9,14 @@
  */
 
 /**
- * Class: WPDTRT_Forms_Widget
+ * Class: WPDTRT_Form_Widget
  *
  * Extends the base class to inherit boilerplate functionality, adds application-specific methods.
  *
  * Since:
  *   0.9.1 - DTRT WordPress Plugin Boilerplate Generator
  */
-class WPDTRT_Forms_Widget extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7_15\Widget {
+class WPDTRT_Form_Widget extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7_15\Widget {
 
 	/**
 	 * Constructor: __construct

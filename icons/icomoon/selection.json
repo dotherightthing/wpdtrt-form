@@ -3,7 +3,7 @@
     "icons": [],
     "height": 1024,
     "metadata": {
-        "name": "wpdtrt-forms"
+        "name": "wpdtrt-form"
     },
     "preferences": {
         "showGlyphs": true,
@@ -12,9 +12,9 @@
         "showQuickUse2": true,
         "showSVGs": true,
         "fontPref": {
-            "prefix": "wpdtrt-forms-icon-",
+            "prefix": "wpdtrt-form-icon-",
             "metadata": {
-                "fontFamily": "wpdtrt-forms",
+                "fontFamily": "wpdtrt-form",
                 "majorVersion": 1,
                 "minorVersion": 0
             },

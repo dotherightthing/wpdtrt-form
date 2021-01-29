@@ -25,10 +25,10 @@ require_once $_tests_dir . '/includes/functions.php';
  * Manually load the plugin being tested, and any dependencies.
  */
 function _manually_load_plugin() {
-	require dirname( dirname( __FILE__ ) ) . '/wpdtrt-forms.php'; // Access static methods of plugin class.
+	require dirname( dirname( __FILE__ ) ) . '/wpdtrt-form.php'; // Access static methods of plugin class.
 	$composer_json                    = dirname( dirname( __FILE__ ) ) . '/composer.json';
-	$composer_dependencies            = WPDTRT_Forms_Plugin::get_wp_composer_dependencies( $composer_json );
-	$composer_dependencies_to_require = WPDTRT_Forms_Plugin::get_wp_composer_dependencies_wpunit( $composer_dependencies );
+	$composer_dependencies            = WPDTRT_Form_Plugin::get_wp_composer_dependencies( $composer_json );
+	$composer_dependencies_to_require = WPDTRT_Form_Plugin::get_wp_composer_dependencies_wpunit( $composer_dependencies );
 }
 
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );

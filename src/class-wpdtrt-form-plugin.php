@@ -1,6 +1,6 @@
 <?php
 /**
- * File: src/class-wpdtrt-forms-plugin.php
+ * File: src/class-wpdtrt-form-plugin.php
  *
  * Plugin sub class.
  *
@@ -9,14 +9,14 @@
  */
 
 /**
- * Class: WPDTRT_Forms_Plugin
+ * Class: WPDTRT_Form_Plugin
  *
  * Extends the base class to inherit boilerplate functionality, adds application-specific methods.
  *
  * Since:
  *   0.9.1 - DTRT WordPress Plugin Boilerplate Generator
  */
-class WPDTRT_Forms_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7_15\Plugin {
+class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7_15\Plugin {
 
 	/**
 	 * Constructor: __construct
@@ -59,7 +59,7 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_
 		parent::wp_setup();
 
 		// About: add actions and filters here.
-		add_filter( 'wpdtrt_forms_set_api_endpoint', [ $this, 'filter_set_api_endpoint' ] );
+		add_filter( 'wpdtrt_form_set_api_endpoint', [ $this, 'filter_set_api_endpoint' ] );
 	}
 
 	/**
@@ -137,7 +137,7 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_
 	 * @since       1.3.4
 	 *
 	 * @example
-	 *  add_filter( 'wpdtrt_forms_set_api_endpoint', [$this, 'filter_set_api_endpoint'] );
+	 *  add_filter( 'wpdtrt_form_set_api_endpoint', [$this, 'filter_set_api_endpoint'] );
 	 */
 	public function filter_set_api_endpoint() {
 		$plugin_options = $this->get_plugin_options();
@@ -182,9 +182,9 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_
 		$submitted_data = array();
 
 		// if the submit button is clicked, send the email.
-		if ( isset( $_POST['wpdtrt_forms_submitted'] ) ) {
+		if ( isset( $_POST['wpdtrt_form_submitted'] ) ) {
 
-			$wpdtrt_forms_options = get_option( 'wpdtrt_forms' );
+			$wpdtrt_form_options = get_option( 'wpdtrt_form' );
 
 			// this requires json_decode to use the optional second argument to return an associative array.
 			$data            = $this->get_plugin_data();
@@ -211,7 +211,7 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_
 						 *
 						 * @see http://php.net/manual/en/function.call-user-func.php
 						 */
-						$submitted_data[ $template_field['id'] ] = call_user_func( $sanitizer, $_POST[ 'wpdtrt_forms_' . $template_field['id'] ] );
+						$submitted_data[ $template_field['id'] ] = call_user_func( $sanitizer, $_POST[ 'wpdtrt_form_' . $template_field['id'] ] );
 					}
 				}
 			}
@@ -232,7 +232,7 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_
 	public function helper_sendmail() {
 
 		// if the submit button is clicked, send the email.
-		if ( isset( $_POST['wpdtrt_forms_submitted'] ) ) {
+		if ( isset( $_POST['wpdtrt_form_submitted'] ) ) {
 
 			$submitted_data = $this->helper_sanitize_form_data();
 
@@ -247,7 +247,7 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_
 
 				$message = $submitted_data['message'] . "\r\n\r\n";
 
-				if ( isset( $_POST['wpdtrt_forms_email_updates'] ) ) {
+				if ( isset( $_POST['wpdtrt_form_email_updates'] ) ) {
 					$message .= 'I would like to receive email updates.' . "\r\n\r\n";
 				}
 
@@ -268,7 +268,7 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_
 			}
 
 			$data = $this->get_plugin_data();
-			require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-status.php';
+			require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-form-status.php';
 
 			return $sentmail;
 		}

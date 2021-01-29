@@ -26,7 +26,7 @@
 
 @import '../node_modules/wpdtrt-scss/scss/extends';
 
-.wpdtrt-forms {
+.wpdtrt-form {
     &__hint {
         display: block;
         font-size: .7em;
@@ -76,17 +76,17 @@
             &[type='time'],
             &[type='url'],
             &[type='week'] {
-                @extend .wpdtrt-forms__textfield-sizes;
+                @extend .wpdtrt-form__textfield-sizes;
             }
         }
 
         textarea {
-            @extend .wpdtrt-forms__textfield-sizes;
+            @extend .wpdtrt-form__textfield-sizes;
         }
 
         .form-table {
             .description {
-                @extend .wpdtrt-forms__hint;
+                @extend .wpdtrt-form__hint;
             }
         }
 
@@ -103,7 +103,7 @@
 
     &__widget-field {
         .description {
-            @extend .wpdtrt-forms__hint;
+            @extend .wpdtrt-form__hint;
         }
     }
 }

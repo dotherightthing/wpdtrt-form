@@ -1,5 +1,5 @@
 {
-    "name": "dotherightthing/wpdtrt-forms",
+    "name": "dotherightthing/wpdtrt-form",
     "description": "Simple, accessible forms.",
     "type": "library",
     "keywords": ["forms", "accessible", "WCAG", "wordpress-plugin"],
@@ -8,15 +8,15 @@
         {
             "name": "Dan Smith",
             "email": "dev@dotherightthing.co.nz",
-            "homepage": "https://github.com/dotherightthing/wpdtrt-forms",
+            "homepage": "https://github.com/dotherightthing/wpdtrt-form",
             "role": "Developer"
         }
     ],
     "support": {
         "email": "support@dotherightthing.co.nz",
-        "issues": "https://github.com/dotherightthing/wpdtrt-forms/issues",
-        "source": "https://github.com/dotherightthing/wpdtrt-forms",
-        "wiki": "https://github.com/dotherightthing/wpdtrt-forms/wiki"
+        "issues": "https://github.com/dotherightthing/wpdtrt-form/issues",
+        "source": "https://github.com/dotherightthing/wpdtrt-form",
+        "wiki": "https://github.com/dotherightthing/wpdtrt-form/wiki"
     },
     "require": {
         "dotherightthing/wpdtrt-plugin-boilerplate": "^1.7.12"

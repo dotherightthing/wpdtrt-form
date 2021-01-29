@@ -11,12 +11,12 @@
     "githubUserName": "dotherightthing",
     "license": "GPLv2 or later",
     "licenseUrl": "http://www.gnu.org/licenses/gpl-2.0.html",
-    "name": "wpdtrt-forms",
-    "nameFriendly": "DTRT Forms",
-    "nameSafe": "wpdtrt_forms",
+    "name": "wpdtrt-form",
+    "nameFriendly": "DTRT Form",
+    "nameSafe": "wpdtrt_form",
     "phpVersion": "7.2.20",
     "defaultVersion": "0.1.0",
-    "tags": "forms, accessible, WCAG",
+    "tags": "form, accessible, WCAG",
     "wpVersion": "5.6"
   }
 }

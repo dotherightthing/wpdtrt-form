@@ -1,6 +1,6 @@
 <?php
 /**
- * File: src/class-wpdtrt-forms-shortcode.php
+ * File: src/class-wpdtrt-form-shortcode.php
  *
  * Shortcode sub class.
  *
@@ -9,14 +9,14 @@
  */
 
 /**
- * Class: WPDTRT_Forms_Shortcode
+ * Class: WPDTRT_Form_Shortcode
  *
  * Extends the base class to inherit boilerplate functionality, adds application-specific methods.
  *
  * Since:
  *   0.9.1 - DTRT WordPress Plugin Boilerplate Generator
  */
-class WPDTRT_Forms_Shortcode extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7_15\Shortcode {
+class WPDTRT_Form_Shortcode extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7_15\Shortcode {
 
 	/**
 	 * Constructor: __construct

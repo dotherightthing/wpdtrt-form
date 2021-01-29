@@ -1,22 +1,22 @@
 <?php
 /**
- * DTRT Forms
+ * DTRT Form
  *
- * @package     WPDTRT_Forms
+ * @package     WPDTRT_Form
  * @author      Dan Smith
  * @copyright   2021 Do The Right Thing
  * @license     GPL-2.0+
  *
  * @wordpress-plugin
- * Plugin Name:  DTRT Forms
- * Plugin URI:   https://github.com/dotherightthing/wpdtrt-forms
+ * Plugin Name:  DTRT Form
+ * Plugin URI:   https://github.com/dotherightthing/wpdtrt-form
  * Description:  Simple, accessible forms.
  * Version:      0.2.4
  * Author:       Dan Smith
  * Author URI:   https://profiles.wordpress.org/&#39;dotherightthingnz
  * License:      GPLv2 or later
  * License URI:  http://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:  wpdtrt-forms
+ * Text Domain:  wpdtrt-form
  * Domain Path:  /languages
  */
 
@@ -131,9 +131,9 @@ if ( is_admin() ) {
 
 // sub classes, not loaded via PSR-4.
 // remove the includes you don't need, edit the files you do need.
-require_once WPDTRT_FORMS_PATH . 'src/class-wpdtrt-forms-plugin.php';
-require_once WPDTRT_FORMS_PATH . 'src/class-wpdtrt-forms-shortcode.php';
-require_once WPDTRT_FORMS_PATH . 'src/class-wpdtrt-forms-widget.php';
+require_once WPDTRT_FORMS_PATH . 'src/class-wpdtrt-form-plugin.php';
+require_once WPDTRT_FORMS_PATH . 'src/class-wpdtrt-form-shortcode.php';
+require_once WPDTRT_FORMS_PATH . 'src/class-wpdtrt-form-widget.php';
 
 // log & trace helpers.
 global $debug;
@@ -154,13 +154,13 @@ $debug = new DoTheRightThing\WPDebug\Debug();
  * _____________________________________
  */
 
-register_activation_hook( dirname( __FILE__ ), 'wpdtrt_forms_activate' );
+register_activation_hook( dirname( __FILE__ ), 'wpdtrt_form_activate' );
 
-add_action( 'init', 'wpdtrt_forms_plugin_init', 0 );
-add_action( 'init', 'wpdtrt_forms_shortcode_init', 100 );
-add_action( 'widgets_init', 'wpdtrt_forms_widget_init', 10 );
+add_action( 'init', 'wpdtrt_form_plugin_init', 0 );
+add_action( 'init', 'wpdtrt_form_shortcode_init', 100 );
+add_action( 'widgets_init', 'wpdtrt_form_widget_init', 10 );
 
-register_deactivation_hook( dirname( __FILE__ ), 'wpdtrt_forms_deactivate' );
+register_deactivation_hook( dirname( __FILE__ ), 'wpdtrt_form_deactivate' );
 
 /**
  * Group: Plugin config
@@ -168,7 +168,7 @@ register_deactivation_hook( dirname( __FILE__ ), 'wpdtrt_forms_deactivate' );
  */
 
 /**
- * Function: wpdtrt_forms_activate
+ * Function: wpdtrt_form_activate
  *
  * Register functions to be run when the plugin is activated.
  *
@@ -181,12 +181,12 @@ register_deactivation_hook( dirname( __FILE__ ), 'wpdtrt_forms_deactivate' );
  * TODO:
  * - <https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues/128>
  */
-function wpdtrt_forms_activate() {
+function wpdtrt_form_activate() {
 	flush_rewrite_rules();
 }
 
 /**
- * Function: wpdtrt_forms_deactivate
+ * Function: wpdtrt_form_deactivate
  *
  * Register functions to be run when the plugin is deactivated (WordPress 2.0+).
  *
@@ -199,12 +199,12 @@ function wpdtrt_forms_activate() {
  * TODO:
  * - <https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues/128>
  */
-function wpdtrt_forms_deactivate() {
+function wpdtrt_form_deactivate() {
 	flush_rewrite_rules();
 }
 
 /**
- * Function: wpdtrt_forms_plugin_init
+ * Function: wpdtrt_form_plugin_init
  *
  * Plugin initialisaton.
  *
@@ -219,12 +219,12 @@ function wpdtrt_forms_deactivate() {
  * - <https://codex.wordpress.org/Plugin_API/Action_Reference>
  *
  * TODO:
- * - Add a constructor function to WPDTRT_Forms_Plugin, to explain the options array
+ * - Add a constructor function to WPDTRT_Form_Plugin, to explain the options array
  */
-function wpdtrt_forms_plugin_init() {
+function wpdtrt_form_plugin_init() {
 	// pass object reference between classes via global
 	// because the object does not exist until the WordPress init action has fired.
-	global $wpdtrt_forms_plugin;
+	global $wpdtrt_form_plugin;
 
 	/**
 	 * Array: plugin_options
@@ -237,13 +237,13 @@ function wpdtrt_forms_plugin_init() {
 	$plugin_options = array(
 		'template' => array(
 			'type'    => 'select',
-			'label'   => __( 'Template', 'wpdtrt-forms' ),
+			'label'   => __( 'Template', 'wpdtrt-form' ),
 			'options' => array(
 				'contact' => array(
-					'text' => __( 'Contact', 'wpdtrt-forms' ),
+					'text' => __( 'Contact', 'wpdtrt-form' ),
 				),
 			),
-			'tip'     => __( '/data/form-{template}.json', 'wpdtrt-forms' ),
+			'tip'     => __( '/data/form-{template}.json', 'wpdtrt-form' ),
 		),
 	);
 
@@ -258,19 +258,19 @@ function wpdtrt_forms_plugin_init() {
 	$instance_options = array(
 		'template'      => array(
 			'type'  => 'text',
-			'label' => __( 'Field label', 'wpdtrt-forms' ),
+			'label' => __( 'Field label', 'wpdtrt-form' ),
 			'size'  => 20,
-			'tip'   => __( 'e.g. contact', 'wpdtrt-forms' ),
+			'tip'   => __( 'e.g. contact', 'wpdtrt-form' ),
 		),
 		'errors_list'   => array(
 			'type'  => 'checkbox',
-			'label' => __( 'Display errors as a list', 'wpdtrt-forms' ),
-			'tip'   => __( 'Errors list is output at the top of the form', 'wpdtrt-forms' ),
+			'label' => __( 'Display errors as a list', 'wpdtrt-form' ),
+			'tip'   => __( 'Errors list is output at the top of the form', 'wpdtrt-form' ),
 		),
 		'errors_inline' => array(
 			'type'  => 'checkbox',
-			'label' => __( 'Display errors inline', 'wpdtrt-forms' ),
-			'tip'   => __( 'Errors are display adjacent to invalid fields', 'wpdtrt-forms' ),
+			'label' => __( 'Display errors inline', 'wpdtrt-form' ),
+			'tip'   => __( 'Errors are display adjacent to invalid fields', 'wpdtrt-form' ),
 		),
 	);
 
@@ -282,21 +282,21 @@ function wpdtrt_forms_plugin_init() {
 	 * UI Messages.
 	 */
 	$ui_messages = array(
-		'demo_data_description'       => __( 'This demo was generated from the following data', 'wpdtrt-forms' ),
-		'demo_data_displayed_length'  => __( '# results displayed', 'wpdtrt-forms' ),
-		'demo_data_length'            => __( '# results', 'wpdtrt-forms' ),
-		'demo_data_title'             => __( 'Demo data', 'wpdtrt-forms' ),
-		'demo_date_last_updated'      => __( 'Data last updated', 'wpdtrt-forms' ),
-		'demo_sample_title'           => __( 'Demo sample', 'wpdtrt-forms' ),
-		'demo_shortcode_title'        => __( 'Demo shortcode', 'wpdtrt-forms' ),
-		'insufficient_permissions'    => __( 'Sorry, you do not have sufficient permissions to access this page.', 'wpdtrt-forms' ),
-		'no_options_form_description' => __( 'There aren\'t currently any options.', 'wpdtrt-forms' ),
-		'noscript_warning'            => __( 'Please enable JavaScript', 'wpdtrt-forms' ),
-		'options_form_description'    => __( 'Please enter your preferences.', 'wpdtrt-forms' ),
-		'options_form_submit'         => __( 'Save Changes', 'wpdtrt-forms' ),
-		'options_form_title'          => __( 'General Settings', 'wpdtrt-forms' ),
-		'loading'                     => __( 'Loading latest data...', 'wpdtrt-forms' ),
-		'success'                     => __( 'settings successfully updated', 'wpdtrt-forms' ),
+		'demo_data_description'       => __( 'This demo was generated from the following data', 'wpdtrt-form' ),
+		'demo_data_displayed_length'  => __( '# results displayed', 'wpdtrt-form' ),
+		'demo_data_length'            => __( '# results', 'wpdtrt-form' ),
+		'demo_data_title'             => __( 'Demo data', 'wpdtrt-form' ),
+		'demo_date_last_updated'      => __( 'Data last updated', 'wpdtrt-form' ),
+		'demo_sample_title'           => __( 'Demo sample', 'wpdtrt-form' ),
+		'demo_shortcode_title'        => __( 'Demo shortcode', 'wpdtrt-form' ),
+		'insufficient_permissions'    => __( 'Sorry, you do not have sufficient permissions to access this page.', 'wpdtrt-form' ),
+		'no_options_form_description' => __( 'There aren\'t currently any options.', 'wpdtrt-form' ),
+		'noscript_warning'            => __( 'Please enable JavaScript', 'wpdtrt-form' ),
+		'options_form_description'    => __( 'Please enter your preferences.', 'wpdtrt-form' ),
+		'options_form_submit'         => __( 'Save Changes', 'wpdtrt-form' ),
+		'options_form_title'          => __( 'General Settings', 'wpdtrt-form' ),
+		'loading'                     => __( 'Loading latest data...', 'wpdtrt-form' ),
+		'success'                     => __( 'settings successfully updated', 'wpdtrt-form' ),
 	);
 
 	/**
@@ -308,7 +308,7 @@ function wpdtrt_forms_plugin_init() {
 	 * - <Settings page - Adding a demo shortcode: https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/wiki/Settings-page:-Adding-a-demo-shortcode>
 	 */
 	$demo_shortcode_params = array(
-		'name'          => 'wpdtrt_forms_shortcode',
+		'name'          => 'wpdtrt_form_shortcode',
 		'template'      => 'contact',
 		'errors_list'   => true,
 		'errors_inline' => true,
@@ -318,15 +318,15 @@ function wpdtrt_forms_plugin_init() {
 	/**
 	 * Plugin configuration
 	 */
-	$wpdtrt_forms_plugin = new WPDTRT_Forms_Plugin(
+	$wpdtrt_form_plugin = new WPDTRT_Form_Plugin(
 		array(
 			'path'                  => WPDTRT_FORMS_PATH,
 			'url'                   => WPDTRT_FORMS_URL,
 			'version'               => WPDTRT_FORMS_VERSION,
-			'prefix'                => 'wpdtrt_forms',
-			'slug'                  => 'wpdtrt-forms',
-			'menu_title'            => __( 'Forms', 'wpdtrt-forms' ),
-			'settings_title'        => __( 'Settings', 'wpdtrt-forms' ),
+			'prefix'                => 'wpdtrt_form',
+			'slug'                  => 'wpdtrt-form',
+			'menu_title'            => __( 'Form', 'wpdtrt-form' ),
+			'settings_title'        => __( 'Settings', 'wpdtrt-form' ),
 			'developer_prefix'      => 'DTRT',
 			'messages'              => $ui_messages,
 			'plugin_options'        => $plugin_options,
@@ -342,15 +342,15 @@ function wpdtrt_forms_plugin_init() {
  */
 
 /**
- * Function: wpdtrt_forms_rewrite_init
+ * Function: wpdtrt_form_rewrite_init
  *
  * Register Rewrite.
  */
-function wpdtrt_forms_rewrite_init() {
+function wpdtrt_form_rewrite_init() {
 
-	global $wpdtrt_forms_plugin;
+	global $wpdtrt_form_plugin;
 
-	$wpdtrt_forms_rewrite = new WPDTRT_Forms_Rewrite(
+	$wpdtrt_form_rewrite = new WPDTRT_Form_Rewrite(
 		array()
 	);
 }
@@ -360,19 +360,19 @@ function wpdtrt_forms_rewrite_init() {
  */
 
 /**
- * Function: wpdtrt_forms_shortcode_init
+ * Function: wpdtrt_form_shortcode_init
  *
  * Register Shortcode.
  */
-function wpdtrt_forms_shortcode_init() {
+function wpdtrt_form_shortcode_init() {
 
-	global $wpdtrt_forms_plugin;
+	global $wpdtrt_form_plugin;
 
-	$wpdtrt_forms_shortcode = new WPDTRT_Forms_Shortcode(
+	$wpdtrt_form_shortcode = new WPDTRT_Form_Shortcode(
 		array(
-			'name'                      => 'wpdtrt_forms_shortcode',
-			'plugin'                    => $wpdtrt_forms_plugin,
-			'template'                  => 'forms',
+			'name'                      => 'wpdtrt_form_shortcode',
+			'plugin'                    => $wpdtrt_form_plugin,
+			'template'                  => 'form',
 			'selected_instance_options' => array(
 				'template',
 				'errors_list',
@@ -387,62 +387,62 @@ function wpdtrt_forms_shortcode_init() {
  */
 
 /**
- * Function: wpdtrt_forms_taxonomy_init
+ * Function: wpdtrt_form_taxonomy_init
  *
  * Register Taxonomy.
  *
  * Returns:
  *   object - Taxonomy/
  */
-function wpdtrt_forms_taxonomy_init() {
+function wpdtrt_form_taxonomy_init() {
 
-	global $wpdtrt_forms_plugin;
+	global $wpdtrt_form_plugin;
 
-	$wpdtrt_forms_taxonomy = new WPDTRT_Forms_Taxonomy(
+	$wpdtrt_form_taxonomy = new WPDTRT_Form_Taxonomy(
 		array(
-			'name'                      => 'wpdtrt_forms_things',
-			'plugin'                    => $wpdtrt_forms_plugin,
+			'name'                      => 'wpdtrt_form_things',
+			'plugin'                    => $wpdtrt_form_plugin,
 			'selected_instance_options' => array(
 				'instanceoption1',
 			),
 			'taxonomy_options'          => array(
 				'option1' => array(
 					'type'              => 'text',
-					'label'             => esc_html__( 'Option 1', 'wpdtrt-forms' ),
+					'label'             => esc_html__( 'Option 1', 'wpdtrt-form' ),
 					'admin_table'       => true,
-					'admin_table_label' => esc_html__( '1', 'wpdtrt-forms ' ),
+					'admin_table_label' => esc_html__( '1', 'wpdtrt-form ' ),
 					'admin_table_sort'  => true,
 					'tip'               => 'Enter something',
 					'todo_condition'    => 'foo !== "bar"',
 				),
 			),
 			'labels'                    => array(
-				'slug'                       => 'wpdtrt_forms_thing',
-				'description'                => __( 'Things', 'wpdtrt-forms' ),
+				'slug'                       => 'wpdtrt_form_thing',
+				'description'                => __( 'Things', 'wpdtrt-form' ),
 				'posttype'                   => 'post',
 				'name'                       => __( 'Things', 'taxonomy general name' ),
 				'singular_name'              => _x( 'Thing', 'taxonomy singular name' ),
-				'menu_name'                  => __( 'Things', 'wpdtrt-forms' ),
-				'all_items'                  => __( 'All Things', 'wpdtrt-forms' ),
-				'add_new_item'               => __( 'Add New Thing', 'wpdtrt-forms' ),
-				'edit_item'                  => __( 'Edit Thing', 'wpdtrt-forms' ),
-				'view_item'                  => __( 'View Thing', 'wpdtrt-forms' ),
-				'update_item'                => __( 'Update Thing', 'wpdtrt-forms' ),
-				'new_item_name'              => __( 'New Thing Name', 'wpdtrt-forms' ),
-				'parent_item'                => __( 'Parent Thing', 'wpdtrt-forms' ),
-				'parent_item_colon'          => __( 'Parent Thing:', 'wpdtrt-forms' ),
-				'search_items'               => __( 'Search Things', 'wpdtrt-forms' ),
-				'popular_items'              => __( 'Popular Things', 'wpdtrt-forms' ),
-				'separate_items_with_commas' => __( 'Separate Things with commas', 'wpdtrt-forms' ),
-				'add_or_remove_items'        => __( 'Add or remove Things', 'wpdtrt-forms' ),
-				'choose_from_most_used'      => __( 'Choose from most used Things', 'wpdtrt-forms' ),
-				'not_found'                  => __( 'No Things found', 'wpdtrt-forms' ),
+				'menu_name'                  => __( 'Things', 'wpdtrt-form' ),
+				'all_items'                  => __( 'All Things', 'wpdtrt-form' ),
+				'add_new_item'               => __( 'Add New Thing', 'wpdtrt-form' ),
+				'edit_item'                  => __( 'Edit Thing', 'wpdtrt-form' ),
+				'view_item'                  => __( 'View Thing', 'wpdtrt-form' ),
+				'update_item'                => __( 'Update Thing', 'wpdtrt-form' ),
+				'new_item_name'              => __( 'New Thing Name', 'wpdtrt-form' ),
+				'parent_item'                => __( 'Parent Thing', 'wpdtrt-form' ),
+				'parent_item_colon'          => __( 'Parent Thing:', 'wpdtrt-form' ),
+				'search_items'               => __( 'Search Things', 'wpdtrt-form' ),
+				'popular_items'              => __( 'Popular Things', 'wpdtrt-form' ),
+				'separate_items_with_commas' => __( 'Separate Things with commas', 'wpdtrt-form' ),
+				'add_or_remove_items'        => __( 'Add or remove Things', 'wpdtrt-form' ),
+				'choose_from_most_used'      => __( 'Choose from most used Things', 'wpdtrt-form' ),
+				'not_found'                  => __( 'No Things found', 'wpdtrt-form' ),
 			),
 		)
 	);
 
 	// return a reference for unit testing.
-	return $wpdtrt_forms_taxonomy;
+	return $wpdtrt_form_taxonomy;
 }
 
 /**
@@ -450,7 +450,7 @@ function wpdtrt_forms_taxonomy_init() {
  */
 
 /**
- * Function: wpdtrt_forms_widget_init
+ * Function: wpdtrt_form_widget_init
  *
  * Register a WordPress widget, passing in an instance of our custom widget class.
  *
@@ -471,17 +471,17 @@ function wpdtrt_forms_taxonomy_init() {
  * - Add form field parameters to the options array
  * - Investigate the 'classname' option
  */
-function wpdtrt_forms_widget_init() {
+function wpdtrt_form_widget_init() {
 
-	global $wpdtrt_forms_plugin;
+	global $wpdtrt_form_plugin;
 
-	$wpdtrt_forms_widget = new WPDTRT_Forms_Widget(
+	$wpdtrt_form_widget = new WPDTRT_Form_Widget(
 		array(
-			'name'                      => 'wpdtrt_forms_widget',
-			'title'                     => __( 'DTRT Forms Widget', 'wpdtrt-forms' ),
-			'description'               => __( 'Simple, accessible form.', 'wpdtrt-forms' ),
-			'plugin'                    => $wpdtrt_forms_plugin,
-			'template'                  => 'forms',
+			'name'                      => 'wpdtrt_form_widget',
+			'title'                     => __( 'DTRT Form Widget', 'wpdtrt-form' ),
+			'description'               => __( 'Simple, accessible form.', 'wpdtrt-form' ),
+			'plugin'                    => $wpdtrt_form_plugin,
+			'template'                  => 'form',
 			'selected_instance_options' => array(
 				'template',
 				'errors_list',
@@ -490,5 +490,5 @@ function wpdtrt_forms_widget_init() {
 		)
 	);
 
-	register_widget( $wpdtrt_forms_widget );
+	register_widget( $wpdtrt_form_widget );
 }

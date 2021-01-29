@@ -7,18 +7,18 @@
  * @link        http://dotherightthing.co.nz
  * @since       0.1.0
  *
- * @package     Wpdtrt_Forms
- * @subpackage  Wpdtrt_Forms/views
+ * @package     Wpdtrt_Form
+ * @subpackage  Wpdtrt_Form/views
  */
 
 $class   = ( $sentmail ? $data['success_class'] : $data['error_class'] );
 $message = ( $sentmail ? $data['success_message'] : $data['error_message'] );
 ?>
 
-<div class="wpdtrt-forms__status wpdtrt-forms__status-<?php echo $class; ?>">
+<div class="wpdtrt-form__status wpdtrt-form__status-<?php echo $class; ?>">
 <p><?php echo $message; ?></p>
 <?php if ( 'true' === $errors_list ) : ?>
-<ol class="wpdtrt-forms__error-list">
+<ol class="wpdtrt-form__error-list">
 	<?php foreach ( $submitted_data as $key => $sanitized_value ) : ?>
 		<?php
 		if ( '' === $sanitized_value ) :
@@ -37,7 +37,7 @@ $message = ( $sentmail ? $data['success_message'] : $data['error_message'] );
 			}, $template_fields ), true );
 			?>
 	<li>
-		<a href="#wpdtrt_forms_<?php echo $template_fields[ $index ]['id']; ?>"><?php echo $template_fields[ $index ]['error']; ?></a>
+		<a href="#wpdtrt_form_<?php echo $template_fields[ $index ]['id']; ?>"><?php echo $template_fields[ $index ]['error']; ?></a>
 	</li>
 	<?php endif; ?>
 	<?php endforeach; ?>

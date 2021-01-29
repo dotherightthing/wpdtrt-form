@@ -1,11 +1,11 @@
 /**
  * @file js/_frontend.js
  * @summary Scripting for the public front-end.
- * @description PHP variables are provided in wpdtrt_forms_config.
+ * @description PHP variables are provided in wpdtrt_form_config.
  * @requires DTRT WordPress Plugin Boilerplate Generator 0.9.1
  */
 
-/* globals jQuery, wpdtrt_forms_config */
+/* globals jQuery, wpdtrt_form_config */
 /* eslint-disable camelcase, no-unused-vars */
 
 /**
@@ -16,14 +16,14 @@
  */
 
 /**
- * @namespace wpdtrtFormsUi
+ * @namespace wpdtrtFormUi
  */
-const wpdtrtFormsUi = {
+const wpdtrtFormUi = {
 
     /**
      * @function validateForm
      * @summary Validate a form when it is submitted
-     * @memberof wpdtrtFormsUi
+     * @memberof wpdtrtFormUi
      * @protected
      *
      * @param {string} selector - CSS selector of the form to validate
@@ -32,7 +32,7 @@ const wpdtrtFormsUi = {
      * @see {@link https://jqueryvalidation.org/validate/#highlight}
      */
     validateForm: function (selector) {
-        const $ = wpdtrtFormsUi.$;
+        const $ = wpdtrtFormUi.$;
 
         $(selector).validate({
             errorElement: 'strong',
@@ -57,19 +57,19 @@ const wpdtrtFormsUi = {
      */
     init: () => {
         // Custom forms
-        wpdtrtFormsUi.validateForm('.wpdtrt-forms-template');
+        wpdtrtFormUi.validateForm('.wpdtrt-form-template');
 
         // WordPress
-        wpdtrtFormsUi.validateForm('#commentform');
+        wpdtrtFormUi.validateForm('#commentform');
 
-        console.log('wpdtrtFormsUi.init'); // eslint-disable-line no-console
+        console.log('wpdtrtFormUi.init'); // eslint-disable-line no-console
     }
 };
 
 jQuery(($) => {
-    const config = wpdtrt_forms_config; // eslint-disable-line
+    const config = wpdtrt_form_config; // eslint-disable-line
 
-    wpdtrtFormsUi.$ = $;
+    wpdtrtFormUi.$ = $;
 
-    wpdtrtFormsUi.init();
+    wpdtrtFormUi.init();
 });

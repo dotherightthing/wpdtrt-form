@@ -7,12 +7,12 @@
  * @link        http://dotherightthing.co.nz
  * @since       0.1.0
  *
- * @package     Wpdtrt_Forms
- * @subpackage  Wpdtrt_Forms/views
+ * @package     Wpdtrt_Form
+ * @subpackage  Wpdtrt_Form/views
  */
 
-global $wpdtrt_forms_plugin;
-$submitted_data = $wpdtrt_forms_plugin->helper_sanitize_form_data();
+global $wpdtrt_form_plugin;
+$submitted_data = $wpdtrt_form_plugin->helper_sanitize_form_data();
 
 if ( isset( $submitted_data[ $name ] ) ) :
 	if ( ( '' === $submitted_data[ $name ] ) && ( '1' === $errors_inline ) ) : ?>

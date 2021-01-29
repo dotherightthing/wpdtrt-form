@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "wpdtrt-forms",
+  "name": "wpdtrt-form",
   "version": "0.2.4",
   "description": "Simple, accessible forms.",
   "keywords": [
@@ -9,7 +9,7 @@
     "WCAG",
     "wordpress-plugin"
   ],
-  "main": "wpdtrt-forms.php",
+  "main": "wpdtrt-form.php",
   "person": {
     "name": "Dan Smith",
     "email": "dev@dotherightthing.co.nz",
@@ -23,7 +23,7 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/dotherightthing/wpdtrt-forms/issues"
+    "url": "https://github.com/dotherightthing/wpdtrt-form/issues"
   },
   "config": {
     "wpdtrt_base_url_local": "http://localhostname.dan",
@@ -42,11 +42,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dotherightthing/wpdtrt-forms"
+    "url": "https://github.com/dotherightthing/wpdtrt-form"
   },
   "license": "ISC",
-  "homepage": "https://github.com/dotherightthing/wpdtrt-forms",
-  "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-forms",
+  "homepage": "https://github.com/dotherightthing/wpdtrt-form",
+  "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-form",
   "dependencies": {
     "jquery": "1.12.4",
     "jquery-validation": "^1.19.3",

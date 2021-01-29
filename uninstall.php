@@ -30,7 +30,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	die;
 }
 
-delete_option( 'wpdtrt_forms' );
+delete_option( 'wpdtrt_form' );
 
 // for site options in Multisite.
-delete_site_option( 'wpdtrt_forms' );
+delete_site_option( 'wpdtrt_form' );
