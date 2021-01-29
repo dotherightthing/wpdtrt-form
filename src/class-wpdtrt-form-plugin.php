@@ -246,12 +246,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 
 			if ( '' !== $submitted_data['message'] ) {
 
-				$message = $submitted_data['message'] . "\r\n\r\n";
-
-				if ( isset( $_POST['wpdtrt_form_email_updates'] ) ) {
-					$message .= 'I would like to receive email updates.' . "\r\n\r\n";
-				}
-
+				$message  = $submitted_data['message'] . "\r\n\r\n";
 				$message .= '---' . "\r\n\r\n";
 				$message .= 'Sent from the "' . $blogname . '" Contact Form.';
 			} else {
