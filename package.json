@@ -48,7 +48,7 @@
   "homepage": "https://github.com/dotherightthing/wpdtrt-form",
   "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-form",
   "dependencies": {
-    "jquery": "1.12.4",
+    "jquery": "3.5.0",
     "jquery-validation": "^1.19.3",
     "wpdtrt-scss": "github:dotherightthing/wpdtrt-scss#semver:*"
   },
