@@ -44,6 +44,16 @@ Options
 
 Edit the data file to change the field attributes or order: `./data/form-{templatename}.json`
 
+### Testing that form data is sent to your email address
+
+<https://mailcatcher.me/> via <https://wordpress.stackexchange.com/a/195830>:
+
+1. `gem install mailcatcher`
+2. `mailcatcher`
+3. Go to <http://127.0.0.1:1080/>
+4. Send mail through `smtp://127.0.0.1:1025`
+5. Update php.ini: `sendmail_path = /usr/bin/env catchmail -f some@from.address`. In MAMP Pro this is `File > Edit > PHP > Version`.
+
 ### Styling
 
 Core CSS properties may be overwritten by changing the variable values in your theme stylesheet.
