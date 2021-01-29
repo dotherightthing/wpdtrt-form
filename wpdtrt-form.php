@@ -44,9 +44,9 @@
  * _____________________________________
  */
 
-if ( ! defined( 'WPDTRT_FORMS_VERSION' ) ) {
+if ( ! defined( 'WPDTRT_FORM_VERSION' ) ) {
 	/**
-	 * Constant: WPDTRT_FORMS_VERSION
+	 * Constant: WPDTRT_FORM_VERSION
 	 *
 	 * Plugin version.
 	 *
@@ -62,12 +62,12 @@ if ( ! defined( 'WPDTRT_FORMS_VERSION' ) ) {
 	 * $plugin_data = get_plugin_data( __FILE__ ); $plugin_version = $plugin_data['Version'];
 	 * ---
 	 */
-	define( 'WPDTRT_FORMS_VERSION', '0.2.4' );
+	define( 'WPDTRT_FORM_VERSION', '0.2.4' );
 }
 
-if ( ! defined( 'WPDTRT_FORMS_PATH' ) ) {
+if ( ! defined( 'WPDTRT_FORM_PATH' ) ) {
 	/**
-	 * Constant: WPDTRT_FORMS_PATH
+	 * Constant: WPDTRT_FORM_PATH
 	 *
 	 * Plugin directory filesystem path (with trailing slash).
 	 *
@@ -75,12 +75,12 @@ if ( ! defined( 'WPDTRT_FORMS_PATH' ) ) {
 	 * - <https://developer.wordpress.org/reference/functions/plugin_dir_path/>
 	 * - <https://developer.wordpress.org/plugins/the-basics/best-practices/#prefix-everything>
 	 */
-	define( 'WPDTRT_FORMS_PATH', plugin_dir_path( __FILE__ ) );
+	define( 'WPDTRT_FORM_PATH', plugin_dir_path( __FILE__ ) );
 }
 
-if ( ! defined( 'WPDTRT_FORMS_URL' ) ) {
+if ( ! defined( 'WPDTRT_FORM_URL' ) ) {
 	/**
-	 * Constant: WPDTRT_FORMS_URL
+	 * Constant: WPDTRT_FORM_URL
 	 *
 	 * Plugin directory URL path (with trailing slash).
 	 *
@@ -88,7 +88,7 @@ if ( ! defined( 'WPDTRT_FORMS_URL' ) ) {
 	 * - <https://codex.wordpress.org/Function_Reference/plugin_dir_url>
 	 * - <https://developer.wordpress.org/plugins/the-basics/best-practices/#prefix-everything>
 	 */
-	define( 'WPDTRT_FORMS_URL', plugin_dir_url( __FILE__ ) );
+	define( 'WPDTRT_FORM_URL', plugin_dir_url( __FILE__ ) );
 }
 
 /**
@@ -110,7 +110,7 @@ if ( ! defined( 'WPDTRT_PLUGIN_CHILD' ) ) {
  * - <https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/issues/104>
  * - <https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/wiki/Options:-Adding-WordPress-plugin-dependencies>
  */
-if ( defined( 'WPDTRT_FORMS_TEST_DEPENDENCY' ) ) {
+if ( defined( 'WPDTRT_FORM_TEST_DEPENDENCY' ) ) {
 	$project_root_path = realpath( __DIR__ . '/../../..' ) . '/';
 } else {
 	$project_root_path = '';
@@ -131,9 +131,9 @@ if ( is_admin() ) {
 
 // sub classes, not loaded via PSR-4.
 // remove the includes you don't need, edit the files you do need.
-require_once WPDTRT_FORMS_PATH . 'src/class-wpdtrt-form-plugin.php';
-require_once WPDTRT_FORMS_PATH . 'src/class-wpdtrt-form-shortcode.php';
-require_once WPDTRT_FORMS_PATH . 'src/class-wpdtrt-form-widget.php';
+require_once WPDTRT_FORM_PATH . 'src/class-wpdtrt-form-plugin.php';
+require_once WPDTRT_FORM_PATH . 'src/class-wpdtrt-form-shortcode.php';
+require_once WPDTRT_FORM_PATH . 'src/class-wpdtrt-form-widget.php';
 
 // log & trace helpers.
 global $debug;
@@ -320,9 +320,9 @@ function wpdtrt_form_plugin_init() {
 	 */
 	$wpdtrt_form_plugin = new WPDTRT_Form_Plugin(
 		array(
-			'path'                  => WPDTRT_FORMS_PATH,
-			'url'                   => WPDTRT_FORMS_URL,
-			'version'               => WPDTRT_FORMS_VERSION,
+			'path'                  => WPDTRT_FORM_PATH,
+			'url'                   => WPDTRT_FORM_URL,
+			'version'               => WPDTRT_FORM_VERSION,
 			'prefix'                => 'wpdtrt_form',
 			'slug'                  => 'wpdtrt-form',
 			'menu_title'            => __( 'Form', 'wpdtrt-form' ),

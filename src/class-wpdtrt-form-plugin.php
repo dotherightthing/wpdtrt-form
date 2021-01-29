@@ -145,7 +145,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 
 		if ( key_exists( 'value', $plugin_options['template'] ) ) {
 			$template = $plugin_options['template']['value'];
-			$endpoint = ( WPDTRT_FORMS_URL . 'data/form-' . $template . '.json' );
+			$endpoint = ( WPDTRT_FORM_URL . 'data/form-' . $template . '.json' );
 		}
 
 		return $endpoint;
@@ -268,7 +268,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 			}
 
 			$data = $this->get_plugin_data();
-			require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-form-status.php';
+			require WPDTRT_FORM_PATH . 'template-parts/wpdtrt-form-status.php';
 
 			return $sentmail;
 		}
