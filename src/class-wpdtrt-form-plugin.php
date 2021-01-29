@@ -193,15 +193,15 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 
 		$submitted_data = array();
 
+		// this requires json_decode to use the optional second argument to return an associative array.
+		$data            = $this->get_plugin_data();
+		$form_id         = $data['form_id'];
+		$template_fields = $data['template_fields'];
+
 		// if the submit button is clicked, send the email.
-		if ( isset( $_POST['wpdtrt_form_submitted'] ) ) {
+		if ( isset( $_POST[ 'wpdtrt-' . $form_id . '-submitted' ] ) ) {
 
 			$wpdtrt_form_options = get_option( 'wpdtrt_form' );
-
-			// this requires json_decode to use the optional second argument to return an associative array.
-			$data            = $this->get_plugin_data();
-			$form_id         = $data['form_id'];
-			$template_fields = $data['template_fields'];
 
 			// sanitize form values
 			// empty or unsanitary values are output as ''.
@@ -243,10 +243,10 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 * @see http://www.wordpresscheatsheets.com/how-to-send-html-emails-from-wordpress-using-wp_mail-function
 	 * @todo Use template loader
 	 */
-	public function helper_sendmail( $form_name ) {
+	public function helper_sendmail( $form_id, $form_name ) {
 
 		// if the submit button is clicked, send the email.
-		if ( isset( $_POST['wpdtrt_form_submitted'] ) ) {
+		if ( isset( $_POST[ 'wpdtrt-' . $form_id . '-submitted' ] ) ) {
 
 			$submitted_data = $this->helper_sanitize_form_data();
 

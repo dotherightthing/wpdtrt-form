@@ -64,7 +64,7 @@ if ( key_exists( 'template_fields', $data ) ) {
 	$form_id         = $data['form_id'];
 	$form_name       = $data['form_name'];
 	$template_fields = $data['template_fields'];
-	$sent            = $plugin->helper_sendmail( $form_name );
+	$sent            = $plugin->helper_sendmail( $form_id, $form_name );
 
 	$current_url = $_SERVER['REQUEST_URI'];
 
@@ -75,7 +75,7 @@ if ( key_exists( 'template_fields', $data ) ) {
 
 	// if the form hasn't been submitted yet
 	// or if it was submitted but couldn't be sent due to errors.
-	if ( ! isset( $_POST['wpdtrt_form_submitted'] ) || ( false === $sent ) ) {
+	if ( ! isset( $_POST[ 'wpdtrt-' . $form_id . '-submitted' ] ) || ( false === $sent ) ) {
 		$render_form = true;
 	}
 }
@@ -159,7 +159,7 @@ if ( $render_form ) :
 			<?php endforeach; ?>
 
 			<div class="wpdtrt-form__submit-wrapper">
-				<input type="submit" name="wpdtrt_form_submitted" id="wpdtrt_form_submitted" class="wpdtrt-form__submit" value="<?php echo $data['submit']; ?>">
+				<input type="submit" name="wpdtrt-<?php echo $form_id; ?>-submitted" id="wpdtrt-<?php echo $form_id; ?>-submitted" class="wpdtrt-form__submit" value="<?php echo $data['submit']; ?>">
 			</div>
 		</fieldset>
 	</form>
