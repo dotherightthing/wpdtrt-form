@@ -26,6 +26,120 @@
 
 @import '../node_modules/wpdtrt-scss/scss/extends';
 
+.wpdtrt-forms {
+    &__hint {
+        display: block;
+        font-size: .7em;
+        line-height: 1.25;
+        font-style: normal;
+        margin-top: 8px;
+    }
+
+    &__textfield-sizes {
+        &.large-text {
+            width: 85%;
+        }
+
+        &.regular-text {
+            width: 350px;
+        }
+
+        &.small-text {
+            width: 50px;
+        }
+
+        &.tiny-text {
+            width: 35px;
+        }
+    }
+}
+
 // -------------------------------------------------------------------
 // Styles
 // -------------------------------------------------------------------
+
+.wpdtrt-plugin-boilerplate {
+
+    // Options page
+
+    &__options {
+        input {
+            &[type='date'],
+            &[type='datetime-local'],
+            &[type='email'],
+            &[type='month'],
+            &[type='number'],
+            &[type='password'],
+            &[type='search'],
+            &[type='tel'],
+            &[type='text'],
+            &[type='time'],
+            &[type='url'],
+            &[type='week'] {
+                @extend .wpdtrt-forms__textfield-sizes;
+            }
+        }
+
+        textarea {
+            @extend .wpdtrt-forms__textfield-sizes;
+        }
+
+        .form-table {
+            .description {
+                @extend .wpdtrt-forms__hint;
+            }
+        }
+
+        // restyle WP .spinner
+        .spinner {
+            float: none;
+            width: auto;
+            padding-left: 27px;
+            margin-left: 0;
+        }
+    }
+
+    // Widget page
+
+    &__widget-field {
+        .description {
+            @extend .wpdtrt-forms__hint;
+        }
+    }
+}
+
+// Attachment page
+
+// hide unused core fields, to show custom fields sooner
+.attachment-details {
+    > [data-setting='title'],
+    > [data-setting='description'],
+    > [data-setting='url'] {
+        display: none;
+    }
+}
+
+// hide redundant warning, to show custom fields sooner
+.media-types-required-info {
+    display: none;
+}
+
+// create a visual separator before the custom fields
+.compat-item {
+    table {
+        &.compat-attachment-fields {
+            padding-top: 5px;
+            border-top: 1px solid var(--wpdtrt-scss-admin-divider-color);
+            margin-top: 15px;
+        }
+    }
+}
+
+.compat-attachment-fields {
+    // reduce size of help text, to compress custom fields
+    p {
+        &.help {
+            @extend %wpdtrt-plugin-boilerplate-hint;
+        }
+    }
+}

@@ -50,8 +50,8 @@
 
 .wpdtrt-forms {
     &__button {
-        background-color: var(--wpdtrt-scss-form-button-bgcolor);
-        color: var(--wpdtrt-scss-form-button-color);
+        background-color: var(--wpdtrt-forms-button-bgcolor);
+        color: var(--wpdtrt-forms-button-color);
         font-size: .7em;
         line-height: normal;
         font-weight: bold;
@@ -63,9 +63,9 @@
     }
 
     &__error {
-        color: var(--wpdtrt-scss-form-error-color);
+        color: var(--wpdtrt-forms-error-color);
         font-weight: normal;
-        border-color: var(--wpdtrt-scss-form-error-color);
+        border-color: var(--wpdtrt-forms-error-color);
     }
 
     &__error-list {
@@ -171,14 +171,14 @@
     &__textfield {
         display: block;
         width: 100%;
-        background-color: var(--wpdtrt-scss-form-textfield-bgcolor);
+        background-color: var(--wpdtrt-forms-textfield-bgcolor);
         font-size: .9em;
         line-height: normal;
         padding: 8px;
-        border: 1px solid var(--wpdtrt-scss-form-textfield-bordercolor);
+        border: 1px solid var(--wpdtrt-forms-textfield-bordercolor);
 
         &:focus {
-            background-color: var(--wpdtrt-scss-form-textfield-bgcolor-focus);
+            background-color: var(--wpdtrt-forms-textfield-bgcolor-focus);
         }
 
         &.error {
@@ -258,4 +258,24 @@ textarea {
     &[id] { // override noramlize
         @extend .wpdtrt-forms__textfield;
     }
+}
+
+.comment-form {
+    label {
+        @extend .wpdtrt-forms__label;
+    }
+
+    .validation {
+        @extend .wpdtrt-forms__validation;
+    }
+
+    > p {
+        .entry-content & {
+            @extend .wpdtrt-forms__item;
+        }
+    }
+}
+
+.comment-notes {
+    @extend .wpdtrt-forms__intro;
 }

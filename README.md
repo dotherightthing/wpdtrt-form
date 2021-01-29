@@ -14,9 +14,13 @@ Please read the [WordPress readme.txt](readme.txt).
 
 ## WordPress Usage
 
+### Backend forms
+
+Limited restyling of the WP Admin plugin options page.
+
 ### Comment form
 
-DTRT Forms provides styling and jQuery validation of the standard comment form (`#commentform`).
+Styling and jQuery validation of the standard comment form (`#commentform`).
 
 ### Custom form shortcode
 
