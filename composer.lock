@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3070c9f2154f5dcda63a94b40c5d9138",
+    "content-hash": "6ddf4a262eab68ffbf9c455f69999038",
     "packages": [
         {
             "name": "dotherightthing/wpdtrt-debug",
