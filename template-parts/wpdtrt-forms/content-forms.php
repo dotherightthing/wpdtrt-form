@@ -83,10 +83,10 @@ if ( $render_form ) :
 	?>
 
 <div class="wpdtrt-forms">
-		<form action="<?php esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" class="wpdtrt-forms-template wpdtrt-forms-template-<?php echo $template; ?>">
-			<fieldset class="wpdtrt-forms__fieldset">
+	<form action="<?php esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" class="wpdtrt-forms-template wpdtrt-forms-template-<?php echo $template; ?>">
+		<fieldset class="wpdtrt-forms__fieldset">
 			<legend class="wpdtrt-forms-legend wpdtrt-forms__hidden"><?php echo $data['legend']; ?></legend>
-			<ul class="wpdtrt-forms__fields">
+			<div class="wpdtrt-forms__fields">
 
 				<?php
 				foreach ( $template_fields as $field ) :
@@ -143,14 +143,13 @@ if ( $render_form ) :
 					?>
 				</div>
 
-			<?php endforeach; ?>
+				<?php endforeach; ?>
 
-		</ul>
+			</div>
 
-		<div>
-		<input type="submit" name="wpdtrt_forms_submitted" class="wpdtrt-forms__submit" value="<?php echo $data['submit']; ?>">
-		</div>
-
+			<div>
+				<input type="submit" name="wpdtrt_forms_submitted" class="wpdtrt-forms__submit" value="<?php echo $data['submit']; ?>">
+			</div>
 		</fieldset>
 	</form>
 </div>
