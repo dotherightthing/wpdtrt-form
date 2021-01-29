@@ -2,6 +2,7 @@
 	"error_class": "error",
 	"error_message": "Please correct the following errors:",
 	"form_id": "contact-form",
+	"form_name": "Contact",
 	"legend": "Contact form",
 	"legend_class": "comment-reply-title entry-summary",
 	"notes_class": "comment-notes",

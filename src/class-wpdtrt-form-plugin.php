@@ -224,13 +224,14 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	/**
 	 * Send an email using $_POST data
 	 *
+	 * @param {string} $form_name The name of the form.
 	 * @return $sentmail Whether the email contents were sent successfully.
 	 *
 	 * @see https://developer.wordpress.org/reference/functions/wp_mail/
 	 * @see http://www.wordpresscheatsheets.com/how-to-send-html-emails-from-wordpress-using-wp_mail-function
 	 * @todo Use template loader
 	 */
-	public function helper_sendmail() {
+	public function helper_sendmail( $form_name ) {
 
 		// if the submit button is clicked, send the email.
 		if ( isset( $_POST['wpdtrt_form_submitted'] ) ) {
@@ -248,7 +249,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 
 				$message  = $submitted_data['message'] . "\r\n\r\n";
 				$message .= '---' . "\r\n\r\n";
-				$message .= 'Sent from the "' . $blogname . '" Contact Form.';
+				$message .= "Sent from the {$blogname} {$form_name} form.";
 			} else {
 				$message = '';
 			}
