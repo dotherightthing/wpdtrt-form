@@ -139,7 +139,7 @@
     // reduce size of help text, to compress custom fields
     p {
         &.help {
-            @extend %wpdtrt-plugin-boilerplate-hint;
+            @extend .wpdtrt-form__hint;
         }
     }
 }
