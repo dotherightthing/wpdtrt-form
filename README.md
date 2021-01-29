@@ -57,8 +57,13 @@ TODO
 3. Update php.ini (in MAMP Pro this is `File > Edit > PHP > Version`):
     1. Replace `sendmail_path =` with `sendmail_path = /usr/bin/env catchmail -f wpdev@localhost.dev` (any email works)
     1. Replace `smtp_port = 25` with `smtp_port = 1025`
-4. Send mail via a form submit etc
-5. Watch for mail at <http://127.0.0.1:1080/>
+4. MAMP Pro View > Postfix
+    1. Include Postfix service in GroupStart
+    2. Set domain of outgoing e-mails to: `localhostname.tld`
+    3. Use a Smart host for routing
+       1. Server name: 127.0.0.1:1080
+5. Send mail via a form submit etc
+6. Watch for mail at <http://127.0.0.1:1080/>
 
 ### Styling
 
