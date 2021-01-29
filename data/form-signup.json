@@ -1,9 +1,9 @@
 {
 	"error_class": "error",
 	"error_message": "Please correct the following errors:",
-	"legend": "Contact form",
+	"legend": "Signup form",
 	"success_class": "success",
-	"success_message": "Thank you for contacting me! I'll get back to you as soon as I can.",
+	"success_message": "Thank you for signing up! I'll email you when new entries are added to the Tour Diary.",
 	"submit": "Submit",
 	"template_fields": [
 		{
@@ -28,25 +28,10 @@
 	        "sanitizer": "sanitize_email"
 		},
 		{
-	        "id": "subject",
-	        "label": "Subject",
-	        "required": "true",
+	        "id": "email_updates",
+	        "label": "Email me when new entries are added to the Tour Diary",
 	        "element": "input",
-	        "type": "text",
-	        "html5_validation": "[a-zA-Z ]+",
-	        "size": "40",
-	        "error": "Please enter a subject",
-	        "sanitizer": "sanitize_text_field"
-		},
-		{
-	        "id": "message",
-	        "label": "Message",
-	        "required": "true",
-	        "element": "textarea",
-	        "rows": "6",
-	        "cols": "35",
-	        "error": "Please enter your message",
-	        "sanitizer": "sanitize_textarea_field"
+	        "type": "checkbox"
 		}
 	]
 }
