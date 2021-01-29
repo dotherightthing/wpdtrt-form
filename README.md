@@ -44,15 +44,21 @@ Options
 
 Edit the data file to change the field attributes or order: `./data/form-{templatename}.json`
 
+### SPAM management
+
+TODO
+
 ### Testing that form data is sent to your email address
 
-<https://mailcatcher.me/> via <https://wordpress.stackexchange.com/a/195830>:
+<https://mailcatcher.me/> via <https://wordpress.stackexchange.com/a/195830> and <https://tommcfarlin.com/mailcatcher-mamp-wordpress/>:
 
 1. `gem install mailcatcher`
 2. `mailcatcher`
-3. Go to <http://127.0.0.1:1080/>
-4. Send mail through `smtp://127.0.0.1:1025`
-5. Update php.ini: `sendmail_path = /usr/bin/env catchmail -f some@from.address`. In MAMP Pro this is `File > Edit > PHP > Version`.
+3. Update php.ini (in MAMP Pro this is `File > Edit > PHP > Version`):
+    1. Replace `sendmail_path =` with `sendmail_path = /usr/bin/env catchmail -f wpdev@localhost.dev` (any email works)
+    1. Replace `smtp_port = 25` with `smtp_port = 1025`
+4. Send mail via a form submit etc
+5. Watch for mail at <http://127.0.0.1:1080/>
 
 ### Styling
 
