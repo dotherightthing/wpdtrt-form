@@ -73,6 +73,57 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_
 	 */
 
 	/**
+	 * Add project-specific frontend scripts
+	 *
+	 * Use this function to:
+	 * - load scripts in addition to js/frontend-es5.js (via wp_enqueue_script)
+	 * - add keys to <%= nameSafe %>_config (via wp_localize_script)
+	 *
+	 * Don't use function this to:
+	 * - add ES6 scripts requiring transpiling (load them using frontend.txt instead)
+	 *
+	 * @see wpdtrt-plugin-boilerplate/src/Plugin.php
+	 */
+	public function render_js_frontend() {
+		$attach_to_footer = true;
+
+		wp_register_script( 'jquery_validate',
+			$this->get_url() . 'node_modules/jquery-validation/dist/jquery.validate.js',
+			array(
+				// load these registered dependencies first.
+				'jquery',
+			),
+			'1.16.0',
+			$attach_to_footer
+		);
+
+		wp_enqueue_script( $this->get_prefix(),
+			$this->get_url() . 'js/frontend-es5.js',
+			array(
+				// load these registered dependencies first.
+				'jquery',
+				'jquery_validate',
+			),
+			$this->get_version(),
+			$attach_to_footer
+		);
+
+		// note: after wp_enqueue_script.
+		wp_localize_script( $this->get_prefix(),
+			$this->get_prefix() . '_config',
+			array(
+				// since 2.8 ajaxurl is always defined in the admin header and points to admin-ajax.php,
+				// but we need to explicitly expose it to frontend pages.
+				'ajaxurl' => admin_url( 'admin-ajax.php' ), // wpdtrt_foobar_config.ajaxurl.
+				'options' => $this->get_options(), // wpdtrt_foobar_config.options.
+			)
+		);
+
+		// If editing this function, remove this line to replace the parent function.
+		// parent::render_js_frontend();.
+	}
+
+	/**
 	 * Group: Filters
 	 * _____________________________________
 	 */

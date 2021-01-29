@@ -44,7 +44,10 @@ See `scss/variables/_css.scss`.
 
 ## Dependencies
 
-None.
+### JavaScript
+
+* [jQuery](https://jquery.com/)
+* [jQuery Validation Plugin](https://jqueryvalidation.org/)
 
 ## Demo pages
 

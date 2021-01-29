@@ -3,7 +3,12 @@
   "name": "wpdtrt-forms",
   "version": "0.2.4",
   "description": "Simple, accessible forms.",
-  "keywords": ["forms", "accessible", "WCAG", "wordpress-plugin"],
+  "keywords": [
+    "forms",
+    "accessible",
+    "WCAG",
+    "wordpress-plugin"
+  ],
   "main": "wpdtrt-forms.php",
   "person": {
     "name": "Dan Smith",
@@ -43,6 +48,8 @@
   "homepage": "https://github.com/dotherightthing/wpdtrt-forms",
   "srcDir": "/Volumes/DanBackup/Websites/wpdtrt-forms",
   "dependencies": {
+    "jquery": "1.12.4",
+    "jquery-validation": "^1.19.3",
     "wpdtrt-scss": "github:dotherightthing/wpdtrt-scss#semver:*"
   },
   "devDependencies": {
