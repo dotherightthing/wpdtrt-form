@@ -8,7 +8,7 @@
 	"template_fields": [
 		{
 			"id": "name",
-			"label": "Name:",
+			"label": "Name",
 			"required": "true",
 			"element": "input",
 			"type": "text",
@@ -19,7 +19,7 @@
 		},
 		{
 	        "id": "email",
-	        "label": "Email:",
+	        "label": "Email",
 	        "required": "true",
 	        "element": "input",
 	        "type": "text",
@@ -35,7 +35,7 @@
 		},
 		{
 	        "id": "subject",
-	        "label": "Subject:",
+	        "label": "Subject",
 	        "required": "true",
 	        "element": "input",
 	        "type": "text",
@@ -46,7 +46,7 @@
 		},
 		{
 	        "id": "message",
-	        "label": "Message:",
+	        "label": "Message",
 	        "required": "true",
 	        "element": "textarea",
 	        "rows": "6",
