@@ -188,6 +188,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 
 			// this requires json_decode to use the optional second argument to return an associative array.
 			$data            = $this->get_plugin_data();
+			$form_id         = $data['form_id'];
 			$template_fields = $data['template_fields'];
 
 			// sanitize form values
@@ -211,7 +212,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 						 *
 						 * @see http://php.net/manual/en/function.call-user-func.php
 						 */
-						$submitted_data[ $template_field['id'] ] = call_user_func( $sanitizer, $_POST[ 'wpdtrt_form_' . $template_field['id'] ] );
+						$submitted_data[ $template_field['id'] ] = call_user_func( $sanitizer, $_POST[ 'wpdtrt-' . $form_id . '-' . $template_field['id'] ] );
 					}
 				}
 			}
