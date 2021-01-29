@@ -26,19 +26,6 @@
 
 @import '../node_modules/wpdtrt-scss/scss/extends';
 
-%wpdtrt-forms {
-    &-block {
-        box-sizing: border-box;
-        padding: .3em;
-        border: 1px solid var(--wpdtrt-forms-border-color);
-    }
-
-    &-block-error {
-        background-color: var(--wpdtrt-forms-error-bgcolor);
-        border-color: var(--wpdtrt-forms-error-color);
-    }
-}
-
 // -------------------------------------------------------------------
 // Styles
 // -------------------------------------------------------------------
@@ -49,6 +36,17 @@
 // Custom forms
 
 .wpdtrt-forms {
+    &__block {
+        box-sizing: border-box;
+        padding: .3em;
+        border: 1px solid var(--wpdtrt-forms-border-color);
+    }
+
+    &__block-error {
+        background-color: var(--wpdtrt-forms-error-bgcolor);
+        border-color: var(--wpdtrt-forms-error-color);
+    }
+
     &__button {
         background-color: var(--wpdtrt-forms-button-bgcolor);
         color: var(--wpdtrt-forms-button-color);
@@ -115,10 +113,10 @@
 
         > input[type='text'],
         > textarea {
-            // @extend %wpdtrt-forms-block;
+            // @extend .wpdtrt-forms__block;
 
             &[aria-invalid='true'] {
-                @extend %wpdtrt-forms-block-error;
+                @extend .wpdtrt-forms__block-error;
             }
         }
 
