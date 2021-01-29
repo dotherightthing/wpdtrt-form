@@ -46,68 +46,26 @@
 // @import '../icons/icomoon/style.scss';
 @import '../node_modules/wpdtrt-scss/scss/_frontend';
 
+// Custom forms
+
 .wpdtrt-forms {
-    &__demo {
-        background-color: var(--wpdtrt-forms-demo-bgcolor);
+    &__button {
+        background-color: var(--wpdtrt-scss-form-button-bgcolor);
+        color: var(--wpdtrt-scss-form-button-color);
+        font-size: .7em;
+        line-height: normal;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding: 12px;
+        border: 0;
+        margin: 0;
+        cursor: pointer;
     }
 
-    &__status {
-        color: var(--wpdtrt-forms-status-color);
-        margin-bottom: 1em;
-
-        p {
-            padding-top: 0;
-        }
-    }
-
-    &__fieldset {
-        @extend %wpdtrt-scss-reset-fieldset;
-    }
-
-    &__fields {
-        @extend %wpdtrt-scss-reset-list;
-    }
-
-    &__label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 5px;
-
-        &--required {
-            &::after {
-                content: ' *';
-                color: var(--wpdtrt-forms-error-color);
-            }
-        }
-    }
-
-    &__field {
-        @extend %wpdtrt-scss-reset-list;
-        margin-bottom: 16px;
-
-        > * {
-            width: 100%;
-        }
-
-        > input[type='text'],
-        > textarea {
-            @extend %wpdtrt-forms-block;
-
-            &[aria-invalid='true'] {
-                @extend %wpdtrt-forms-block-error;
-            }
-        }
-
-        > input[type='checkbox'] {
-            float: left;
-            width: auto;
-            margin-top: 3px;
-
-            + &__label {
-                width: auto;
-                margin-left: 24px;
-            }
-        }
+    &__error {
+        color: var(--wpdtrt-scss-form-error-color);
+        font-weight: normal;
+        border-color: var(--wpdtrt-scss-form-error-color);
     }
 
     &__error-list {
@@ -131,31 +89,173 @@
         }
     }
 
-    &__error-inline {
-        p {
-            @extend %wpdtrt-forms-block;
-            display: inline-block;
-            position: relative;
-            top: -.1em;
-            background-color: var(--wpdtrt-forms-error-color);
-            color: var(--wpdtrt-forms-error-inline-color);
-            font-size: .8em;
-            padding-top: .1em;
-            padding-bottom: .1em;
-            margin-bottom: 1em;
+    &__fieldset {
+        @extend %wpdtrt-scss-reset-fieldset;
+    }
+
+    &__hint {
+        display: block;
+        font-size: .7em;
+        line-height: 1.25;
+        font-style: normal;
+        margin-top: 8px;
+    }
+
+    &__intro {
+        font-size: .9em;
+    }
+
+    &__item {
+        // label and input
+        margin-bottom: 32px;
+
+        > * {
+            width: 100%;
+        }
+
+        > input[type='text'],
+        > textarea {
+            // @extend %wpdtrt-forms-block;
+
+            &[aria-invalid='true'] {
+                @extend %wpdtrt-forms-block-error;
+            }
+        }
+
+        > input[type='checkbox'] {
+            float: left;
+            width: auto;
+            margin-top: 3px;
+
+            + &__label {
+                width: auto;
+                margin-left: 24px;
+            }
         }
     }
 
-    &__submit {
-        background-color: var(--wpdtrt-forms-submit-bgcolor);
-        color: var(--wpdtrt-forms-submit-color);
-        font-weight: 600;
-        padding: 14px 28px;
-        border: 0;
-        margin-top: 26px;
+    &__label {
+        display: block;
+        font-size: .85em;
+        line-height: 1.25;
+        margin-bottom: 10px;
+
+        &--required {
+            &::after {
+                content: ' *';
+                color: var(--wpdtrt-forms-error-color);
+            }
+        }
+
+        &.error {
+            > .required {
+                @extend .wpdtrt-forms__error;
+            }
+        }
     }
 
-    &__hidden {
-        @extend %wpdtrt-scss-hide-visually;
+    &__select {
+        font-size: .9em;
+    }
+
+    &__status {
+        background-color: var(--wpdtrt-forms-status-bgcolor);
+        color: var(--wpdtrt-forms-status-color);
+        margin-bottom: 1em;
+
+        p {
+            padding-top: 0;
+        }
+    }
+
+    &__textfield {
+        display: block;
+        width: 100%;
+        background-color: var(--wpdtrt-scss-form-textfield-bgcolor);
+        font-size: .9em;
+        line-height: normal;
+        padding: 8px;
+        border: 1px solid var(--wpdtrt-scss-form-textfield-bordercolor);
+
+        &:focus {
+            background-color: var(--wpdtrt-scss-form-textfield-bgcolor-focus);
+        }
+
+        &.error {
+            @extend .wpdtrt-forms__error;
+        }
+    }
+
+    &__textfield-sizes {
+        &.large-text {
+            width: 85%;
+        }
+
+        &.regular-text {
+            width: 350px;
+        }
+
+        &.small-text {
+            width: 50px;
+        }
+
+        &.tiny-text {
+            width: 35px;
+        }
+    }
+
+    &__validation {
+        @extend .wpdtrt-forms__hint;
+
+        strong {
+            font-weight: normal;
+        }
+
+        > .error {
+            @extend .wpdtrt-forms__error;
+        }
+    }
+}
+
+// WordPress forms
+
+// button element is handled per project via custom selector
+
+input {
+    &[id] { // override noramlize
+        &[type='button'],
+        &[type='reset'],
+        &[type='submit'] {
+            &,
+            &[disabled] {
+                @extend .wpdtrt-forms__button;
+
+                &:hover,
+                &:focus {
+                    @extend .wpdtrt-forms__button;
+                }
+            }
+        }
+
+        &[type='date'],
+        &[type='datetime-local'],
+        &[type='email'],
+        &[type='month'],
+        &[type='number'],
+        &[type='password'],
+        &[type='search'],
+        &[type='tel'],
+        &[type='text'],
+        &[type='time'],
+        &[type='url'],
+        &[type='week'] {
+            @extend .wpdtrt-forms__textfield;
+        }
+    }
+}
+
+textarea {
+    &[id] { // override noramlize
+        @extend .wpdtrt-forms__textfield;
     }
 }

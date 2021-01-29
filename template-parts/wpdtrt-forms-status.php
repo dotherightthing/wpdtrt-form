@@ -15,7 +15,7 @@ $class   = ( $sentmail ? $data['success_class'] : $data['error_class'] );
 $message = ( $sentmail ? $data['success_message'] : $data['error_message'] );
 ?>
 
-<div class="wpdtrt-forms__status wpdtrt-forms__status_<?php echo $class; ?>">
+<div class="wpdtrt-forms__status wpdtrt-forms__status-<?php echo $class; ?>">
 <p><?php echo $message; ?></p>
 <?php if ( 'true' === $errors_list ) : ?>
 <ol class="wpdtrt-forms__error-list">
