@@ -217,7 +217,7 @@ class WPDTRT_Forms_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_
 			}
 
 			$data = $this->get_plugin_data();
-			require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms__status.php';
+			require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-status.php';
 
 			return $sentmail;
 		}
