@@ -86,66 +86,64 @@ if ( $render_form ) :
 	<form action="<?php esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" class="comment-form wpdtrt-forms-template wpdtrt-forms-template-<?php echo $template; ?>">
 		<fieldset class="wpdtrt-forms__fieldset">
 			<legend class="wpdtrt-forms-legend wpdtrt-forms__hidden"><?php echo $data['legend']; ?></legend>
-			<div class="wpdtrt-forms__fields">
+
+			<?php
+			foreach ( $template_fields as $field ) :
+
+				// predeclare variables.
+				$id               = null;
+				$label            = null;
+				$required         = null;
+				$element          = null;
+				$type             = null;
+				$html5_validation = null;
+				$size             = null;
+				$rows             = null;
+				$cols             = null;
+				$error            = null;
+
+				// only overwrite predeclared variables.
+				extract( $field, EXTR_IF_EXISTS );
+
+				$required             = isset( $required );
+				$required_label_class = $required ? ' wpdtrt-forms__label--required' : '';
+				$name                 = $id;
+				$id                   = 'wpdtrt_forms_' . $id;
+				$value                = ( isset( $_POST[ $id ] ) ? esc_attr( $_POST[ $id ] ) : '' );
+				?>
+
+			<div class="wpdtrt-forms__item">
 
 				<?php
-				foreach ( $template_fields as $field ) :
+				ob_start();
 
-					// predeclare variables.
-					$id               = null;
-					$label            = null;
-					$required         = null;
-					$element          = null;
-					$type             = null;
-					$html5_validation = null;
-					$size             = null;
-					$rows             = null;
-					$cols             = null;
-					$error            = null;
-
-					// only overwrite predeclared variables.
-					extract( $field, EXTR_IF_EXISTS );
-
-					$required             = isset( $required );
-					$required_label_class = $required ? ' wpdtrt-forms__label--required' : '';
-					$name                 = $id;
-					$id                   = 'wpdtrt_forms_' . $id;
-					$value                = ( isset( $_POST[ $id ] ) ? esc_attr( $_POST[ $id ] ) : '' );
-					?>
-
-				<div class="wpdtrt-forms__field">
-
-					<?php
-					ob_start();
-
-					switch ( $element ) {
-						case 'input':
-							if ( 'checkbox' === $type ) {
-								require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-input.php';
-								require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-label.php';
-							} else {
-								require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-label.php';
-								require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-input.php';
-								require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-error.php';
-							}
-
-							break;
-
-						case 'textarea':
+				switch ( $element ) {
+					case 'input':
+						if ( 'checkbox' === $type ) {
+							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-input.php';
 							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-label.php';
-							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-textarea.php';
+						} else {
+							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-label.php';
+							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-input.php';
 							require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-error.php';
+						}
 
-							break;
-					}
+						break;
 
-					echo ob_get_clean();
-					?>
-				</div>
+					case 'textarea':
+						require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-label.php';
+						require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-textarea.php';
+						require WPDTRT_FORMS_PATH . 'template-parts/wpdtrt-forms-error.php';
 
-				<?php endforeach; ?>
+						break;
+				}
 
+				echo ob_get_clean();
+				?>
 			</div>
+
+			<?php endforeach; ?>
+
 
 			<div>
 				<input type="submit" name="wpdtrt_forms_submitted" class="wpdtrt-forms__submit" value="<?php echo $data['submit']; ?>">
