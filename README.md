@@ -14,9 +14,13 @@ Please read the [WordPress readme.txt](readme.txt).
 
 ## WordPress Usage
 
-### Form shortcode
+### Comment form
 
-Please use the provided shortcode to embed a form:
+DTRT Forms provides styling and jQuery validation of the standard comment form (`#commentform`).
+
+### Custom form shortcode
+
+Please use the provided shortcode to embed a custom form:
 
 ```php
 <!-- within the editor -->
@@ -32,7 +36,7 @@ Options
 2. `errors_list="true|false"` - display a list of errors above the form; clicking an error jumps the user to the affected field
 3. `errors_inline="true|false"` - display each error directly after the affected field;
 
-### Edit the form fields
+### Custom form fields
 
 Edit the data file to change the field attributes or order: `./data/form-{templatename}.json`
 
@@ -51,7 +55,7 @@ See `scss/variables/_css.scss`.
 
 ## Demo pages
 
-None.
+See plugin settings page in WP Admin.
 
 ## Roadmap
 
