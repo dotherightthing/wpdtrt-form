@@ -61,8 +61,11 @@ $render_form = false;
 $data = $plugin->get_plugin_data();
 
 if ( key_exists( 'template_fields', $data ) ) {
+	$form_id         = $data['form_id'];
 	$template_fields = $data['template_fields'];
 	$sent            = $plugin->helper_sendmail();
+
+	$current_url = $_SERVER['REQUEST_URI'];
 
 	if ( false === $sent ) {
 		// get submission data.
@@ -82,33 +85,43 @@ echo $before_title . $title . $after_title;
 if ( $render_form ) :
 	?>
 
-<div class="wpdtrt-form" id="wpdtrt-form-<?php echo $template; ?>">
-	<form action="<?php esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post" class="wpdtrt-form-template wpdtrt-form-template-<?php echo $template; ?>">
+<div class="wpdtrt-form" id="wpdtrt-<?php echo $form_id; ?>-<?php echo $template; ?>">
+	<form action="<?php echo $current_url; ?>" method="post" class="wpdtrt-form-template wpdtrt-form-template-<?php echo $template; ?>">
 		<fieldset class="wpdtrt-form__fieldset">
-			<legend class="wpdtrt-form__legend wpdtrt-form__hidden"><?php echo $data['legend']; ?></legend>
-
+			<legend class="wpdtrt-form__legend <?php echo $data['legend_class']; ?>"><?php echo $data['legend']; ?></legend>
+			<p class="wpdtrt-form__notes <?php echo $data['notes_class']; ?>">
+				<?php
+				foreach ( $template_fields as $template_field ) {
+					if ( '' !== $template_field['notes'] ) {
+						echo "<span id='wpdtrt-{$form_id}-{$template_field['id']}-notes'>{$template_field['notes']}</span>";
+					}
+				}
+				?>
+				<span class="wpdtrt-form__label--required">Required fields are marked as <span class="wpdtrt-form__required"> (required)</span></span>
+			</p>
 			<?php
 			foreach ( $template_fields as $field ) :
 
 				// predeclare variables.
+				$cols             = null;
+				$element          = null;
+				$error            = null;
+				$html5_validation = null;
 				$id               = null;
 				$label            = null;
+				$notes            = null;
 				$required         = null;
-				$element          = null;
-				$type             = null;
-				$html5_validation = null;
-				$size             = null;
 				$rows             = null;
-				$cols             = null;
-				$error            = null;
+				$size             = null;
+				$type             = null;
 
 				// only overwrite predeclared variables.
 				extract( $field, EXTR_IF_EXISTS );
 
+				$id                   = "wpdtrt-{$form_id}-{$id}";
+				$name                 = $id;
 				$required             = isset( $required );
 				$required_label_class = $required ? ' wpdtrt-form__label--required' : '';
-				$name                 = $id;
-				$id                   = 'wpdtrt_form_' . $id;
 				$value                = ( isset( $_POST[ $id ] ) ? esc_attr( $_POST[ $id ] ) : '' );
 				?>
 

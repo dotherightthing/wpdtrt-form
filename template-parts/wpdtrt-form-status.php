@@ -18,7 +18,7 @@ $message = ( $sentmail ? $data['success_message'] : $data['error_message'] );
 <div class="wpdtrt-form__status wpdtrt-form__status-<?php echo $class; ?>">
 <p><?php echo $message; ?></p>
 <?php if ( 'true' === $errors_list ) : ?>
-<ol class="wpdtrt-form__error-list">
+<ol class="wpdtrt-form_-error-list">
 	<?php foreach ( $submitted_data as $key => $sanitized_value ) : ?>
 		<?php
 		if ( '' === $sanitized_value ) :

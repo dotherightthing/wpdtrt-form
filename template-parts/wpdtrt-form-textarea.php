@@ -20,21 +20,15 @@ $attr_rows        = " rows='{$rows}'";
 $attr_required    = '';
 
 if ( isset( $required ) ) {
-	$attr_required = ' aria-required="true"';
+	$attr_required = " aria-required='true' required='required' data-errors='{$id}-validation' data-msg-required='{$error}' aria-describedby='{$id}-error'";
 }
 
 if ( isset( $submitted_data[ $name ] ) ) {
 	if ( '' === $submitted_data[ $name ] ) {
 		$attr_invalid = ' aria-invalid="true"';
 	}
-
-	if ( ( '' === $submitted_data[ $name ] ) && ( 'true' === $errors_inline ) ) {
-		$attr_describedby = " aria-describedby='{$id}_error'";
-	}
 }
 
 ?>
 
-<textarea<?php echo $attr_name . $attr_id . $attr_rows . $attr_cols . $attr_required . $attr_invalid . $attr_describedby; ?>>
-	<?php echo $value; ?>
-</textarea>
+<textarea<?php echo $attr_name . $attr_id . $attr_rows . $attr_cols . $attr_required . $attr_invalid . $attr_describedby; ?>><?php echo $value; ?></textarea>

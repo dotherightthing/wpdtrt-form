@@ -13,12 +13,13 @@
 
 global $wpdtrt_form_plugin;
 $submitted_data = $wpdtrt_form_plugin->helper_sanitize_form_data();
-
-if ( isset( $submitted_data[ $name ] ) ) :
-	if ( ( '' === $submitted_data[ $name ] ) && ( '1' === $errors_inline ) ) : ?>
-<span id="<?php echo $id; ?>-validation" class="validation">
-	<strong><?php echo $error; ?></strong>
+?>
+<span id="<?php echo $id; ?>-validation" class="wpdtrt-form__validation">
+<?php
+if ( isset( $submitted_data[ $name ] ) ) {
+	if ( ( '' === $submitted_data[ $name ] ) && ( '1' === $errors_inline ) ) {
+		echo "<strong>{$error}</strong>";
+	}
+}
+?>
 </span>
-		<?php
-	endif;
-endif;

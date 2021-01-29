@@ -116,8 +116,9 @@
         margin-top: 8px;
     }
 
-    &__intro {
+    &__notes {
         font-size: .9em;
+        line-height: 1.5;
     }
 
     &__item {
@@ -151,6 +152,7 @@
     }
 
     &__legend {
+        width: 100%;
         font-weight: bold;
         margin-bottom: 32px;
     }
@@ -166,10 +168,17 @@
     &__status {
         background-color: var(--wpdtrt-form-status-bgcolor);
         color: var(--wpdtrt-form-status-color);
-        margin-bottom: 1em;
+        font-size: .8em;
+        line-height: 1.5;
+        padding: 4px; // TODO: how to do matching negative margin with CSS Grid?
+        margin-bottom: 16px;
 
         p {
-            padding-top: 0;
+            &,
+            .entry-content & {
+                padding-top: 4px;
+                margin: 0;
+            }
         }
     }
 
@@ -302,5 +311,14 @@ textarea {
 }
 
 .comment-notes {
-    @extend .wpdtrt-form__intro;
+    @extend .wpdtrt-form__notes;
+
+    .entry-content .entry-summary + & {
+        @extend .wpdtrt-form__notes;
+        margin-top: 20px;
+    }
+
+    .entry-content & {
+        margin-bottom: 32px;
+    }
 }

@@ -37,16 +37,22 @@ if ( isset( $html5_validation ) ) {
 }
 
 if ( isset( $required ) ) {
-	$attr_required = ' aria-required="true"';
+	$attr_required = " aria-required='true' required='required' data-errors='{$id}-validation' data-msg-required='{$error}'";
+}
+
+if ( isset( $required ) ) {
+	if ( '' !== $notes ) {
+		$attr_describedby = " aria-describedby='{$id}-error {$id}-notes'";
+	} else {
+		$attr_describedby = " aria-describedby='{$id}-error'";
+	}
+} elseif ( '' !== $notes ) {
+	$attr_describedby = " aria-describedby='{$id}-notes'";
 }
 
 if ( isset( $submitted_data[ $name ] ) ) {
 	if ( ( 'checkbox' !== $type ) && ( '' === $submitted_data[ $name ] ) ) {
 		$attr_invalid = ' aria-invalid="true"';
-	}
-
-	if ( ( 'checkbox' !== $type ) && ( '' === $submitted_data[ $name ] ) && ( 'true' === $errors_inline ) ) {
-		$attr_describedby = " aria-describedby='{$id}_error'";
 	}
 }
 
