@@ -11,16 +11,17 @@
  * @subpackage  Wpdtrt_Form/views
  */
 
-$attr_checked     = '';
-$attr_describedby = '';
-$attr_id          = " id='{$id}'";
-$attr_invalid     = '';
-$attr_name        = " name='{$id}'";
-$attr_pattern     = '';
-$attr_required    = '';
-$attr_size        = '';
-$attr_type        = " type='{$type}'";
-$attr_value       = '';
+$attr_checked           = '';
+$attr_describedby       = '';
+$attr_describedby_value = '';
+$attr_id                = " id='{$id}'";
+$attr_invalid           = '';
+$attr_name              = " name='{$id}'";
+$attr_pattern           = '';
+$attr_required          = '';
+$attr_size              = '';
+$attr_type              = " type='{$type}'";
+$attr_value             = '';
 
 if ( 'checkbox' === $type ) {
 	$attr_checked = ' ' . checked( $value, 1 );
@@ -40,14 +41,16 @@ if ( isset( $required ) ) {
 	$attr_required = " aria-required='true' required='required' data-errors='{$id}-validation' data-msg-required='{$error}'";
 }
 
-if ( isset( $required ) ) {
-	if ( '' !== $notes ) {
-		$attr_describedby = " aria-describedby='{$id}-error {$id}-notes'";
-	} else {
-		$attr_describedby = " aria-describedby='{$id}-error'";
-	}
-} elseif ( '' !== $notes ) {
-	$attr_describedby = " aria-describedby='{$id}-notes'";
+if ( '' !== $notes ) {
+	$attr_describedby_value = "{$id}-notes";
+}
+
+if ( ( '1' === $errors_inline ) && isset( $required ) ) {
+	$attr_describedby_value .= " {$id}-error";
+}
+
+if ( '' !== $attr_describedby_value ) {
+	$attr_describedby = " aria-describedby='{$attr_describedby_value}'";
 }
 
 if ( isset( $submitted_data[ $name ] ) ) {

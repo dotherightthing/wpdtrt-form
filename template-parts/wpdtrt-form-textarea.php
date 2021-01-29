@@ -20,7 +20,20 @@ $attr_rows        = " rows='{$rows}'";
 $attr_required    = '';
 
 if ( isset( $required ) ) {
-	$attr_required = " aria-required='true' required='required' data-errors='{$id}-validation' data-msg-required='{$error}' aria-describedby='{$id}-error'";
+	$attr_required = " aria-required='true' required='required' data-errors='{$id}-validation' data-msg-required='{$error}'";
+}
+
+if ( '' !== $notes ) {
+	$attr_describedby_value = "{$id}-notes";
+}
+
+if ( ( '1' === $errors_inline ) && isset( $required ) ) {
+	$attr_describedby_value .= " {$id}-error";
+}
+
+if ( '' !== $attr_describedby_value ) {
+	$attr_describedby_value = trim( $attr_describedby_value );
+	$attr_describedby       = " aria-describedby='{$attr_describedby_value}'";
 }
 
 if ( isset( $submitted_data[ $name ] ) ) {
