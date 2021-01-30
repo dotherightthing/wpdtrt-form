@@ -60,17 +60,19 @@ $render_form = false;
 // get existing plugin data (not get_api_data).
 $data = $plugin->get_plugin_data();
 
+global $debug;
+
 if ( key_exists( 'template_fields', $data ) ) {
 	$form_action          = $_SERVER['REQUEST_URI'];
 	$form_id_raw          = $data['form_id'];
-	$form_id              = $this->get_form_id( $form_id_raw );
-	$form_name_raw        = $data['form_name'];
+	$form_id              = $plugin->get_form_id( $form_id_raw );
+	$form_name            = $data['form_name'];
 	$template_fields      = $data['template_fields'];
-	$field_id_submitted   = $this->get_field_id( $form_id_raw, 'submitted' );
-	$field_name_submitted = $this->get_field_name( $form_id_raw, 'submitted' );
+	$field_id_submitted   = $plugin->get_field_id( $form_id_raw, 'submitted' );
+	$field_name_submitted = $plugin->get_field_name( $form_id_raw, 'submitted' );
 
 	// send form submission to email and output wpdtrt-form-status.php.
-	$sent = $plugin->helper_sendmail( $form_id_raw, $form_name_raw, $errors_list );
+	$sent = $plugin->helper_sendmail( $form_id_raw, $form_name, $errors_list );
 
 	if ( false === $sent ) {
 		// get submission data.
@@ -100,7 +102,7 @@ if ( $render_form ) :
 				<?php
 				foreach ( $template_fields as $template_field ) {
 					if ( array_key_exists( 'notes', $template_field ) ) {
-						$field_id   = $this->get_field_id( $form_id_raw, $template_field['id'] );
+						$field_id   = $plugin->get_field_id( $form_id_raw, $template_field['id'] );
 						$field_text = $template_field['notes'];
 
 						echo "<span id='{$field_id}-notes'>{$field_text}</span>";
@@ -130,8 +132,8 @@ if ( $render_form ) :
 				// only overwrite predeclared variables.
 				extract( $field, EXTR_IF_EXISTS );
 
-				$field_id             = $this->get_field_id( $form_id_raw, $id );
-				$field_name           = $this->get_field_name( $form_id_raw, $id );
+				$field_id             = $plugin->get_field_id( $form_id_raw, $id );
+				$field_name           = $plugin->get_field_name( $form_id_raw, $id );
 				$required             = isset( $required );
 				$required_label_class = $required ? ' wpdtrt-form__label--required' : '';
 				$value                = ( isset( $_POST[ $field_name ] ) ? esc_attr( $_POST[ $field_name ] ) : '' );
