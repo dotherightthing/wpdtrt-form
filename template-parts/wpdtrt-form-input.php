@@ -25,6 +25,7 @@ $attr_required          = '';
 $attr_size              = '';
 $attr_type              = " type='{$type}'";
 $attr_value             = '';
+$value                  = esc_attr( $value );
 
 if ( isset( $autocomplete ) ) {
 	$attr_autocomplete = " autocomplete='{$autocomplete}'";
@@ -59,7 +60,7 @@ if ( '' !== $attr_describedby_value ) {
 	$attr_describedby       = " aria-describedby='{$attr_describedby_value}'";
 }
 
-if ( ! isset( $sanitized_form_data[ $field_name ] ) || '' === $sanitized_form_data[ $field_name ] ) {
+if ( isset( $sanitized_form_data ) && array_key_exists( $field_name, $sanitized_form_data ) && '' === $sanitized_form_data[ $field_name ] ) {
 	if ( 'checkbox' !== $type ) {
 		$attr_invalid = ' aria-invalid="true"';
 

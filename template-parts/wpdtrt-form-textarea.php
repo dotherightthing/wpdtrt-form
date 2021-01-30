@@ -22,6 +22,7 @@ $attr_invalid           = '';
 $attr_name              = " name='{$field_name}'";
 $attr_rows              = " rows='{$rows}'";
 $attr_required          = '';
+$value                  = esc_textarea( $value );
 
 if ( isset( $autocomplete ) ) {
 	$attr_autocomplete = " autocomplete='{$autocomplete}'";
@@ -46,7 +47,7 @@ if ( '' !== $attr_describedby_value ) {
 	$attr_describedby       = " aria-describedby='{$attr_describedby_value}'";
 }
 
-if ( ! isset( $sanitized_form_data[ $field_name ] ) || '' === $sanitized_form_data[ $field_name ] ) {
+if ( isset( $sanitized_form_data ) && array_key_exists( $field_name, $sanitized_form_data ) && '' === $sanitized_form_data[ $field_name ] ) {
 	$attr_invalid = ' aria-invalid="true"';
 
 	if ( $errors_inline ) {

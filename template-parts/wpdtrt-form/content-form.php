@@ -69,21 +69,21 @@ if ( key_exists( 'template_fields', $data ) ) {
 	$form_id_raw          = $data['form_id'];
 	$form_id              = $plugin->get_form_id( $form_id_raw );
 	$form_name            = $data['form_name'];
-	$template_fields      = $data['template_fields'];
 	$field_id_submitted   = $plugin->get_field_id( $form_id_raw, 'submitted' );
 	$field_name_submitted = $plugin->get_field_name( $form_id_raw, 'submitted' );
+	$template_fields      = $data['template_fields'];
 
 	// send form submission to email and output wpdtrt-form-status.php.
-	$sent = $plugin->helper_sendmail( $form_id_raw, $form_name, $errors_list );
+	$sentmail = $plugin->helper_sendmail( $form_id_raw, $form_name, $errors_list );
 
-	if ( false === $sent ) {
+	if ( false === $sentmail ) {
 		// get submission data.
 		$sanitized_form_data = $plugin->helper_sanitize_form_data();
 	}
 
 	// if the form hasn't been submitted yet
 	// or if it was submitted but couldn't be sent due to errors.
-	if ( ! isset( $_POST[ $field_name_submitted ] ) || ( false === $sent ) ) {
+	if ( ! isset( $_POST[ $field_name_submitted ] ) || ( false === $sentmail ) ) {
 		$render_form = true;
 	}
 }
@@ -138,7 +138,7 @@ if ( $render_form ) :
 				$field_name           = $plugin->get_field_name( $form_id_raw, $id );
 				$required             = isset( $required );
 				$required_label_class = $required ? ' wpdtrt-form__label--required' : '';
-				$value                = ( isset( $_POST[ $field_name ] ) ? esc_attr( $_POST[ $field_name ] ) : '' );
+				$value                = isset( $_POST[ $field_name ] ) ? $_POST[ $field_name ] : '';
 				?>
 
 			<div class="wpdtrt-form__item">

@@ -71,22 +71,22 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 */
 
 	/**
-	 * Build the field id string
+	 * Build the field ID
 	 *
 	 * @param {string} $form_id_raw The ID of the form.
 	 * @param {string} $field_name The field name.
-	 * @return {string} The field id string.
+	 * @return {string} The field ID.
 	 */
 	public function get_field_id( $form_id_raw, $field_name ) {
 		return "wpdtrt-form-{$form_id_raw}-{$field_name}";
 	}
 
 	/**
-	 * Build the field id string
+	 * Build the field name
 	 *
 	 * @param {string} $form_id_raw The ID of the form.
 	 * @param {string} $field_name The field name.
-	 * @return {string} The field name string.
+	 * @return {string} The field name.
 	 */
 	public function get_field_name( $form_id_raw, $field_name ) {
 		$form_id_raw = str_replace( '-', '_', $form_id_raw );
@@ -96,7 +96,22 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	}
 
 	/**
-	 * Build the form id string
+	 * Extract the raw field name
+	 *
+	 * @param {string} $form_id_raw The ID of the form.
+	 * @param {string} $field_name The field name.
+	 * @return {string} The raw field name.
+	 */
+	public function get_field_name_raw( $form_id_raw, $field_name ) {
+		$form_id_raw    = str_replace( '-', '_', $form_id_raw ) . '_';
+		$field_name_raw = str_replace( 'wpdtrt_form_', '', $field_name );
+		$field_name_raw = str_replace( $form_id_raw, '', $field_name_raw );
+
+		return $field_name_raw;
+	}
+
+	/**
+	 * Build the form ID
 	 *
 	 * @param {string} $form_id_raw The ID of the form.
 	 * @return {string} The form id string.
@@ -262,8 +277,13 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 						 *
 						 * @see http://php.net/manual/en/function.call-user-func.php
 						 */
-						$field_name                         = $this->get_field_name( $form_id_raw, $template_field['id'] );
-						$sanitized_form_data[ $field_name ] = call_user_func( $sanitizer, $_POST[ $field_name ] );
+						$field_name = $this->get_field_name( $form_id_raw, $template_field['id'] );
+
+						if ( isset( $_POST[ $field_name ] ) ) {
+							$sanitized_form_data[ $field_name ] = call_user_func( $sanitizer, $_POST[ $field_name ] );
+						} else {
+							$sanitized_form_data[ $field_name ] = '';
+						}
 					}
 				}
 			}
@@ -287,36 +307,56 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	public function helper_sendmail( $form_id_raw, $form_name, $errors_list ) {
 
 		// TODO add a key-value pair to track which of these a field represents.
+		$errors_list        = $errors_list;
 		$field_name_name    = $this->get_field_name( $form_id_raw, 'name' );
 		$field_name_email   = $this->get_field_name( $form_id_raw, 'email' );
 		$field_name_message = $this->get_field_name( $form_id_raw, 'message' );
 		$field_name_subject = $this->get_field_name( $form_id_raw, 'subject' );
-		$field_name_submit  = $this->get_field_name( $form_id_raw, 'submit' );
+		$field_name_submit  = $this->get_field_name( $form_id_raw, 'submitted' );
+		$sendmail           = true;
+		$sentmail           = false;
+		$submitted          = false;
+
+		global $debug;
 
 		// if the submit button is clicked, send the email.
 		if ( isset( $_POST[ $field_name_submit ] ) ) {
 			$sanitized_form_data = $this->helper_sanitize_form_data();
+			$submitted           = true;
 
-			$blogname = get_option( 'blogname' );
-			$to       = get_option( 'admin_email' ); // blog administrator's email address.
-			$headers  = 'From: ' . $sanitized_form_data[ $field_name_name ] . '<' . $sanitized_form_data[ $field_name_email ] . '>' . "\r\n";
+			// TODO create an array from fields that are actually required.
+			$required_fields = array(
+				$field_name_name,
+				$field_name_email,
+				$field_name_message,
+				$field_name_subject,
+			);
 
-			if ( '' !== $sanitized_form_data[ $field_name_message ] ) {
+			foreach ( $required_fields as $field_name ) {
+				if ( '' === $sanitized_form_data[ $field_name ] ) {
+					$sendmail = false;
+				}
+			}
+
+			if ( $sendmail ) {
+				$blogname = get_option( 'blogname' );
+				$to       = get_option( 'admin_email' ); // blog administrator's email address.
+				$headers  = 'From: ' . $sanitized_form_data[ $field_name_name ] . '<' . $sanitized_form_data[ $field_name_email ] . '>' . "\r\n";
+
 				$message  = $sanitized_form_data[ $field_name_message ] . "\r\n\r\n";
 				$message .= '---' . "\r\n\r\n";
 				$message .= "Sent from the {$blogname} {$form_name} form.";
-			} else {
-				$message = '';
+
+				$sentmail = wp_mail( $to, $sanitized_form_data[ $field_name_subject ], $message, $headers );
 			}
-
-			$sentmail       = wp_mail( $to, $sanitized_form_data[ $field_name_subject ], $message, $headers );
-			$plugin_options = $this->get_plugin_options();
-			$data           = $this->get_plugin_data();
-
-			require WPDTRT_FORM_PATH . 'template-parts/wpdtrt-form-status.php';
-
-			return $sentmail;
 		}
+
+		$data           = $this->get_plugin_data();
+		$plugin_options = $this->get_plugin_options();
+
+		require WPDTRT_FORM_PATH . 'template-parts/wpdtrt-form-status.php';
+
+		return $sentmail;
 	}
 
 	/**

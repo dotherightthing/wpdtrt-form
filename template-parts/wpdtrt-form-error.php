@@ -18,7 +18,7 @@ if ( $errors_inline ) {
 	?>
 <span id="<?php echo $field_id; ?>-validation" class="wpdtrt-form__validation">
 	<?php
-	if ( ! isset( $sanitized_form_data[ $field_name ] ) || '' === $sanitized_form_data[ $field_name ] ) {
+	if ( isset( $sanitized_form_data ) && array_key_exists( $field_name, $sanitized_form_data ) && '' === $sanitized_form_data[ $field_name ] ) {
 		echo "<strong class='error'>{$error}</strong>";
 	}
 	?>
