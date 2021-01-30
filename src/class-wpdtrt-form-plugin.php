@@ -163,7 +163,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 * @param {object} $wp_error The error object.
 	 * @see https://core.trac.wordpress.org/ticket/46217#comment:4
 	 */
-	public function helper_wp_mail_failed( $wp_error ){
+	public function helper_wp_mail_failed( $wp_error ) {
 		global $debug;
 		$debug->log( $wp_error );
 	}
