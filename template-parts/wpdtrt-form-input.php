@@ -46,7 +46,7 @@ if ( isset( $required ) ) {
 	$attr_required = " aria-required='true' required='required' data-errors='{$id}-validation' data-msg-required='{$error}'";
 }
 
-if ( '' !== $notes ) {
+if ( null !== $notes ) {
 	$attr_describedby_value = "{$id}-notes";
 }
 

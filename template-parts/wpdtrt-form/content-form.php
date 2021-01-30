@@ -93,8 +93,11 @@ if ( $render_form ) :
 			<p class="wpdtrt-form__notes <?php echo $data['notes_class']; ?>">
 				<?php
 				foreach ( $template_fields as $template_field ) {
-					if ( '' !== $template_field['notes'] ) {
-						echo "<span id='wpdtrt-{$form_id}-{$template_field['id']}-notes'>{$template_field['notes']}</span>";
+					if ( array_key_exists( 'notes', $template_field ) ) {
+						$id   = $template_field['id'];
+						$text = $template_field['notes'];
+
+						echo "<span id='wpdtrt-{$form_id}-{$id}-notes'>{$text}</span>";
 					}
 				}
 				?>
