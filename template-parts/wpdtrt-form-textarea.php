@@ -11,6 +11,7 @@
  * @subpackage  Wpdtrt_Form/views
  */
 
+// note: other variables available from parent template (content-form.php).
 $attr_autocomplete      = '';
 $attr_class             = '';
 $attr_cols              = " cols='{$cols}'";
