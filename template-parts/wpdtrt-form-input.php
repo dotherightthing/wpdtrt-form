@@ -13,6 +13,7 @@
 
 $attr_autocomplete      = '';
 $attr_checked           = '';
+$attr_class             = '';
 $attr_describedby       = '';
 $attr_describedby_value = '';
 $attr_id                = " id='{$id}'";
@@ -63,6 +64,10 @@ if ( isset( $sanitized_form_data[ $name ] ) ) {
 	}
 }
 
+if ( isset( $sanitized_form_data[ $name ] ) && ( '' === $sanitized_form_data[ $name ] ) && ( '1' === $errors_inline ) ) {
+	$attr_class = ' class="error"';
+}
+
 ?>
 
-<input<?php echo $attr_type . $attr_name . $attr_id . $attr_value . $attr_checked . $attr_size . $attr_pattern . $attr_required . $attr_invalid . $attr_describedby . $attr_autocomplete; ?>>
+<input<?php echo $attr_type . $attr_name . $attr_id . $attr_value . $attr_checked . $attr_size . $attr_pattern . $attr_required . $attr_invalid . $attr_describedby . $attr_autocomplete . $attr_class; ?>>

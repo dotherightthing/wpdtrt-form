@@ -12,6 +12,7 @@
  */
 
 $attr_autocomplete      = '';
+$attr_class             = '';
 $attr_cols              = " cols='{$cols}'";
 $attr_describedby       = '';
 $attr_describedby_value = '';
@@ -50,6 +51,10 @@ if ( isset( $sanitized_form_data[ $name ] ) ) {
 	}
 }
 
+if ( isset( $sanitized_form_data[ $name ] ) && ( '' === $sanitized_form_data[ $name ] ) && ( '1' === $errors_inline ) ) {
+	$attr_class = ' class="error"';
+}
+
 ?>
 
-<textarea<?php echo $attr_name . $attr_id . $attr_rows . $attr_cols . $attr_required . $attr_invalid . $attr_describedby . $attr_autocomplete; ?>><?php echo $value; ?></textarea>
+<textarea<?php echo $attr_name . $attr_id . $attr_rows . $attr_cols . $attr_required . $attr_invalid . $attr_describedby . $attr_autocomplete . $attr_class; ?>><?php echo $value; ?></textarea>

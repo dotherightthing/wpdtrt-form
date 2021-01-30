@@ -18,10 +18,8 @@ if ( '1' === $errors_inline ) {
 	?>
 <span id="<?php echo $id; ?>-validation" class="wpdtrt-form__validation">
 	<?php
-	if ( isset( $sanitized_form_data[ $name ] ) ) {
-		if ( ( '' === $sanitized_form_data[ $name ] ) && ( '1' === $errors_inline ) ) {
-			echo "<strong>{$error}</strong>";
-		}
+	if ( isset( $sanitized_form_data[ $name ] ) && ( '' === $sanitized_form_data[ $name ] ) && ( '1' === $errors_inline ) ) {
+		echo "<strong class='error'>{$error}</strong>";
 	}
 	?>
 </span>

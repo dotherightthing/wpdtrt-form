@@ -11,6 +11,10 @@
  * @subpackage  Wpdtrt_Form/views
  */
 
+if ( ! isset( $sanitized_form_data[ $name ] ) || ( ( '' === $sanitized_form_data[ $name ] ) && ( '1' === $errors_inline ) ) ) {
+	$required_label_class = $required_label_class . ' error';
+}
+
 ?>
 
 <label class="wpdtrt-form__label<?php echo $required_label_class; ?>" for="<?php echo $id; ?>">
