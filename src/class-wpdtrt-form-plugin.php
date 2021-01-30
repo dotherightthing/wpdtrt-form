@@ -61,6 +61,8 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		// About: add actions and filters here.
 		add_filter( 'wpdtrt_form_set_api_endpoint', [ $this, 'filter_set_api_endpoint' ] );
 		add_action( 'wp_mail_failed', [ $this, 'helper_wp_mail_failed' ], 10, 1 );
+
+		$this->helper_test_wp_mail( 'testmail' );
 	}
 
 	/**
@@ -281,6 +283,30 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 			require WPDTRT_FORM_PATH . 'template-parts/wpdtrt-form-status.php';
 
 			return $sentmail;
+		}
+	}
+
+	/**
+	 * Test wp_mail
+	 *
+	 * @param {string} $urlparam URL parameter used to trigger test.
+	 * @see https://core.trac.wordpress.org/ticket/46217#comment:4
+	 */
+	public function helper_test_wp_mail( $urlparam ) {
+		if ( array_key_exists( $urlparam, $_GET ) ) {
+			if ( '1' === $_GET[ $urlparam ] ) {
+				$from      = 'dan@dontbelievethehype.co.nz';
+				$recipient = 'dan@dontbelievethehype.co.nz';
+				$subject   = 'PHP Mail Test script';
+				$body      = 'This is a test to check the PHP Mail functionality';
+				$headers   = 'From: ' . $from . "\r\n";
+				$mail      = wp_mail( $recipient, $subject, $body, $headers );
+				if ( $mail ) {
+					wp_die( 'Mail sent' );
+				} else {
+					wp_die( 'Mail not sent' );
+				}
+			}
 		}
 	}
 }
