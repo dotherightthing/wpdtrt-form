@@ -236,6 +236,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	/**
 	 * Send an email using $_POST data
 	 *
+	 * @param {string} $form_id The ID of the form.
 	 * @param {string} $form_name The name of the form.
 	 * @return $sentmail Whether the email contents were sent successfully.
 	 *
