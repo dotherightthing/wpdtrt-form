@@ -169,8 +169,12 @@
         color: var(--wpdtrt-form-status-color);
         font-size: .8em;
         line-height: 1.5;
-        padding: 4px; // TODO: how to do matching negative margin with CSS Grid?
+        padding: 4px 18px; // TODO: how to do matching negative margin with CSS Grid?
         margin-bottom: 16px;
+
+        .entry-content > &:last-child {
+            padding-bottom: 4px;
+        }
 
         p {
             &,
