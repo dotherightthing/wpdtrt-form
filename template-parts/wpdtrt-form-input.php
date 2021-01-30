@@ -57,7 +57,8 @@ if ( ( '1' === $errors_inline ) && isset( $required ) ) {
 }
 
 if ( '' !== $attr_describedby_value ) {
-	$attr_describedby = " aria-describedby='{$attr_describedby_value}'";
+	$attr_describedby_value = trim( $attr_describedby_value );
+	$attr_describedby       = " aria-describedby='{$attr_describedby_value}'";
 }
 
 if ( isset( $submitted_data[ $name ] ) ) {
