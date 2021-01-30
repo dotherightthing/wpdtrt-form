@@ -50,7 +50,7 @@ const wpdtrtFormUi = {
         $form.validate({
             errorElement: 'strong',
             errorPlacement: function (error, element) {
-                error.appendTo($(`#${element.data('errors')}`)); // data-errors='fieldname-validation'
+                error.appendTo($(`#${element.data('describedby')}`)); // data-describedby='fieldname-validation'
             },
             highlight: function (element, errorClass, validClass) {
                 $(element).addClass(errorClass).removeClass(validClass);
