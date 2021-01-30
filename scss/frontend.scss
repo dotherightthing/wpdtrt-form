@@ -83,24 +83,31 @@
         border-color: var(--wpdtrt-form-error-color);
     }
 
-    &__error-list {
+    &__errors-list {
         @extend %wpdtrt-scss-reset-list;
-        font-size: .9em;
+        font-size: 1.1em;
         counter-reset: error-counter;
         margin-top: .5em;
 
         > li {
             @extend %wpdtrt-scss-reset-list;
+            position: relative;
             counter-increment: error-counter;
+            padding-left: 1.7em;
+            margin-bottom: .25em;
 
             &::before {
-                content: counter(error-counter) '.';
-                color: var(--wpdtrt-form-error-list-bullet-color);
+                content: '#' counter(error-counter);
+                position: absolute;
+                left: .1em;
+                font-family: monospace;
+                font-size: 1.05em;
+                line-height: 1.3;
             }
-        }
 
-        a {
-            color: var(--wpdtrt-form-error-list-link-color);
+            .entry-content & {
+                margin-left: 0;
+            }
         }
     }
 
