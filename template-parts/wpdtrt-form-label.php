@@ -11,8 +11,10 @@
  * @subpackage  Wpdtrt_Form/views
  */
 
-if ( ! isset( $sanitized_form_data[ $name ] ) || ( ( '' === $sanitized_form_data[ $name ] ) && ( '1' === $errors_inline ) ) ) {
-	$required_label_class = $required_label_class . ' error';
+if ( '1' === $errors_inline ) {
+	if ( ! isset( $sanitized_form_data[ $name ] ) || '' === $sanitized_form_data[ $name ] ) {
+		$required_label_class = $required_label_class . ' error';
+	}
 }
 
 ?>

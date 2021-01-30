@@ -43,14 +43,14 @@ if ( isset( $required ) ) {
 	// required attribute is added via JS to prevent HTML5 noscript validation
 	// from intercepting styled PHP validation.
 	$attr_required = " aria-required='true' data-required='true' data-errors='{$id}-validation' data-msg-required='{$error}'";
+
+	if ( '1' === $errors_inline ) {
+		$attr_describedby_value .= " {$id}-validation";
+	}
 }
 
 if ( null !== $notes ) {
-	$attr_describedby_value = "{$id}-notes";
-}
-
-if ( ( '1' === $errors_inline ) && isset( $required ) ) {
-	$attr_describedby_value .= " {$id}-validation";
+	$attr_describedby_value .= " {$id}-notes";
 }
 
 if ( '' !== $attr_describedby_value ) {
@@ -58,14 +58,14 @@ if ( '' !== $attr_describedby_value ) {
 	$attr_describedby       = " aria-describedby='{$attr_describedby_value}'";
 }
 
-if ( isset( $sanitized_form_data[ $name ] ) ) {
-	if ( ( 'checkbox' !== $type ) && ( '' === $sanitized_form_data[ $name ] ) ) {
+if ( ! isset( $sanitized_form_data[ $name ] ) || '' === $sanitized_form_data[ $name ] ) {
+	if ( 'checkbox' !== $type ) {
 		$attr_invalid = ' aria-invalid="true"';
-	}
-}
 
-if ( isset( $sanitized_form_data[ $name ] ) && ( '' === $sanitized_form_data[ $name ] ) && ( '1' === $errors_inline ) ) {
-	$attr_class = ' class="error"';
+		if ( '1' === $errors_inline ) {
+			$attr_class = ' class="error"';
+		}
+	}
 }
 
 ?>

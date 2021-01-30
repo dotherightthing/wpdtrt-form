@@ -77,7 +77,7 @@ if ( key_exists( 'template_fields', $data ) ) {
 
 	// if the form hasn't been submitted yet
 	// or if it was submitted but couldn't be sent due to errors.
-	if ( ! isset( $_POST[ 'wpdtrt-' . $form_id . '-submitted' ] ) || ( false === $sent ) ) {
+	if ( ! isset( $_POST[ 'wpdtrt-form' . $form_id . '-submitted' ] ) || ( false === $sent ) ) {
 		$render_form = true;
 	}
 }

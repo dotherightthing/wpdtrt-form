@@ -201,7 +201,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		$template_fields = $data['template_fields'];
 
 		// if the submit button is clicked, send the email.
-		if ( isset( $_POST[ 'wpdtrt-' . $form_id . '-submitted' ] ) ) {
+		if ( isset( $_POST[ 'wpdtrt-form' . $form_id . '-submitted' ] ) ) {
 
 			$wpdtrt_form_options = get_option( 'wpdtrt_form' );
 
@@ -226,7 +226,8 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 						 *
 						 * @see http://php.net/manual/en/function.call-user-func.php
 						 */
-						$sanitized_form_data[ $template_field['id'] ] = call_user_func( $sanitizer, $_POST[ 'wpdtrt-' . $form_id . '-' . $template_field['id'] ] );
+						$field_id                         = "wpdtrt-form-{$form_id}-{$template_field['id']}";
+						$sanitized_form_data[ $field_id ] = call_user_func( $sanitizer, $_POST[ $field_id ] );
 					}
 				}
 			}
@@ -249,31 +250,33 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 */
 	public function helper_sendmail( $form_id, $form_name, $errors_list ) {
 
+		// TODO add a key-value pair to track which of these a field represents.
+		$field_id_name    = 'wpdtrt-form-' . $form_id . '-name';
+		$field_id_email   = 'wpdtrt-form-' . $form_id . '-email';
+		$field_id_message = 'wpdtrt-form-' . $form_id . '-message';
+		$field_id_subject = 'wpdtrt-form-' . $form_id . '-subject';
+		$field_id_submit  = 'wpdtrt-form-' . $form_id . '-submitted';
+
 		// if the submit button is clicked, send the email.
-		if ( isset( $_POST[ 'wpdtrt-' . $form_id . '-submitted' ] ) ) {
+		if ( isset( $_POST[ $field_id_submit ] ) ) {
 			$sanitized_form_data = $this->helper_sanitize_form_data();
 
 			$blogname = get_option( 'blogname' );
+			$to       = get_option( 'admin_email' ); // blog administrator's email address.
+			$headers  = 'From: ' . $sanitized_form_data[ $field_id_name ] . '<' . $sanitized_form_data[ $field_id_email ] . '>' . "\r\n";
 
-			// get the blog administrator's email address.
-			$to = get_option( 'admin_email' );
-
-			$headers = 'From: ' . $sanitized_form_data['name'] . '<' . $sanitized_form_data['email'] . '>' . "\r\n";
-
-			if ( '' !== $sanitized_form_data['message'] ) {
-
-				$message  = $sanitized_form_data['message'] . "\r\n\r\n";
+			if ( '' !== $sanitized_form_data[ $field_id_message ] ) {
+				$message  = $sanitized_form_data[ $field_id_message ] . "\r\n\r\n";
 				$message .= '---' . "\r\n\r\n";
 				$message .= "Sent from the {$blogname} {$form_name} form.";
 			} else {
 				$message = '';
 			}
 
-			$sentmail = wp_mail( $to, $sanitized_form_data['subject'], $message, $headers );
-
+			$sentmail       = wp_mail( $to, $sanitized_form_data[ $field_id_subject ], $message, $headers );
 			$plugin_options = $this->get_plugin_options();
+			$data           = $this->get_plugin_data();
 
-			$data = $this->get_plugin_data();
 			require WPDTRT_FORM_PATH . 'template-parts/wpdtrt-form-status.php';
 
 			return $sentmail;
