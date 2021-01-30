@@ -295,8 +295,8 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	public function helper_test_wp_mail( $urlparam ) {
 		if ( array_key_exists( $urlparam, $_GET ) ) {
 			if ( '1' === $_GET[ $urlparam ] ) {
-				$from      = 'dan@dontbelievethehype.co.nz';
-				$recipient = 'dan@dontbelievethehype.co.nz';
+				$from      = get_option( 'admin_email' );
+				$recipient = get_option( 'admin_email' );
 				$subject   = 'PHP Mail Test script';
 				$body      = 'This is a test to check the PHP Mail functionality';
 				$headers   = 'From: ' . $from . "\r\n";
