@@ -48,34 +48,116 @@ Edit the data file to change the field attributes or order: `./data/form-{templa
 
 TODO
 
-### Testing that form data is sent to your email address
+### Testing emailing of form submission in local development
 
-<https://mailcatcher.me/> via <https://wordpress.stackexchange.com/a/195830> and <https://tommcfarlin.com/mailcatcher-mamp-wordpress/>:
+1. Install and run [MailCatcher](https://mailcatcher.me/) (see <https://wordpress.stackexchange.com/a/195830>):
 
-1. `gem install mailcatcher`
-2. `mailcatcher`
-3. Update php.ini (in MAMP Pro this is `File > Edit > PHP > Version`):
-    1. Replace `;sendmail_path =` with `sendmail_path = /Users/dan/.rvm/gems/ruby-2.6.3/wrappers/catchmail -f wpdev@localhost.dev` (any email works)
+    ```sh
+    gem install mailcatcher
+    mailcatcher
+    ```
 
-    1. Replace `smtp_port = 25` with `smtp_port = 1025`
-4. MAMP Pro View > Postfix
-    1. Include Postfix service in GroupStart
-    2. Set domain of outgoing e-mails to: `localhostname.tld`
-    3. Use a Smart host for routing
-       1. Server name: 127.0.0.1:1080
-5. Send mail via a form submit etc
-6. Watch for mail at <http://127.0.0.1:1080/>
+1. Update php.ini:
 
-#### Troubleshooting mailcatcher
+    ```sh
+    # php.ini (MAMP Pro: File > Edit > PHP > Version)
+    sendmail_path = /Users/dan/.rvm/gems/ruby-2.6.3/wrappers/catchmail -f wpdev@localhost.dev # any email works
+    smtp_port = 1025
+    ```
 
-1. Send mail > `env: catchmail: No such file or directory`
-1. `gem environment gemdir` (display the path where gems are installed) > `/Users/dan/.rvm/gems/ruby-2.6.3`
-1. `cd /Users/dan/.rvm/gems/ruby-2.6.3 && ls` > `bin    build_info    cache    doc    environment    extensions    gems    specifications    wrappers`
-1. `sendmail_path = /Users/dan/.rvm/gems/ruby-2.6.3/bin/catchmail -f wpdev@localhost.dev` > send mail > `env: ruby_executable_hooks: No such file or directory`
-1. `sudo gem install --user-install executable-hooks` (<https://stackoverflow.com/a/29519638>) > send mail > `env: ruby_executable_hooks: No such file or directory`
-1. `which ruby_executable_hooks` > `/Users/dan/.rvm/gems/ruby-2.6.3/bin/ruby_executable_hooks` > unsure how to use this information
-1. `sendmail_path = /Users/dan/.rvm/gems/ruby-2.6.3/environment catchmail -f wpdev@localhost.dev` > `Users/dan/.rvm/gems/ruby-2.6.3/environment: Permission denied`
-1. `sendmail_path = /Users/dan/.rvm/gems/ruby-2.6.3/wrappers/catchmail -f wpdev@localhost.dev` (<https://github.com/rvm/executable-hooks/issues/6#issuecomment-609032741>) > Mail sent :)
+1. MAMP Pro View > Postfix
+    1. *Include Postfix service in GroupStart*
+    2. *Set domain of outgoing e-mails to:* `localhostname.tld`
+    3. *Use a Smart host for routing*: *Server name:* `127.0.0.1:1080`
+1. Send mail
+1. Watch for mail at <http://127.0.0.1:1080/>
+
+#### MailCatcher troubleshooting
+
+1. Update php.ini (<https://tommcfarlin.com/mailcatcher-mamp-wordpress/>):
+
+    ```sh
+    # php.ini
+    smtp_port = 1025
+    sendmail_path = /usr/bin/env catchmail -f wpdev@localhost.dev
+    ```
+
+1. Send mail:
+
+    ```sh
+    # Apache log
+    env: catchmail: No such file or directory
+    ```
+
+1. Locate the path where gems are installed:
+
+    ```sh
+    gem environment --help
+    gem environment gemdir # /Users/dan/.rvm/gems/ruby-2.6.3
+    ```
+
+1. Locate the `catchmail` binary (executable):
+
+    ```sh
+    cd /Users/dan/.rvm/gems/ruby-2.6.3 && ls # bin    build_info    cache    doc    environment    extensions    gems    specifications    wrappers
+    ```
+
+1. Update php.ini:
+
+    ```sh
+    # php.ini
+    sendmail_path = /Users/dan/.rvm/gems/ruby-2.6.3/bin/catchmail -f wpdev@localhost.dev`
+    ```
+
+1. Send mail:
+
+    ```sh
+    # Apache log
+    send mail > env: ruby_executable_hooks: No such file or directory
+    ```
+
+1. Refresh the `executable-hooks` to the latest version (<https://stackoverflow.com/a/29519638>):
+
+    ```sh
+    sudo gem install --user-install executable-hooks
+    ```
+
+1. Send mail:
+
+    ```sh
+    # Apache log
+    send mail > env: ruby_executable_hooks: No such file or directory
+    ```
+
+1. Locate `ruby_executable_hooks`:
+
+    ```sh
+    which ruby_executable_hooks # /Users/dan/.rvm/gems/ruby-2.6.3/bin/ruby_executable_hooks
+    # unsure how to use this information..
+    ```
+
+1. Update php.ini:
+
+    ```sh
+    # php.ini
+    sendmail_path = /Users/dan/.rvm/gems/ruby-2.6.3/environment catchmail -f wpdev@localhost.dev
+    ```
+
+1. Send mail:
+
+    ```sh
+    # Apache log
+    Users/dan/.rvm/gems/ruby-2.6.3/environment: Permission denied
+    ```
+
+1. Update php.ini (<https://github.com/rvm/executable-hooks/issues/6#issuecomment-609032741>):
+
+    ```sh
+    # php.ini
+    sendmail_path = /Users/dan/.rvm/gems/ruby-2.6.3/wrappers/catchmail -f wpdev@localhost.dev
+    ```
+
+1. Send mail :)
 
 ### Styling
 
