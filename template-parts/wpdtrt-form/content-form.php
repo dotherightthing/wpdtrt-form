@@ -64,7 +64,9 @@ if ( key_exists( 'template_fields', $data ) ) {
 	$form_id         = $data['form_id'];
 	$form_name       = $data['form_name'];
 	$template_fields = $data['template_fields'];
-	$sent            = $plugin->helper_sendmail( $form_id, $form_name );
+
+	// send form submission to email and output wpdtrt-form-status.php.
+	$sent = $plugin->helper_sendmail( $form_id, $form_name, $errors_list );
 
 	$current_url = $_SERVER['REQUEST_URI'];
 

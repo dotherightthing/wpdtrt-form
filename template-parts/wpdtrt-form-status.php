@@ -11,20 +11,20 @@
  * @subpackage  Wpdtrt_Form/views
  */
 
-$class        = ( $sentmail ? $data['success_class'] : $data['error_class'] );
-$legend       = $data['legend'];
-$legend_class = $data['legend_class'];
-$message      = ( $sentmail ? $data['success_message'] : $data['error_message'] );
-?>
+$class             = $sentmail ? $data['success_class'] : $data['error_class'];
+$errors_count      = 0;
+$errors_list_items = '';
+$heading           = $data['heading'];
+$heading_class     = $data['heading_class'];
+$icon_class        = $sentmail ? 'email' : 'warning';
+$legend            = $data['legend'];
+$template_fields   = $data['template_fields'];
 
-<div class="wpdtrt-form__status wpdtrt-form__status--<?php echo $class; ?>">
-<?php if ( '1' === $errors_list ) : ?>
-<h3 class="<?php echo $legend_class; ?>"><?php echo $legend; ?></h3>
-<p><?php echo $message; ?></p>
-<ol class="wpdtrt-form_-error-list">
-	<?php foreach ( $submitted_data as $key => $sanitized_value ) : ?>
-		<?php
-		if ( '' === $sanitized_value ) :
+foreach ( $submitted_data as $key => $sanitized_value ) {
+	if ( '' === $sanitized_value ) {
+		++$errors_count;
+
+		if ( '1' === $errors_list ) {
 			/**
 			 * Search the template_fields array for the id (field name) which matches the submitted_data key (field name)
 			 * array_map() creates a new array containing only the field ids, with the same order as the multidimensional array
@@ -38,15 +38,42 @@ $message      = ( $sentmail ? $data['success_message'] : $data['error_message'] 
 			$index = array_search( $key, array_map( function( $nested_array ) {
 				return $nested_array['id'];
 			}, $template_fields ), true );
-			?>
-	<li>
-		<a href="#wpdtrt-<?php echo $form_id; ?>-<?php echo $template_fields[ $index ]['id']; ?>"><?php echo $template_fields[ $index ]['error']; ?></a>
-	</li>
-	<?php endif; ?>
-	<?php endforeach; ?>
-</ol>
-<?php else: ?>
-<h3 class="<?php echo $legend_class; ?>"><?php echo $legend; ?></h3>
-<p><?php echo $message; ?></p>
-<?php endif; ?>
+
+			$id   = $template_fields[ $index ]['id'];
+			$text = $template_fields[ $index ]['error'];
+
+			$errors_list_items .= "<li><a href='#wpdtrt-{$form_id}-{$id}'>{$text}</a></li>";
+		}
+	}
+}
+
+if ( $sentmail ) {
+	$message = $data['success_message'];
+} elseif ( ( $errors_count > 0 ) && ( '1' === $errors_list ) ) {
+	if ( $errors_count > 1 ) {
+		$message = $data['error_message_plural'];
+		$message = str_replace( '#', $errors_count, $message );
+	} else {
+		$message = $data['error_message_single'];
+	}
+} else {
+	$message = $data['unsent_message'];
+}
+
+?>
+
+<div class="wpdtrt-form__status wpdtrt-form__status--<?php echo $class; ?>">
+	<h3 class="<?php echo $heading_class; ?>">
+		<?php echo $heading; ?>
+	</h3>
+	<p>
+		<span class="wpdtrt-form-icon-<?php echo $icon_class; ?>"></span>
+		<?php echo $message; ?>
+	</p>
+<?php
+if ( ( $errors_count > 0 ) && ( '1' === $errors_list ) ) {
+	// noscript error list.
+	echo "<ol class='wpdtrt-form__errors-list'>{$errors_list_items}</ol>";
+}
+?>
 </div>

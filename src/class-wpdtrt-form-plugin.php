@@ -240,17 +240,17 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 *
 	 * @param {string} $form_id The ID of the form.
 	 * @param {string} $form_name The name of the form.
+	 * @param {string} $errors_list Whether to output a list above the form when there are errors.
 	 * @return $sentmail Whether the email contents were sent successfully.
 	 *
 	 * @see https://developer.wordpress.org/reference/functions/wp_mail/
 	 * @see http://www.wordpresscheatsheets.com/how-to-send-html-emails-from-wordpress-using-wp_mail-function
 	 * @todo Use template loader
 	 */
-	public function helper_sendmail( $form_id, $form_name ) {
+	public function helper_sendmail( $form_id, $form_name, $errors_list ) {
 
 		// if the submit button is clicked, send the email.
 		if ( isset( $_POST[ 'wpdtrt-' . $form_id . '-submitted' ] ) ) {
-
 			$submitted_data = $this->helper_sanitize_form_data();
 
 			$blogname = get_option( 'blogname' );
@@ -272,12 +272,6 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 			$sentmail = wp_mail( $to, $submitted_data['subject'], $message, $headers );
 
 			$plugin_options = $this->get_plugin_options();
-
-			if ( key_exists( 'errors_list', $plugin_options ) ) {
-				$errors_list = $plugin_options['errors_list'];
-			} else {
-				$errors_list = false;
-			}
 
 			$data = $this->get_plugin_data();
 			require WPDTRT_FORM_PATH . 'template-parts/wpdtrt-form-status.php';

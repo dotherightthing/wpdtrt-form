@@ -1,11 +1,12 @@
 {
 	"error_class": "error",
-	"error_message": "Please correct the following errors:",
+	"error_message_plural": "Please correct the following # errors:",
+	"error_message_single": "Please correct the following error:",
 	"form_id": "contact-form",
 	"form_name": "Contact",
+	"heading": "Send me a message",
 	"legend": "Contact form",
-	"legend_class": "comment-reply-title entry-summary",
-	"notes_class": "comment-notes",
+	"heading_class": "comment-reply-title entry-summary",
 	"success_class": "success",
 	"success_message": "Thank you for contacting me! I'll get back to you as soon as I can.",
 	"submit": "Submit",
@@ -55,5 +56,6 @@
 			"rows": "10",
 	        "sanitizer": "sanitize_textarea_field"
 		}
-	]
+	],
+	"unsent_message": "Sorry, your message could not be sent. Please try again later."
 }
