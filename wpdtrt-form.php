@@ -310,9 +310,8 @@ function wpdtrt_form_plugin_init() {
 	$demo_shortcode_params = array(
 		'name'          => 'wpdtrt_form_shortcode',
 		'template'      => 'contact',
-		'errors_list'   => true,
-		'errors_inline' => true,
-		'number'        => 1,
+		'errors_list'   => '1',
+		'errors_inline' => '1',
 	);
 
 	/**

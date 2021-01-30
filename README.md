@@ -37,8 +37,8 @@ Please use the provided shortcode to embed a custom form:
 Options
 
 1. `template="contact"` - generate a form from the template and JSON data
-2. `errors_list="true|false"` - display a list of errors above the form; clicking an error jumps the user to the affected field
-3. `errors_inline="true|false"` - display each error directly after the affected field;
+2. `errors_list="1|0"` - display a list of errors above the form; clicking an error jumps the user to the affected field
+3. `errors_inline="1|0"` - display each error directly after the affected field;
 
 ### Custom form fields
 
