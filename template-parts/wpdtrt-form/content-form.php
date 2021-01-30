@@ -91,8 +91,10 @@ if ( $render_form ) :
 <div class="wpdtrt-form" id="wpdtrt-<?php echo $form_id; ?>-<?php echo $template; ?>">
 	<form action="<?php echo $current_url; ?>" method="post" class="wpdtrt-form-template wpdtrt-form-template-<?php echo $template; ?>">
 		<fieldset class="wpdtrt-form__fieldset">
-			<legend class="wpdtrt-form__legend <?php echo $data['legend_class']; ?>"><?php echo $data['legend']; ?></legend>
-			<p class="wpdtrt-form__notes <?php echo $data['notes_class']; ?>">
+			<legend class="wpdtrt-form__legend">
+				<?php echo $data['legend']; ?>
+			</legend>
+			<p class="wpdtrt-form__notes">
 				<?php
 				foreach ( $template_fields as $template_field ) {
 					if ( array_key_exists( 'notes', $template_field ) ) {
@@ -103,7 +105,9 @@ if ( $render_form ) :
 					}
 				}
 				?>
-				<span class="wpdtrt-form__label--required">Required fields are marked as <span class="wpdtrt-form__required"> (required)</span></span>
+				<span class="wpdtrt-form__label--required">
+					Required fields are marked as <span class="wpdtrt-form__required"> (required)</span>
+				</span>
 			</p>
 			<?php
 			foreach ( $template_fields as $field ) :

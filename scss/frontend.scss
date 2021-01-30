@@ -123,11 +123,6 @@
         margin-top: 8px;
     }
 
-    &__notes {
-        font-size: .9em;
-        line-height: 1.5;
-    }
-
     &__item {
         // label and input
         margin-bottom: 32px;
@@ -160,8 +155,18 @@
 
     &__legend {
         width: 100%;
+        font-size: 1.1em;
         font-weight: bold;
-        margin-bottom: 32px;
+    }
+
+    &__notes {
+        font-size: .9em;
+        line-height: 1.5;
+
+        &,
+        .entry-content & {
+            margin-top: 8px;
+        }
     }
 
     &__required {
