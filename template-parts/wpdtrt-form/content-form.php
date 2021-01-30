@@ -117,7 +117,6 @@ if ( $render_form ) :
 				$cols             = null;
 				$element          = null;
 				$error            = null;
-				$html5_validation = null;
 				$id               = null;
 				$label            = null;
 				$notes            = null;

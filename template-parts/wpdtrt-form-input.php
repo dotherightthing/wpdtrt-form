@@ -38,10 +38,6 @@ if ( 'checkbox' === $type ) {
 	$attr_size = " size='{$size}'";
 }
 
-if ( isset( $html5_validation ) ) {
-	$attr_pattern = " pattern='{$html5_validation}'";
-}
-
 if ( isset( $required ) ) {
 	// required attribute is added via JS to prevent HTML5 noscript validation
 	// from intercepting styled PHP validation.

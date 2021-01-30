@@ -12,7 +12,6 @@
 			"required": "true",
 			"element": "input",
 			"type": "text",
-			"html5_validation": "[a-zA-Z0-9 ]+",
 			"size": "40",
 			"error": "Please enter your name",
 			"sanitizer": "sanitize_text_field"
