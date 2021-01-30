@@ -12,7 +12,7 @@
  */
 
 if ( $errors_inline ) {
-	if ( ! isset( $sanitized_form_data[ $name ] ) || '' === $sanitized_form_data[ $name ] ) {
+	if ( ! isset( $sanitized_form_data[ $field_name ] ) || '' === $sanitized_form_data[ $field_name ] ) {
 		$required_label_class = $required_label_class . ' error';
 	}
 }
