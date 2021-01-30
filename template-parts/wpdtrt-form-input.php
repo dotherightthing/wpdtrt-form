@@ -11,6 +11,7 @@
  * @subpackage  Wpdtrt_Form/views
  */
 
+$attr_autocomplete      = '';
 $attr_checked           = '';
 $attr_describedby       = '';
 $attr_describedby_value = '';
@@ -22,6 +23,10 @@ $attr_required          = '';
 $attr_size              = '';
 $attr_type              = " type='{$type}'";
 $attr_value             = '';
+
+if ( isset( $autocomplete ) ) {
+	$attr_autocomplete = " autocomplete='{$autocomplete}'";
+}
 
 if ( 'checkbox' === $type ) {
 	$attr_checked = ' ' . checked( $value, 1 );
@@ -61,4 +66,4 @@ if ( isset( $submitted_data[ $name ] ) ) {
 
 ?>
 
-<input<?php echo $attr_type . $attr_name . $attr_id . $attr_value . $attr_checked . $attr_size . $attr_pattern . $attr_required . $attr_invalid . $attr_describedby; ?>>
+<input<?php echo $attr_type . $attr_name . $attr_id . $attr_value . $attr_checked . $attr_size . $attr_pattern . $attr_required . $attr_invalid . $attr_describedby . $attr_autocomplete; ?>>

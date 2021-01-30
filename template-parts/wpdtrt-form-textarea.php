@@ -11,13 +11,19 @@
  * @subpackage  Wpdtrt_Form/views
  */
 
-$attr_cols        = " cols='{$cols}'";
-$attr_describedby = '';
-$attr_id          = " id='{$id}'";
-$attr_invalid     = '';
-$attr_name        = " name='{$id}'";
-$attr_rows        = " rows='{$rows}'";
-$attr_required    = '';
+$attr_autocomplete      = '';
+$attr_cols              = " cols='{$cols}'";
+$attr_describedby       = '';
+$attr_describedby_value = '';
+$attr_id                = " id='{$id}'";
+$attr_invalid           = '';
+$attr_name              = " name='{$id}'";
+$attr_rows              = " rows='{$rows}'";
+$attr_required          = '';
+
+if ( isset( $autocomplete ) ) {
+	$attr_autocomplete = " autocomplete='{$autocomplete}'";
+}
 
 if ( isset( $required ) ) {
 	$attr_required = " aria-required='true' required='required' data-errors='{$id}-validation' data-msg-required='{$error}'";
@@ -44,4 +50,4 @@ if ( isset( $submitted_data[ $name ] ) ) {
 
 ?>
 
-<textarea<?php echo $attr_name . $attr_id . $attr_rows . $attr_cols . $attr_required . $attr_invalid . $attr_describedby; ?>><?php echo $value; ?></textarea>
+<textarea<?php echo $attr_name . $attr_id . $attr_rows . $attr_cols . $attr_required . $attr_invalid . $attr_describedby . $attr_autocomplete; ?>><?php echo $value; ?></textarea>

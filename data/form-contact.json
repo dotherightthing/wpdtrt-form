@@ -11,6 +11,7 @@
 	"submit": "Submit",
 	"template_fields": [
 		{
+			"autocomplete": "name",
 			"id": "name",
 			"label": "Name",
 			"required": "true",
@@ -23,7 +24,8 @@
 			"sanitizer": "sanitize_text_field"
 		},
 		{
-	        "id": "email",
+			"autocomplete": "email",
+			"id": "email",
 	        "label": "Email",
 	        "required": "true",
 			"element": "input",

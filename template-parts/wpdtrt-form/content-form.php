@@ -104,6 +104,7 @@ if ( $render_form ) :
 			foreach ( $template_fields as $field ) :
 
 				// predeclare variables.
+				$autocomplete     = null;
 				$cols             = null;
 				$element          = null;
 				$error            = null;
