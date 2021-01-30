@@ -6,7 +6,6 @@
  */
 
 /* globals jQuery, wpdtrt_form_config */
-/* eslint-disable camelcase, no-unused-vars */
 
 /**
  * jQuery object
@@ -41,8 +40,8 @@ const wpdtrtFormUi = {
             .attr('aria-hidden', true)
             .hide();
 
-        // required attribute is added via JS to prevent HTML5 noscript validation
-        // from intercepting styled PHP validation.
+        // required attribute is added via JS to prevent HTML5 validation
+        // from intercepting styled noscript PHP validation.
         $form.find('[data-required]')
             .attr('required', 'required');
 
@@ -80,7 +79,7 @@ const wpdtrtFormUi = {
 };
 
 jQuery(($) => {
-    const config = wpdtrt_form_config; // eslint-disable-line
+    const config = wpdtrt_form_config; // eslint-disable-line camelcase, no-unused-vars
 
     wpdtrtFormUi.$ = $;
 

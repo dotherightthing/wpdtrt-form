@@ -60,7 +60,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 
 		// About: add actions and filters here.
 		add_filter( 'wpdtrt_form_set_api_endpoint', [ $this, 'filter_set_api_endpoint' ] );
-		// add_action( 'wp_mail_failed', [ $this, 'helper_wp_mail_failed' ], 10, 1 );
+		add_action( 'wp_mail_failed', [ $this, 'helper_wp_mail_failed' ], 10, 1 );
 
 		$this->helper_test_wp_mail( 'testmail' );
 	}
