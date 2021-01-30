@@ -34,7 +34,20 @@ const wpdtrtFormUi = {
     validateForm: function (selector) {
         const $ = wpdtrtFormUi.$;
 
-        $(selector).validate({
+        const $form = $(selector);
+
+        // hide the noscript error list if enabled (errors_list="1") and present due to bad data
+        $form.find('.wpdtrt-form__errors-list')
+            .attr('aria-hidden', true)
+            .hide();
+
+        // required attribute is added via JS to prevent HTML5 noscript validation
+        // from intercepting styled PHP validation.
+        $form.find('[data-required]')
+            .attr('required', 'required');
+
+        // listen for submit and then validate as follows
+        $form.validate({
             errorElement: 'strong',
             errorPlacement: function (error, element) {
                 error.appendTo($(`#${element.data('errors')}`)); // data-errors='fieldname-validation'

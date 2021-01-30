@@ -26,7 +26,9 @@ if ( isset( $autocomplete ) ) {
 }
 
 if ( isset( $required ) ) {
-	$attr_required = " aria-required='true' required='required' data-errors='{$id}-validation' data-msg-required='{$error}'";
+	// required attribute is added via JS to prevent HTML5 noscript validation
+	// from intercepting styled PHP validation.
+	$attr_required = " aria-required='true' data-required='true' data-errors='{$id}-validation' data-msg-required='{$error}'";
 }
 
 if ( null !== $notes ) {
