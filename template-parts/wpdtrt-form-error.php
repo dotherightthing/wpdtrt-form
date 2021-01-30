@@ -14,7 +14,7 @@
 global $wpdtrt_form_plugin;
 $sanitized_form_data = $wpdtrt_form_plugin->helper_sanitize_form_data();
 
-if ( '1' === $errors_inline ) {
+if ( $errors_inline ) {
 	?>
 <span id="<?php echo $field_id; ?>-validation" class="wpdtrt-form__validation">
 	<?php

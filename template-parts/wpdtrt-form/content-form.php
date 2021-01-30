@@ -63,6 +63,8 @@ $data = $plugin->get_plugin_data();
 global $debug;
 
 if ( key_exists( 'template_fields', $data ) ) {
+	$errors_inline        = ( '1' === $errors_inline );
+	$errors_list          = ( '1' === $errors_list );
 	$form_action          = $_SERVER['REQUEST_URI'];
 	$form_id_raw          = $data['form_id'];
 	$form_id              = $plugin->get_form_id( $form_id_raw );

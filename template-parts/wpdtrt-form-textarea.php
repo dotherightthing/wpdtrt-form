@@ -32,7 +32,7 @@ if ( isset( $required ) ) {
 	// from intercepting styled PHP validation.
 	$attr_required = " aria-required='true' data-required='true' data-describedby='{$field_id}-validation' data-msg-required='{$error}'";
 
-	if ( '1' === $errors_inline ) {
+	if ( $errors_inline ) {
 		$attr_describedby_value .= " {$field_id}-validation";
 	}
 }
@@ -49,7 +49,7 @@ if ( '' !== $attr_describedby_value ) {
 if ( ! isset( $sanitized_form_data[ $name ] ) || '' === $sanitized_form_data[ $name ] ) {
 	$attr_invalid = ' aria-invalid="true"';
 
-	if ( '1' === $errors_inline ) {
+	if ( $errors_inline ) {
 		$attr_class = ' class="error"';
 	}
 }
