@@ -11,13 +11,16 @@
  * @subpackage  Wpdtrt_Form/views
  */
 
-$class   = ( $sentmail ? $data['success_class'] : $data['error_class'] );
-$message = ( $sentmail ? $data['success_message'] : $data['error_message'] );
+$class        = ( $sentmail ? $data['success_class'] : $data['error_class'] );
+$legend       = $data['legend'];
+$legend_class = $data['legend_class'];
+$message      = ( $sentmail ? $data['success_message'] : $data['error_message'] );
 ?>
 
 <div class="wpdtrt-form__status wpdtrt-form__status--<?php echo $class; ?>">
-<p><?php echo $message; ?></p>
 <?php if ( '1' === $errors_list ) : ?>
+<h3 class="<?php echo $legend_class; ?>"><?php echo $legend; ?></h3>
+<p><?php echo $message; ?></p>
 <ol class="wpdtrt-form_-error-list">
 	<?php foreach ( $submitted_data as $key => $sanitized_value ) : ?>
 		<?php
@@ -42,5 +45,8 @@ $message = ( $sentmail ? $data['success_message'] : $data['error_message'] );
 	<?php endif; ?>
 	<?php endforeach; ?>
 </ol>
+<?php else: ?>
+<h3 class="<?php echo $legend_class; ?>"><?php echo $legend; ?></h3>
+<p><?php echo $message; ?></p>
 <?php endif; ?>
 </div>

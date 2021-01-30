@@ -166,30 +166,13 @@
     }
 
     &__status {
-        color: var(--wpdtrt-form-status-color);
         font-size: .8em;
         line-height: 1.5;
-        padding: 4px 18px; // TODO: how to do matching negative margin with CSS Grid?
         margin-bottom: 16px;
 
-        .entry-content > &:last-child {
-            padding-bottom: 4px;
-        }
-
-        p {
-            &,
-            .entry-content & {
-                padding-top: 4px;
-                margin: 0;
-            }
-        }
-
-        &--error {
-            background-color: var(--wpdtrt-form-status-error-bgcolor);
-        }
-
-        &--success {
-            background-color: var(--wpdtrt-form-status-success-bgcolor);
+        > p,
+        .entry-content .entry-summary + & {
+            font-size: inherit;
         }
     }
 
