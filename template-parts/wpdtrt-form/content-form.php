@@ -115,17 +115,17 @@ if ( $render_form ) :
 			foreach ( $template_fields as $field ) :
 
 				// predeclare variables.
-				$autocomplete     = null;
-				$cols             = null;
-				$element          = null;
-				$error            = null;
-				$id               = null;
-				$label            = null;
-				$notes            = null;
-				$required         = null;
-				$rows             = null;
-				$size             = null;
-				$type             = null;
+				$autocomplete = null;
+				$cols         = null;
+				$element      = null;
+				$error        = null;
+				$id           = null;
+				$label        = null;
+				$notes        = null;
+				$required     = null;
+				$rows         = null;
+				$size         = null;
+				$type         = null;
 
 				// only overwrite predeclared variables.
 				extract( $field, EXTR_IF_EXISTS );
