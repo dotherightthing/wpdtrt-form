@@ -12,50 +12,50 @@
 	"template_fields": [
 		{
 			"autocomplete": "name",
+			"element": "input",
+			"error": "Please enter your name",
+			"html5_validation": "[a-zA-Z-() ]+",
 			"id": "name",
 			"label": "Name",
-			"required": "true",
-			"element": "input",
 			"notes": "",
-			"type": "text",
-			"html5_validation": "[a-zA-Z-() ]+",
+			"required": "true",
+			"sanitizer": "sanitize_text_field",
 			"size": "40",
-			"error": "Please enter your name",
-			"sanitizer": "sanitize_text_field"
+			"type": "text"
 		},
 		{
 			"autocomplete": "email",
+			"element": "input",
+	        "error": "Please enter a valid email address",
 			"id": "email",
 	        "label": "Email",
-	        "required": "true",
-			"element": "input",
 			"notes": "Your email address will not be published.",
-	        "type": "email",
-	        "size": "40",
-	        "error": "Please enter a valid email address",
-	        "sanitizer": "sanitize_email"
+	        "required": "true",
+	        "sanitizer": "sanitize_email",
+			"size": "40",
+			"type": "email"
 		},
 		{
-	        "id": "subject",
-	        "label": "Subject",
-	        "required": "true",
 	        "element": "input",
-			"notes": "",
-			"type": "text",
-	        "html5_validation": "[a-zA-Z-()0-9 ]+",
-	        "size": "40",
 	        "error": "Please enter a subject",
-	        "sanitizer": "sanitize_text_field"
+	        "html5_validation": "[a-zA-Z-()0-9 ]+",
+			"id": "subject",
+	        "label": "Subject",
+			"notes": "",
+			"required": "true",
+	        "sanitizer": "sanitize_text_field",
+	        "size": "40",
+			"type": "text"
 		},
 		{
-	        "id": "message",
-	        "label": "Message",
-	        "required": "true",
-	        "element": "textarea",
-			"notes": "",
-			"rows": "10",
 	        "cols": "35",
+			"element": "textarea",
 	        "error": "Please enter your message",
+			"id": "message",
+	        "label": "Message",
+			"notes": "",
+			"required": "true",
+			"rows": "10",
 	        "sanitizer": "sanitize_textarea_field"
 		}
 	]
