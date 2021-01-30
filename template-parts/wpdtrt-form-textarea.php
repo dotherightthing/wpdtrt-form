@@ -44,8 +44,8 @@ if ( '' !== $attr_describedby_value ) {
 	$attr_describedby       = " aria-describedby='{$attr_describedby_value}'";
 }
 
-if ( isset( $submitted_data[ $name ] ) ) {
-	if ( '' === $submitted_data[ $name ] ) {
+if ( isset( $sanitized_form_data[ $name ] ) ) {
+	if ( '' === $sanitized_form_data[ $name ] ) {
 		$attr_invalid = ' aria-invalid="true"';
 	}
 }

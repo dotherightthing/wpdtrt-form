@@ -20,13 +20,13 @@ $icon_class        = $sentmail ? 'email' : 'warning';
 $legend            = $data['legend'];
 $template_fields   = $data['template_fields'];
 
-foreach ( $submitted_data as $key => $sanitized_value ) {
+foreach ( $sanitized_form_data as $key => $sanitized_value ) {
 	if ( '' === $sanitized_value ) {
 		++$errors_count;
 
 		if ( '1' === $errors_list ) {
 			/**
-			 * Search the template_fields array for the id (field name) which matches the submitted_data key (field name)
+			 * Search the template_fields array for the id (field name) which matches the sanitized_form_data key (field name)
 			 * array_map() creates a new array containing only the field ids, with the same order as the multidimensional array
 			 * array_search() searches the new array for the value (id / field name) and returns the numeric key
 			 * the numeric key can then be used to target the appropriate multidimensional child array

@@ -72,7 +72,7 @@ if ( key_exists( 'template_fields', $data ) ) {
 
 	if ( false === $sent ) {
 		// get submission data.
-		$submitted_data = $plugin->helper_sanitize_form_data();
+		$sanitized_form_data = $plugin->helper_sanitize_form_data();
 	}
 
 	// if the form hasn't been submitted yet
