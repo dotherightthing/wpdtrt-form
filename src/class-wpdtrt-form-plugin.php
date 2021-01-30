@@ -73,33 +73,33 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	/**
 	 * Build the field id string
 	 *
-	 * @param {string} $form_id The ID of the form.
+	 * @param {string} $form_id_raw The ID of the form.
 	 * @param {string} $field_name The field name.
 	 * @return {string} The field id string.
 	 */
-	public function get_field_id( $form_id, $field_name ) {
-		return "wpdtrt-form-{$form_id}-{$field_name}";
+	public function get_field_id( $form_id_raw, $field_name ) {
+		return "wpdtrt-form-{$form_id_raw}-{$field_name}";
 	}
 
 	/**
 	 * Build the field id string
 	 *
-	 * @param {string} $form_id The ID of the form.
+	 * @param {string} $form_id_raw The ID of the form.
 	 * @param {string} $field_name The field name.
 	 * @return {string} The field name string.
 	 */
-	public function get_field_name( $form_id, $field_name ) {
-		return "wpdtrt_form_{$form_id}_{$field_name}";
+	public function get_field_name( $form_id_raw, $field_name ) {
+		return "wpdtrt_form_{$form_id_raw}_{$field_name}";
 	}
 
 	/**
 	 * Build the form id string
 	 *
-	 * @param {string} $form_id The ID of the form.
+	 * @param {string} $form_id_raw The ID of the form.
 	 * @return {string} The form id string.
 	 */
-	public function get_form_id( $form_id ) {
-		return "wpdtrt-form-{$form_id}";
+	public function get_form_id( $form_id_raw ) {
+		return "wpdtrt-form-{$form_id_raw}";
 	}
 
 	/**
