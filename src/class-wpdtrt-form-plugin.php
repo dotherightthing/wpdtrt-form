@@ -89,6 +89,9 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 * @return {string} The field name string.
 	 */
 	public function get_field_name( $form_id_raw, $field_name ) {
+		$form_id_raw = str_replace( '-', '_', $form_id_raw );
+		$field_name  = str_replace( '-', '_', $field_name );
+
 		return "wpdtrt_form_{$form_id_raw}_{$field_name}";
 	}
 
