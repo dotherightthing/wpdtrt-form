@@ -13,6 +13,7 @@
 
 $class             = $sentmail ? $data['success_class'] : $data['error_class'];
 $errors_count      = 0;
+$errors_list       = isset( $errors_list ) && ( '1' === $errors_list );
 $errors_list_items = '';
 $heading           = $data['heading'];
 $heading_class     = $data['heading_class'];
@@ -24,7 +25,7 @@ foreach ( $sanitized_form_data as $key => $sanitized_value ) {
 	if ( '' === $sanitized_value ) {
 		++$errors_count;
 
-		if ( '1' === $errors_list ) {
+		if ( $errors_list ) {
 			/**
 			 * Search the template_fields array for the id (field name) which matches the sanitized_form_data key (field name)
 			 * array_map() creates a new array containing only the field ids, with the same order as the multidimensional array
@@ -49,7 +50,7 @@ foreach ( $sanitized_form_data as $key => $sanitized_value ) {
 
 if ( $sentmail ) {
 	$message = $data['success_message'];
-} elseif ( ( $errors_count > 0 ) && ( '1' === $errors_list ) ) {
+} elseif ( ( $errors_count > 0 ) && $errors_list ) {
 	if ( $errors_count > 1 ) {
 		$message = $data['error_message_plural'];
 		$message = str_replace( '#', $errors_count, $message );
@@ -71,7 +72,7 @@ if ( $sentmail ) {
 		<?php echo $message; ?>
 	</p>
 <?php
-if ( ( $errors_count > 0 ) && ( '1' === $errors_list ) ) {
+if ( ( $errors_count > 0 ) && $errors_list ) {
 	// noscript error list.
 	echo "<ol class='wpdtrt-form__errors-list'>{$errors_list_items}</ol>";
 }
