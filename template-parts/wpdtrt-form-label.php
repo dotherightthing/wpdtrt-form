@@ -19,7 +19,7 @@ if ( '1' === $errors_inline ) {
 
 ?>
 
-<label class="wpdtrt-form__label<?php echo $required_label_class; ?>" for="<?php echo $id; ?>">
+<label class="wpdtrt-form__label<?php echo $required_label_class; ?>" for="<?php echo $field_id; ?>">
 <?php
 echo $label;
 if ( $required ) :

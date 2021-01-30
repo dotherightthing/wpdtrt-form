@@ -16,9 +16,9 @@ $attr_checked           = '';
 $attr_class             = '';
 $attr_describedby       = '';
 $attr_describedby_value = '';
-$attr_id                = " id='{$id}'";
+$attr_id                = " id='{$field_id}'";
 $attr_invalid           = '';
-$attr_name              = " name='{$id}'";
+$attr_name              = " name='{$field_name}'";
 $attr_pattern           = '';
 $attr_required          = '';
 $attr_size              = '';
@@ -32,7 +32,7 @@ if ( isset( $autocomplete ) ) {
 if ( 'checkbox' === $type ) {
 	$attr_checked = ' ' . checked( $value, 1 );
 	$attr_value   = ' value="1"';
-} elseif ( 'checkbox' !== $type ) {
+} elseif ( 'checkbox' !== $type ) { // TODO.
 	$attr_checked = ' ' . checked( $value, 1 );
 	$attr_value   = " value='{$value}'";
 } elseif ( 'text' === $type ) {
@@ -42,15 +42,15 @@ if ( 'checkbox' === $type ) {
 if ( isset( $required ) ) {
 	// required attribute is added via JS to prevent HTML5 noscript validation
 	// from intercepting styled PHP validation.
-	$attr_required = " aria-required='true' data-required='true' data-errors='{$id}-validation' data-msg-required='{$error}'";
+	$attr_required = " aria-required='true' data-required='true' data-errors='{$field_id}-validation' data-msg-required='{$error}'";
 
 	if ( '1' === $errors_inline ) {
-		$attr_describedby_value .= " {$id}-validation";
+		$attr_describedby_value .= " {$field_id}-validation";
 	}
 }
 
 if ( null !== $notes ) {
-	$attr_describedby_value .= " {$id}-notes";
+	$attr_describedby_value .= " {$field_id}-notes";
 }
 
 if ( '' !== $attr_describedby_value ) {

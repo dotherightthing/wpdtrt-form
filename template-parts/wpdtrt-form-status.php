@@ -39,10 +39,10 @@ foreach ( $sanitized_form_data as $key => $sanitized_value ) {
 				return $nested_array['id'];
 			}, $template_fields ), true );
 
-			$id   = $template_fields[ $index ]['id'];
-			$text = $template_fields[ $index ]['error'];
+			$field_id   = $this->get_field_id( $form_id_raw, $template_fields[ $index ]['id'] );
+			$field_text = $template_fields[ $index ]['error'];
 
-			$errors_list_items .= "<li><a href='#wpdtrt-{$form_id}-{$id}'>{$text}</a></li>";
+			$errors_list_items .= "<li><a href='#{$field_id}'>{$field_text}</a></li>";
 		}
 	}
 }

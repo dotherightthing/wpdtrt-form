@@ -61,14 +61,16 @@ $render_form = false;
 $data = $plugin->get_plugin_data();
 
 if ( key_exists( 'template_fields', $data ) ) {
-	$form_id         = $data['form_id'];
-	$form_name       = $data['form_name'];
-	$template_fields = $data['template_fields'];
+	$form_action          = $_SERVER['REQUEST_URI'];
+	$form_id_raw          = $data['form_id'];
+	$form_id              = $this->get_form_id( $form_id_raw );
+	$form_name_raw        = $data['form_name'];
+	$template_fields      = $data['template_fields'];
+	$field_id_submitted   = $this->get_field_id( $form_id_raw, 'submitted' );
+	$field_name_submitted = $this->get_field_name( $form_id_raw, 'submitted' );
 
 	// send form submission to email and output wpdtrt-form-status.php.
-	$sent = $plugin->helper_sendmail( $form_id, $form_name, $errors_list );
-
-	$current_url = $_SERVER['REQUEST_URI'];
+	$sent = $plugin->helper_sendmail( $form_id_raw, $form_name_raw, $errors_list );
 
 	if ( false === $sent ) {
 		// get submission data.
@@ -77,7 +79,7 @@ if ( key_exists( 'template_fields', $data ) ) {
 
 	// if the form hasn't been submitted yet
 	// or if it was submitted but couldn't be sent due to errors.
-	if ( ! isset( $_POST[ 'wpdtrt-form' . $form_id . '-submitted' ] ) || ( false === $sent ) ) {
+	if ( ! isset( $_POST[ $field_name_submitted ] ) || ( false === $sent ) ) {
 		$render_form = true;
 	}
 }
@@ -88,8 +90,8 @@ echo $before_title . $title . $after_title;
 if ( $render_form ) :
 	?>
 
-<div class="wpdtrt-form" id="wpdtrt-<?php echo $form_id; ?>-<?php echo $template; ?>">
-	<form action="<?php echo $current_url; ?>" method="post" class="wpdtrt-form-template wpdtrt-form-template-<?php echo $template; ?>">
+<div class="wpdtrt-form" id="<?php echo $form_id; ?>">
+	<form action="<?php echo $form_action; ?>" method="post" class="wpdtrt-form-template wpdtrt-form-template-<?php echo $template; ?>">
 		<fieldset class="wpdtrt-form__fieldset">
 			<legend class="wpdtrt-form__legend">
 				<?php echo $data['legend']; ?>
@@ -98,10 +100,10 @@ if ( $render_form ) :
 				<?php
 				foreach ( $template_fields as $template_field ) {
 					if ( array_key_exists( 'notes', $template_field ) ) {
-						$id   = $template_field['id'];
-						$text = $template_field['notes'];
+						$field_id   = $this->get_field_id( $form_id_raw, $template_field['id'] );
+						$field_text = $template_field['notes'];
 
-						echo "<span id='wpdtrt-{$form_id}-{$id}-notes'>{$text}</span>";
+						echo "<span id='{$field_id}-notes'>{$field_text}</span>";
 					}
 				}
 				?>
@@ -128,11 +130,11 @@ if ( $render_form ) :
 				// only overwrite predeclared variables.
 				extract( $field, EXTR_IF_EXISTS );
 
-				$id                   = "wpdtrt-{$form_id}-{$id}";
-				$name                 = $id;
+				$field_id             = $this->get_field_id( $form_id_raw, $id );
+				$field_name           = $this->get_field_name( $form_id_raw, $id );
 				$required             = isset( $required );
 				$required_label_class = $required ? ' wpdtrt-form__label--required' : '';
-				$value                = ( isset( $_POST[ $id ] ) ? esc_attr( $_POST[ $id ] ) : '' );
+				$value                = ( isset( $_POST[ $field_name ] ) ? esc_attr( $_POST[ $field_name ] ) : '' );
 				?>
 
 			<div class="wpdtrt-form__item">
@@ -168,7 +170,7 @@ if ( $render_form ) :
 			<?php endforeach; ?>
 
 			<div class="wpdtrt-form__submit-wrapper">
-				<input type="submit" name="wpdtrt-<?php echo $form_id; ?>-submitted" id="wpdtrt-<?php echo $form_id; ?>-submitted" class="wpdtrt-form__submit" value="<?php echo $data['submit']; ?>">
+				<input type="submit" name="<?php echo $field_name_submitted; ?>" id="<?php echo $field_id_submitted; ?>" class="wpdtrt-form__submit" value="<?php echo $data['submit']; ?>">
 			</div>
 		</fieldset>
 	</form>

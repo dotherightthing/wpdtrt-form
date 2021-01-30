@@ -60,7 +60,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 
 		// About: add actions and filters here.
 		add_filter( 'wpdtrt_form_set_api_endpoint', [ $this, 'filter_set_api_endpoint' ] );
-		add_action( 'wp_mail_failed', [ $this, 'helper_wp_mail_failed' ], 10, 1 );
+		// add_action( 'wp_mail_failed', [ $this, 'helper_wp_mail_failed' ], 10, 1 );
 
 		$this->helper_test_wp_mail( 'testmail' );
 	}
@@ -69,6 +69,38 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 * Group: Getters and Setters
 	 * _____________________________________
 	 */
+
+	/**
+	 * Build the field id string
+	 *
+	 * @param {string} $form_id The ID of the form.
+	 * @param {string} $field_name The field name.
+	 * @return {string} The field id string.
+	 */
+	public function get_field_id( $form_id, $field_name ) {
+		return "wpdtrt-form-{$form_id}-{$field_name}";
+	}
+
+	/**
+	 * Build the field id string
+	 *
+	 * @param {string} $form_id The ID of the form.
+	 * @param {string} $field_name The field name.
+	 * @return {string} The field name string.
+	 */
+	public function get_field_name( $form_id, $field_name ) {
+		return "wpdtrt_form_{$form_id}_{$field_name}";
+	}
+
+	/**
+	 * Build the form id string
+	 *
+	 * @param {string} $form_id The ID of the form.
+	 * @return {string} The form id string.
+	 */
+	public function get_form_id( $form_id ) {
+		return "wpdtrt-form-{$form_id}";
+	}
 
 	/**
 	 * Group: Renderers
@@ -196,12 +228,13 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		$sanitized_form_data = array();
 
 		// this requires json_decode to use the optional second argument to return an associative array.
-		$data            = $this->get_plugin_data();
-		$form_id         = $data['form_id'];
-		$template_fields = $data['template_fields'];
+		$data                 = $this->get_plugin_data();
+		$form_id_raw          = $data['form_id'];
+		$field_name_submitted = $this->get_field_name( $form_id_raw, 'submitted' );
+		$template_fields      = $data['template_fields'];
 
 		// if the submit button is clicked, send the email.
-		if ( isset( $_POST[ 'wpdtrt-form' . $form_id . '-submitted' ] ) ) {
+		if ( isset( $_POST[ $field_name_submitted ] ) ) {
 
 			$wpdtrt_form_options = get_option( 'wpdtrt_form' );
 
@@ -226,8 +259,8 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 						 *
 						 * @see http://php.net/manual/en/function.call-user-func.php
 						 */
-						$field_id                         = "wpdtrt-form-{$form_id}-{$template_field['id']}";
-						$sanitized_form_data[ $field_id ] = call_user_func( $sanitizer, $_POST[ $field_id ] );
+						$field_name                         = $this->get_field_name( $form_id_raw, $template_field['id'] );
+						$sanitized_form_data[ $field_name ] = call_user_func( $sanitizer, $_POST[ $field_name ] );
 					}
 				}
 			}
@@ -239,7 +272,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	/**
 	 * Send an email using $_POST data
 	 *
-	 * @param {string} $form_id The ID of the form.
+	 * @param {string} $form_id_raw The ID of the form.
 	 * @param {string} $form_name The name of the form.
 	 * @param {string} $errors_list Whether to output a list above the form when there are errors.
 	 * @return $sentmail Whether the email contents were sent successfully.
@@ -248,32 +281,32 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 * @see http://www.wordpresscheatsheets.com/how-to-send-html-emails-from-wordpress-using-wp_mail-function
 	 * @todo Use template loader
 	 */
-	public function helper_sendmail( $form_id, $form_name, $errors_list ) {
+	public function helper_sendmail( $form_id_raw, $form_name, $errors_list ) {
 
 		// TODO add a key-value pair to track which of these a field represents.
-		$field_id_name    = 'wpdtrt-form-' . $form_id . '-name';
-		$field_id_email   = 'wpdtrt-form-' . $form_id . '-email';
-		$field_id_message = 'wpdtrt-form-' . $form_id . '-message';
-		$field_id_subject = 'wpdtrt-form-' . $form_id . '-subject';
-		$field_id_submit  = 'wpdtrt-form-' . $form_id . '-submitted';
+		$field_name_name    = $this->get_field_name( $form_id_raw, 'name' );
+		$field_name_email   = $this->get_field_name( $form_id_raw, 'email' );
+		$field_name_message = $this->get_field_name( $form_id_raw, 'message' );
+		$field_name_subject = $this->get_field_name( $form_id_raw, 'subject' );
+		$field_name_submit  = $this->get_field_name( $form_id_raw, 'submit' );
 
 		// if the submit button is clicked, send the email.
-		if ( isset( $_POST[ $field_id_submit ] ) ) {
+		if ( isset( $_POST[ $field_name_submit ] ) ) {
 			$sanitized_form_data = $this->helper_sanitize_form_data();
 
 			$blogname = get_option( 'blogname' );
 			$to       = get_option( 'admin_email' ); // blog administrator's email address.
-			$headers  = 'From: ' . $sanitized_form_data[ $field_id_name ] . '<' . $sanitized_form_data[ $field_id_email ] . '>' . "\r\n";
+			$headers  = 'From: ' . $sanitized_form_data[ $field_name_name ] . '<' . $sanitized_form_data[ $field_name_email ] . '>' . "\r\n";
 
-			if ( '' !== $sanitized_form_data[ $field_id_message ] ) {
-				$message  = $sanitized_form_data[ $field_id_message ] . "\r\n\r\n";
+			if ( '' !== $sanitized_form_data[ $field_name_message ] ) {
+				$message  = $sanitized_form_data[ $field_name_message ] . "\r\n\r\n";
 				$message .= '---' . "\r\n\r\n";
 				$message .= "Sent from the {$blogname} {$form_name} form.";
 			} else {
 				$message = '';
 			}
 
-			$sentmail       = wp_mail( $to, $sanitized_form_data[ $field_id_subject ], $message, $headers );
+			$sentmail       = wp_mail( $to, $sanitized_form_data[ $field_name_subject ], $message, $headers );
 			$plugin_options = $this->get_plugin_options();
 			$data           = $this->get_plugin_data();
 
