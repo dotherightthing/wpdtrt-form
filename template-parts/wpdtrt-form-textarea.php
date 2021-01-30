@@ -37,7 +37,7 @@ if ( null !== $notes ) {
 }
 
 if ( ( '1' === $errors_inline ) && isset( $required ) ) {
-	$attr_describedby_value .= " {$id}-error";
+	$attr_describedby_value .= " {$id}-validation";
 }
 
 if ( '' !== $attr_describedby_value ) {
