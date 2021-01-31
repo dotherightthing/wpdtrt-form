@@ -11,7 +11,6 @@
  * @subpackage  Wpdtrt_Form/views
  */
 
-$class              = $sentmail ? $data['success_class'] : $data['error_class'];
 $errors_count       = 0;
 $errors_list_items  = '';
 $heading            = $data['heading'];
@@ -68,7 +67,7 @@ if ( isset( $sanitized_form_data ) ) { // this line is redundant.
 
 ?>
 
-<div class="wpdtrt-form__status wpdtrt-form__status--<?php echo $class; ?>">
+<div class="wpdtrt-form__status">
 	<h3<?php echo $heading_class_attr; ?>>
 		<?php echo $heading; ?>
 	</h3>
