@@ -315,14 +315,12 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		$field_name_submit  = $this->get_field_name( $form_id_raw, 'submitted' );
 		$sendmail           = true;
 		$sentmail           = false;
-		$submitted          = false;
 
 		global $debug;
 
 		// if the submit button is clicked, send the email.
 		if ( isset( $_POST[ $field_name_submit ] ) ) {
 			$sanitized_form_data = $this->helper_sanitize_form_data();
-			$submitted           = true;
 
 			// TODO create an array from fields that are actually required.
 			$required_fields = array(
