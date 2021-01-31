@@ -8,7 +8,7 @@
 	"legend": "Contact form",
 	"heading_class": "comment-reply-title entry-summary",
 	"success_class": "success",
-	"success_message": "Thank you for contacting me! I'll get back to you as soon as I can.",
+	"success_message": "Thank you for contacting me! I'll get back to you as soon as possible.",
 	"submit": "Submit",
 	"template_fields": [
 		{
