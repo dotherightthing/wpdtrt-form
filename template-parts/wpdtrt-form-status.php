@@ -19,7 +19,7 @@ $icon_class         = '2' === $submit_status ? 'email' : 'warning';
 $legend             = $data['legend'];
 $message            = '';
 $show_errors_list   = $errors_list;
-$fields    = $data['fields'];
+$fields             = $data['fields'];
 
 if ( isset( $sanitized_form_data ) ) { // this line is redundant.
 	foreach ( $sanitized_form_data as $key => $sanitized_value ) {

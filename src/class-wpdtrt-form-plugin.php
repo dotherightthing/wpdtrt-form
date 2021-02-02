@@ -56,7 +56,8 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 *
 	 * @todo Replace helper_sendmail_proxy with plugin options
 	 * @todo Autocomplete not working
-	 * @todo Jump to #section-get-in-touch on submit
+	 * @todo Jump to #section-get-in-touch on submit if the email wasn't sent
+	 * @todo Update shortcode to support multiple forms.
 	 */
 	protected function wp_setup() { // phpcs:ignore
 
@@ -307,7 +308,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		$data              = $this->get_plugin_data();
 		$form_id_raw       = $data['form_id'];
 		$field_name_submit = $this->get_field_name( $form_id_raw, 'submit' );
-		$fields   = $data['fields'];
+		$fields            = $data['fields'];
 
 		// if the submit button is clicked, send the email.
 		if ( isset( $_POST[ $field_name_submit ] ) ) {

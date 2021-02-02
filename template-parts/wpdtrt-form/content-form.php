@@ -29,21 +29,6 @@ $plugin = null;
 // Options: display $args + widget $instance settings + access to plugin.
 $options = get_query_var( 'options', array() );
 
-/**
- * Store the shortcode options in the options table
- *
- * $wpdtrt_form_options = get_option('wpdtrt_form'); // option doesn't exist yet
- *
- * @todo test/update for multiple forms
- */
-// $wpdtrt_form_options['wpdtrt_form_datatype'] = $template;
-// $wpdtrt_form_options['errors_list'] = $errors_list;
-// $wpdtrt_form_options['errors_inline'] = $errors_inline;
-// update_option('wpdtrt_form', $wpdtrt_form_options);.
-//
-// store the template data in the options table.
-// $plugin->refresh_api_data();.
-//
 // Overwrite variables from array values
 // https://gist.github.com/dotherightthing/a1bde197a6ff5a9fddb886b0eb17ac79.
 extract( $options, EXTR_IF_EXISTS );
@@ -70,7 +55,7 @@ if ( key_exists( 'fields', $data ) ) {
 	$form_name         = $data['form_name'];
 	$field_id_submit   = $plugin->get_field_id( $form_id_raw, 'submit' );
 	$field_name_submit = $plugin->get_field_name( $form_id_raw, 'submit' );
-	$fields   = $data['fields'];
+	$fields            = $data['fields'];
 	$submit_status     = $plugin->get_submit_status();
 
 	if ( '2' !== $submit_status ) {
