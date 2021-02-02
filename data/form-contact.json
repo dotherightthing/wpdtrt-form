@@ -1,4 +1,5 @@
 {
+	"anchor_id": "section-get-in-touch",
 	"fields": [
 		{
 			"autocomplete": "name",
@@ -62,5 +63,5 @@
 		}	
 	],
 	"submit": "Submit",
-	"url": "/contact/#section-get-in-touch"
+	"url": "/contact/"
 }

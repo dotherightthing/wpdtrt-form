@@ -384,6 +384,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		$this->get_api_data();
 		$data = $this->get_plugin_data();
 
+		$anchor_id             = $data['anchor_id'];
 		$blogname              = get_option( 'blogname' );
 		$errors_list           = $errors_list;
 		$field_name_submit     = $this->get_field_name( $form_id_raw, 'submit' );
@@ -439,7 +440,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 					nocache_headers();
 
 					// this only works before html is output!
-					$url = add_query_arg( 'wpdtrtformsent', '1', $url );
+					$url = add_query_arg( 'wpdtrtformsent', '1', ( $url . '#' . $anchor_id ) );
 					wp_safe_redirect( $url, 303 );
 					exit();
 				} else {
