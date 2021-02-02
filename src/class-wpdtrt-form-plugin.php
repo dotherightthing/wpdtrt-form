@@ -444,7 +444,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 					$this->set_submit_status( '1' ); // ok, refresh resubmits.
 				}
 			} else {
-				$this->set_submit_status( '3' ); // noscript errors.
+				$this->set_submit_status( '3' ); // ok, refresh resubmits and revalidates.
 			}
 		} else {
 			if ( array_key_exists( 'wpdtrtformsent', $_GET ) && '1' === $_GET['wpdtrtformsent'] ) {
