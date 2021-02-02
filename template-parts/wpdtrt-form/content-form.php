@@ -63,39 +63,38 @@ $data = $plugin->get_plugin_data();
 $errors_inline = isset( $errors_inline ) && ( '1' === $errors_inline );
 $errors_list   = isset( $errors_list ) && ( '1' === $errors_list );
 
-global $debug;
-
 if ( key_exists( 'template_fields', $data ) ) {
-	$form_action          = $_SERVER['REQUEST_URI'];
-	$form_id_raw          = $data['form_id'];
-	$form_id              = $plugin->get_form_id( $form_id_raw );
-	$form_name            = $data['form_name'];
-	$field_id_submitted   = $plugin->get_field_id( $form_id_raw, 'submitted' );
-	$field_name_submitted = $plugin->get_field_name( $form_id_raw, 'submitted' );
-	$template_fields      = $data['template_fields'];
+	$form_action       = $_SERVER['REQUEST_URI'];
+	$form_id_raw       = $data['form_id'];
+	$form_id           = $plugin->get_form_id( $form_id_raw );
+	$form_name         = $data['form_name'];
+	$field_id_submit   = $plugin->get_field_id( $form_id_raw, 'submitted' );
+	$field_name_submit = $plugin->get_field_name( $form_id_raw, 'submitted' );
+	$template_fields   = $data['template_fields'];
+	$submit_status     = $plugin->get_submit_status();
 
-	// send form submission to email and output wpdtrt-form-status.php.
-	$sentmail = $plugin->helper_sendmail( $form_id_raw, $form_name, $errors_list );
-
-	if ( false === $sentmail ) {
-		// get submission data.
-		$sanitized_form_data = $plugin->helper_sanitize_form_data();
-	}
-
-	// if the form hasn't been submitted yet
-	// or if it was submitted but couldn't be sent due to errors.
-	if ( ! isset( $_POST[ $field_name_submitted ] ) || ( false === $sentmail ) ) {
-		$render_form = true;
+	if ( '2' !== $submit_status ) {
+		$sanitized_form_data = $plugin->helper_sanitize_form_data(); // submitted data.
+		$render_form         = true;
 	}
 }
+
 
 // WordPress widget options (not output with shortcode).
 echo $before_widget;
 echo $before_title . $title . $after_title;
+?>
+
+<div class="wpdtrt-form" id="<?php echo $form_id; ?>">
+
+<?php
+
+// $submit_status is set by helper_sendmail in init hook.
+require WPDTRT_FORM_PATH . 'template-parts/wpdtrt-form-status.php';
+
 if ( $render_form ) :
 	?>
 
-<div class="wpdtrt-form" id="<?php echo $form_id; ?>">
 	<form action="<?php echo $form_action; ?>" method="post" class="wpdtrt-form-template wpdtrt-form-template-<?php echo $template; ?>">
 		<fieldset class="wpdtrt-form__fieldset">
 			<legend class="wpdtrt-form__legend">
@@ -175,14 +174,18 @@ if ( $render_form ) :
 			<?php endforeach; ?>
 
 			<div class="wpdtrt-form__submit-wrapper">
-				<input type="submit" name="<?php echo $field_name_submitted; ?>" id="<?php echo $field_id_submitted; ?>" class="wpdtrt-form__submit" value="<?php echo $data['submit']; ?>">
+				<input type="submit" name="<?php echo $field_name_submit; ?>" id="<?php echo $field_id_submit; ?>" class="wpdtrt-form__submit" value="<?php echo $data['submit']; ?>">
 			</div>
 		</fieldset>
 	</form>
-</div>
 
 	<?php
 endif;
+?>
+
+</div>
+
+<?php
 
 // output widget customisations (not output with shortcode).
 echo $after_widget;

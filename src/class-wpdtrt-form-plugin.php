@@ -53,6 +53,8 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 *
 	 * Since:
 	 *   0.9.1 - DTRT WordPress Plugin Boilerplate Generator
+	 *
+	 * @todo Replace helper_sendmail_proxy with plugin options
 	 */
 	protected function wp_setup() { // phpcs:ignore
 
@@ -61,6 +63,8 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		// About: add actions and filters here.
 		add_filter( 'wpdtrt_form_set_api_endpoint', [ $this, 'filter_set_api_endpoint' ] );
 		add_action( 'wp_mail_failed', [ $this, 'helper_wp_mail_failed' ], 10, 1 );
+		add_filter( 'query_vars', [ $this, 'helper_add_query_vars' ], 10, 1 );
+		add_action( 'init', [ $this, 'helper_sendmail_proxy' ] );
 
 		$this->helper_test_wp_mail( 'testmail' );
 	}
@@ -73,22 +77,22 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	/**
 	 * Build the field ID
 	 *
-	 * @param {string} $form_id_raw The ID of the form.
-	 * @param {string} $field_name The field name.
-	 * @return {string} The field ID.
+	 * @param string $form_id_raw The ID of the form.
+	 * @param string $field_name The field name.
+	 * @return string The field ID.
 	 */
-	public function get_field_id( $form_id_raw, $field_name ) {
+	public function get_field_id( string $form_id_raw, string $field_name ) : string {
 		return "wpdtrt-form-{$form_id_raw}-{$field_name}";
 	}
 
 	/**
 	 * Build the field name
 	 *
-	 * @param {string} $form_id_raw The ID of the form.
-	 * @param {string} $field_name The field name.
-	 * @return {string} The field name.
+	 * @param string $form_id_raw The ID of the form.
+	 * @param string $field_name The field name.
+	 * @return string The field name.
 	 */
-	public function get_field_name( $form_id_raw, $field_name ) {
+	public function get_field_name( string $form_id_raw, string $field_name ) : string {
 		$form_id_raw = str_replace( '-', '_', $form_id_raw );
 		$field_name  = str_replace( '-', '_', $field_name );
 
@@ -98,11 +102,11 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	/**
 	 * Extract the raw field name
 	 *
-	 * @param {string} $form_id_raw The ID of the form.
-	 * @param {string} $field_name The field name.
-	 * @return {string} The raw field name.
+	 * @param string $form_id_raw The ID of the form.
+	 * @param string $field_name The field name.
+	 * @return string The raw field name.
 	 */
-	public function get_field_name_raw( $form_id_raw, $field_name ) {
+	public function get_field_name_raw( string $form_id_raw, string $field_name ) : string {
 		$form_id_raw    = str_replace( '-', '_', $form_id_raw ) . '_';
 		$field_name_raw = str_replace( 'wpdtrt_form_', '', $field_name );
 		$field_name_raw = str_replace( $form_id_raw, '', $field_name_raw );
@@ -113,11 +117,53 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	/**
 	 * Build the form ID
 	 *
-	 * @param {string} $form_id_raw The ID of the form.
-	 * @return {string} The form id string.
+	 * @param string $form_id_raw The ID of the form.
+	 * @return string The form id string.
 	 */
-	public function get_form_id( $form_id_raw ) {
+	public function get_form_id( string $form_id_raw ) : string {
 		return "wpdtrt-form-{$form_id_raw}";
+	}
+
+	/**
+	 * Set the submit status
+	 *
+	 * @param string $status The submit status.
+	 */
+	public function set_submit_status( string $status ) {
+		$this->submit_status = $status;
+	}
+
+	/**
+	 * Get the submit status
+	 *
+	 * @param bool $debug - Debug mode.
+	 * @return string The submit status
+	 */
+	public function get_submit_status( bool $debug = null ) : string {
+		$the_submit_status = '';
+
+		$submit_statuses = array(
+			'0' => 'not submitted', // default.
+			'1' => 'submitted, could not send', // 'unsent_message'.
+			'2' => 'submitted, sent, redirected', // 'success_message'.
+			'3' => 'noscript, submitted with errors', // 'error_message_single', 'error_message_plural'.
+		);
+
+		if ( isset( $this->submit_status ) ) {
+			$the_submit_status = $this->submit_status;
+		}
+
+		if ( true === $debug ) {
+			global $debug;
+
+			foreach ( $submit_statuses as $key => $value ) {
+				if ( intval( $the_submit_status ) === $key ) {
+					$debug->log( "{$key}: {$value}" );
+				}
+			}
+		}
+
+		return $the_submit_status;
 	}
 
 	/**
@@ -210,12 +256,23 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 */
 
 	/**
+	 * Register a new query var for use with $_GET
+	 *
+	 * @param array $vars - Query vars.
+	 * @return array $vars
+	 */
+	public function helper_add_query_vars( array $vars ) : array {
+		$vars[] = 'wpdtrtformsent';
+		return $vars;
+	}
+
+	/**
 	 * Log errors when wp_mail fails
 	 *
-	 * @param {object} $wp_error The error object.
+	 * @param object $wp_error The error object.
 	 * @see https://core.trac.wordpress.org/ticket/46217#comment:4
 	 */
-	public function helper_wp_mail_failed( $wp_error ) {
+	public function helper_wp_mail_failed( object $wp_error ) {
 		global $debug;
 		$debug->log( $wp_error );
 	}
@@ -246,13 +303,13 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		$sanitized_form_data = array();
 
 		// this requires json_decode to use the optional second argument to return an associative array.
-		$data                 = $this->get_plugin_data();
-		$form_id_raw          = $data['form_id'];
-		$field_name_submitted = $this->get_field_name( $form_id_raw, 'submitted' );
-		$template_fields      = $data['template_fields'];
+		$data              = $this->get_plugin_data();
+		$form_id_raw       = $data['form_id'];
+		$field_name_submit = $this->get_field_name( $form_id_raw, 'submitted' );
+		$template_fields   = $data['template_fields'];
 
 		// if the submit button is clicked, send the email.
-		if ( isset( $_POST[ $field_name_submitted ] ) ) {
+		if ( isset( $_POST[ $field_name_submit ] ) ) {
 
 			$wpdtrt_form_options = get_option( 'wpdtrt_form' );
 
@@ -293,36 +350,55 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	}
 
 	/**
+	 * Proxy method to send arguments to helper_sendmail()
+	 */
+	public function helper_sendmail_proxy() {
+		$this->helper_sendmail( 'contact-form', 'Contact', array() );
+	}
+
+	/**
 	 * Send an email using $_POST data
 	 *
-	 * @param {string} $form_id_raw The ID of the form.
-	 * @param {string} $form_name The name of the form.
-	 * @param {string} $errors_list Whether to output a list above the form when there are errors.
-	 * @return $sentmail Whether the email contents were sent successfully.
+	 * Uses the Post/Redirect/Get pattern.
+	 *
+	 * Without PRG:
+	 * - POST request -> HTML response -> Refresh -> POST request -> HTML response
+	 *
+	 * With PRG:
+	 * - POST request -> Redirect response -> GET request -> HTML response -> Refresh -> GET request -> HTML response
+	 *
+	 * @param string $form_id_raw The ID of the form.
+	 * @param string $form_name The name of the form.
+	 * @param string $errors_list Whether to output a list above the form when there are errors.
 	 *
 	 * @see https://developer.wordpress.org/reference/functions/wp_mail/
 	 * @see http://www.wordpresscheatsheets.com/how-to-send-html-emails-from-wordpress-using-wp_mail-function
+	 * @see https://wpshout.com/preventing-form-resubmission-warnings-wordpress-postredirectget-pattern/
+	 * @see https://developer.wordpress.org/reference/functions/wp_redirect/#comment-3973 - nocache_headers()
 	 * @todo Use template loader
+	 * @todo Can get_api_data and get_plugin_data be merged to avoid confusion?
+	 * @todo Add a key-value pair to dynamic reference fields relevant to wp_mail.
+	 * @todo Replace required fields with a dynamic array.
 	 */
 	public function helper_sendmail( $form_id_raw, $form_name, $errors_list ) {
+		$this->get_api_data();
+		$data = $this->get_plugin_data();
 
-		// TODO add a key-value pair to track which of these a field represents.
-		$errors_list        = $errors_list;
 		$field_name_name    = $this->get_field_name( $form_id_raw, 'name' );
 		$field_name_email   = $this->get_field_name( $form_id_raw, 'email' );
 		$field_name_message = $this->get_field_name( $form_id_raw, 'message' );
 		$field_name_subject = $this->get_field_name( $form_id_raw, 'subject' );
 		$field_name_submit  = $this->get_field_name( $form_id_raw, 'submitted' );
-		$sendmail           = true;
-		$sentmail           = false;
 
-		global $debug;
+		$plugin_options = $this->get_plugin_options();
+		$errors_list    = $errors_list;
+		$sendmail       = true;
+		$sentmail       = false;
 
-		// if the submit button is clicked, send the email.
+		// if the submit button was clicked, send the email.
 		if ( isset( $_POST[ $field_name_submit ] ) ) {
 			$sanitized_form_data = $this->helper_sanitize_form_data();
 
-			// TODO create an array from fields that are actually required.
 			$required_fields = array(
 				$field_name_name,
 				$field_name_email,
@@ -346,21 +422,36 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 				$message .= "Sent from the {$blogname} {$form_name} form.";
 
 				$sentmail = wp_mail( $to, $sanitized_form_data[ $field_name_subject ], $message, $headers );
+
+				if ( $sentmail ) {
+					$url = get_bloginfo( 'wpurl' ) . '/contact/';
+
+					// prevent aggressive long term caching.
+					nocache_headers();
+
+					// this only works before html is output!
+					$url = add_query_arg( 'wpdtrtformsent', '1', $url );
+					wp_safe_redirect( $url, 303 );
+					exit();
+				} else {
+					$this->set_submit_status( '1' ); // ok, refresh resubmits.
+				}
+			} else {
+				$this->set_submit_status( '3' ); // noscript errors.
+			}
+		} else {
+			if ( array_key_exists( 'wpdtrtformsent', $_GET ) && '1' === $_GET['wpdtrtformsent'] ) {
+				$this->set_submit_status( '2' ); // ok, refresh ok.
+			} else {
+				$this->set_submit_status( '0' ); // ok, refresh ok.
 			}
 		}
-
-		$data           = $this->get_plugin_data();
-		$plugin_options = $this->get_plugin_options();
-
-		require WPDTRT_FORM_PATH . 'template-parts/wpdtrt-form-status.php';
-
-		return $sentmail;
 	}
 
 	/**
 	 * Test wp_mail
 	 *
-	 * @param {string} $urlparam URL parameter used to trigger test.
+	 * @param string $urlparam URL parameter used to trigger test.
 	 * @see https://core.trac.wordpress.org/ticket/46217#comment:4
 	 */
 	public function helper_test_wp_mail( $urlparam ) {

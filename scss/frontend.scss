@@ -77,6 +77,11 @@
         }
     }
 
+    &__debug {
+        background-color: var(--wpdtrt-form-debug-color);
+        padding: 4px;
+    }
+
     &__error {
         color: var(--wpdtrt-form-error-color);
         font-weight: normal;
