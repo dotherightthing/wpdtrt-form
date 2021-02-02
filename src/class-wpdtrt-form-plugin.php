@@ -55,6 +55,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 *   0.9.1 - DTRT WordPress Plugin Boilerplate Generator
 	 *
 	 * @todo Replace helper_sendmail_proxy with plugin options
+	 * @todo Autocomplete not working
 	 */
 	protected function wp_setup() { // phpcs:ignore
 
@@ -296,7 +297,6 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 * @see https://developer.wordpress.org/reference/functions/sanitize_text_field/
 	 * @see https://developer.wordpress.org/reference/functions/sanitize_textarea_field/
 	 * @see https://developer.wordpress.org/reference/functions/wp_mail/
-	 * @todo Form seems to submit even if Subject field is empty
 	 */
 	public function helper_sanitize_form_data() {
 
@@ -377,55 +377,62 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 * @see https://developer.wordpress.org/reference/functions/wp_redirect/#comment-3973 - nocache_headers()
 	 * @todo Use template loader
 	 * @todo Can get_api_data and get_plugin_data be merged to avoid confusion?
-	 * @todo Add a key-value pair to dynamic reference fields relevant to wp_mail.
-	 * @todo Replace required fields with a dynamic array.
 	 */
 	public function helper_sendmail( $form_id_raw, $form_name, $errors_list ) {
 		$this->get_api_data();
 		$data = $this->get_plugin_data();
 
-		$field_name_name    = $this->get_field_name( $form_id_raw, 'name' );
-		$field_name_email   = $this->get_field_name( $form_id_raw, 'email' );
-		$field_name_message = $this->get_field_name( $form_id_raw, 'message' );
-		$field_name_subject = $this->get_field_name( $form_id_raw, 'subject' );
-		$field_name_submit  = $this->get_field_name( $form_id_raw, 'submitted' );
+		$blogname              = get_option( 'blogname' );
+		$errors_list           = $errors_list;
+		$field_name_submit     = $this->get_field_name( $form_id_raw, 'submitted' );
+		$mail_roles            = array( 'sender_name', 'sender_email', 'subject', 'body' );
+		$mail_role_field_names = array( 'submit' => $this->get_field_name( $form_id_raw, 'submitted' ) );
+		$plugin_options        = $this->get_plugin_options();
+		$recipient_email       = get_option( 'admin_email' );
+		$required_fields       = array();
+		$sendmail              = true;
+		$sentmail              = false;
+		$template_fields       = $data['template_fields'];
+		$url                   = get_bloginfo( 'wpurl' ) . $data['url'];
 
-		$plugin_options = $this->get_plugin_options();
-		$errors_list    = $errors_list;
-		$sendmail       = true;
-		$sentmail       = false;
+		global $debug;
 
 		// if the submit button was clicked, send the email.
 		if ( isset( $_POST[ $field_name_submit ] ) ) {
 			$sanitized_form_data = $this->helper_sanitize_form_data();
 
-			$required_fields = array(
-				$field_name_name,
-				$field_name_email,
-				$field_name_message,
-				$field_name_subject,
-			);
+			foreach ( $template_fields as $template_field ) {
+				$field_name = $this->get_field_name( $form_id_raw, $template_field['id'] );
 
-			foreach ( $required_fields as $field_name ) {
-				if ( '' === $sanitized_form_data[ $field_name ] ) {
-					$sendmail = false;
+				foreach ( $mail_roles as $mail_role ) {
+					if ( array_key_exists( 'mail_role', $template_field ) && ( $mail_role === $template_field['mail_role'] ) ) {
+						$mail_role_field_names[ $mail_role ] = $field_name;
+					}
+				}
+
+				if ( array_key_exists( 'required', $template_field ) && ( 'true' === $template_field['required'] ) ) {
+					$required_fields[] = $field_name;
+
+					if ( '' === $sanitized_form_data[ $field_name ] ) {
+						$sendmail = false;
+					}
 				}
 			}
 
 			if ( $sendmail ) {
-				$blogname = get_option( 'blogname' );
-				$to       = get_option( 'admin_email' ); // blog administrator's email address.
-				$headers  = 'From: ' . $sanitized_form_data[ $field_name_name ] . '<' . $sanitized_form_data[ $field_name_email ] . '>' . "\r\n";
-
-				$message  = $sanitized_form_data[ $field_name_message ] . "\r\n\r\n";
+				$headers  = 'From: ' . $sanitized_form_data[ $mail_role_field_names['sender_name'] ] . '<' . $sanitized_form_data[ $mail_role_field_names['sender_email'] ] . '>' . "\r\n";
+				$message  = $sanitized_form_data[ $mail_role_field_names['body'] ] . "\r\n\r\n";
 				$message .= '---' . "\r\n\r\n";
 				$message .= "Sent from the {$blogname} {$form_name} form.";
 
-				$sentmail = wp_mail( $to, $sanitized_form_data[ $field_name_subject ], $message, $headers );
+				$sentmail = wp_mail(
+					$recipient_email,
+					$sanitized_form_data[ $mail_role_field_names['subject'] ],
+					$message,
+					$headers
+				);
 
 				if ( $sentmail ) {
-					$url = get_bloginfo( 'wpurl' ) . '/contact/';
-
 					// prevent aggressive long term caching.
 					nocache_headers();
 

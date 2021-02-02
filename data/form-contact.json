@@ -17,6 +17,7 @@
 			"error": "Please enter your name",
 			"id": "name",
 			"label": "Name",
+			"mail_role": "sender_name",
 			"required": "true",
 			"sanitizer": "sanitize_text_field",
 			"size": "40",
@@ -27,7 +28,8 @@
 			"element": "input",
 	        "error": "Please enter a valid email address",
 			"id": "email",
-	        "label": "Email",
+			"label": "Email",
+			"mail_role": "sender_email",
 			"notes": "Your email address will not be published.",
 	        "required": "true",
 	        "sanitizer": "sanitize_email",
@@ -38,7 +40,8 @@
 	        "element": "input",
 	        "error": "Please enter a subject",
 			"id": "subject",
-	        "label": "Subject",
+			"label": "Subject",
+			"mail_role": "subject",
 			"required": "true",
 	        "sanitizer": "sanitize_text_field",
 	        "size": "40",
@@ -49,11 +52,13 @@
 			"element": "textarea",
 	        "error": "Please enter your message",
 			"id": "message",
-	        "label": "Message",
+			"label": "Message",
+			"mail_role": "body",
 			"required": "true",
 			"rows": "10",
 	        "sanitizer": "sanitize_textarea_field"
 		}
 	],
-	"unsent_message": "Sorry, your message could not be sent. Please try again later."
+	"unsent_message": "Sorry, your message could not be sent. Please try again later.",
+	"url": "/contact/"
 }
