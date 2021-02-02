@@ -305,7 +305,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		// this requires json_decode to use the optional second argument to return an associative array.
 		$data              = $this->get_plugin_data();
 		$form_id_raw       = $data['form_id'];
-		$field_name_submit = $this->get_field_name( $form_id_raw, 'submitted' );
+		$field_name_submit = $this->get_field_name( $form_id_raw, 'submit' );
 		$template_fields   = $data['template_fields'];
 
 		// if the submit button is clicked, send the email.
@@ -384,9 +384,9 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 
 		$blogname              = get_option( 'blogname' );
 		$errors_list           = $errors_list;
-		$field_name_submit     = $this->get_field_name( $form_id_raw, 'submitted' );
+		$field_name_submit     = $this->get_field_name( $form_id_raw, 'submit' );
 		$mail_roles            = array( 'sender_name', 'sender_email', 'subject', 'body' );
-		$mail_role_field_names = array( 'submit' => $this->get_field_name( $form_id_raw, 'submitted' ) );
+		$mail_role_field_names = array( 'submit' => $this->get_field_name( $form_id_raw, 'submit' ) );
 		$plugin_options        = $this->get_plugin_options();
 		$recipient_email       = get_option( 'admin_email' );
 		$required_fields       = array();

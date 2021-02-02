@@ -68,8 +68,8 @@ if ( key_exists( 'template_fields', $data ) ) {
 	$form_id_raw       = $data['form_id'];
 	$form_id           = $plugin->get_form_id( $form_id_raw );
 	$form_name         = $data['form_name'];
-	$field_id_submit   = $plugin->get_field_id( $form_id_raw, 'submitted' );
-	$field_name_submit = $plugin->get_field_name( $form_id_raw, 'submitted' );
+	$field_id_submit   = $plugin->get_field_id( $form_id_raw, 'submit' );
+	$field_name_submit = $plugin->get_field_name( $form_id_raw, 'submit' );
 	$template_fields   = $data['template_fields'];
 	$submit_status     = $plugin->get_submit_status();
 
