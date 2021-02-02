@@ -11,7 +11,7 @@
  * Plugin Name:  DTRT Form
  * Plugin URI:   https://github.com/dotherightthing/wpdtrt-form
  * Description:  Simple, accessible forms.
- * Version:      0.2.4
+ * Version:      0.3.0
  * Author:       Dan Smith
  * Author URI:   https://profiles.wordpress.org/&#39;dotherightthingnz
  * License:      GPLv2 or later
@@ -62,7 +62,7 @@ if ( ! defined( 'WPDTRT_FORM_VERSION' ) ) {
 	 * $plugin_data = get_plugin_data( __FILE__ ); $plugin_version = $plugin_data['Version'];
 	 * ---
 	 */
-	define( 'WPDTRT_FORM_VERSION', '0.2.4' );
+	define( 'WPDTRT_FORM_VERSION', '0.3.0' );
 }
 
 if ( ! defined( 'WPDTRT_FORM_PATH' ) ) {
