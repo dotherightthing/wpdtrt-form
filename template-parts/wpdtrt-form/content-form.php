@@ -34,7 +34,7 @@ $options = get_query_var( 'options', array() );
 extract( $options, EXTR_IF_EXISTS );
 
 // load the data.
-$plugin->get_api_data();
+$plugin->get_api_data(); // load and store the external data (once).
 // $foo = $plugin->get_api_data_bar();
 //
 // this requires json_decode to use the optional second argument
@@ -43,7 +43,7 @@ $plugin->get_api_data();
 $render_form = false;
 
 // get existing plugin data (not get_api_data).
-$data = $plugin->get_plugin_data();
+$data = $plugin->get_plugin_data(); // retrieve the stored external data.
 
 $errors_inline = isset( $errors_inline ) && ( '1' === $errors_inline );
 $errors_list   = isset( $errors_list ) && ( '1' === $errors_list );
