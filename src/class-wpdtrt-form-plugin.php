@@ -56,6 +56,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 *
 	 * @todo Replace helper_sendmail_proxy with plugin options
 	 * @todo Autocomplete not working
+	 * @todo Jump to #section-get-in-touch on submit
 	 */
 	protected function wp_setup() { // phpcs:ignore
 
@@ -306,7 +307,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		$data              = $this->get_plugin_data();
 		$form_id_raw       = $data['form_id'];
 		$field_name_submit = $this->get_field_name( $form_id_raw, 'submit' );
-		$template_fields   = $data['template_fields'];
+		$fields   = $data['fields'];
 
 		// if the submit button is clicked, send the email.
 		if ( isset( $_POST[ $field_name_submit ] ) ) {
@@ -315,12 +316,12 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 
 			// sanitize form values
 			// empty or unsanitary values are output as ''.
-			foreach ( $template_fields as $template_field ) {
+			foreach ( $fields as $field ) {
 
 				// some fields like checkbox don't need sanitizing.
-				if ( isset( $template_field['sanitizer'] ) ) {
+				if ( isset( $field['sanitizer'] ) ) {
 
-					$sanitizer = $template_field['sanitizer'];
+					$sanitizer = $field['sanitizer'];
 
 					/**
 					 * Verify that the contents of a variable can be called as a function
@@ -334,7 +335,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 						 *
 						 * @see http://php.net/manual/en/function.call-user-func.php
 						 */
-						$field_name = $this->get_field_name( $form_id_raw, $template_field['id'] );
+						$field_name = $this->get_field_name( $form_id_raw, $field['id'] );
 
 						if ( isset( $_POST[ $field_name ] ) ) {
 							$sanitized_form_data[ $field_name ] = call_user_func( $sanitizer, $_POST[ $field_name ] );
@@ -392,7 +393,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		$required_fields       = array();
 		$sendmail              = true;
 		$sentmail              = false;
-		$template_fields       = $data['template_fields'];
+		$fields                = $data['fields'];
 		$url                   = get_bloginfo( 'wpurl' ) . $data['url'];
 
 		global $debug;
@@ -401,16 +402,16 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		if ( isset( $_POST[ $field_name_submit ] ) ) {
 			$sanitized_form_data = $this->helper_sanitize_form_data();
 
-			foreach ( $template_fields as $template_field ) {
-				$field_name = $this->get_field_name( $form_id_raw, $template_field['id'] );
+			foreach ( $fields as $field ) {
+				$field_name = $this->get_field_name( $form_id_raw, $field['id'] );
 
 				foreach ( $mail_roles as $mail_role ) {
-					if ( array_key_exists( 'mail_role', $template_field ) && ( $mail_role === $template_field['mail_role'] ) ) {
+					if ( array_key_exists( 'mail_role', $field ) && ( $mail_role === $field['mail_role'] ) ) {
 						$mail_role_field_names[ $mail_role ] = $field_name;
 					}
 				}
 
-				if ( array_key_exists( 'required', $template_field ) && ( 'true' === $template_field['required'] ) ) {
+				if ( array_key_exists( 'required', $field ) && ( 'true' === $field['required'] ) ) {
 					$required_fields[] = $field_name;
 
 					if ( '' === $sanitized_form_data[ $field_name ] ) {

@@ -19,7 +19,7 @@ $icon_class         = '2' === $submit_status ? 'email' : 'warning';
 $legend             = $data['legend'];
 $message            = '';
 $show_errors_list   = $errors_list;
-$template_fields    = $data['template_fields'];
+$fields    = $data['fields'];
 
 if ( isset( $sanitized_form_data ) ) { // this line is redundant.
 	foreach ( $sanitized_form_data as $key => $sanitized_value ) {
@@ -28,7 +28,7 @@ if ( isset( $sanitized_form_data ) ) { // this line is redundant.
 
 			if ( $show_errors_list ) {
 				/**
-				 * Search the template_fields array for the id (field name) which matches the sanitized_form_data key (field name)
+				 * Search the fields array for the id (field name) which matches the sanitized_form_data key (field name)
 				 * array_map() creates a new array containing only the field ids, with the same order as the multidimensional array
 				 * array_search() searches the new array for the value (id / field name) and returns the numeric key
 				 * the numeric key can then be used to target the appropriate multidimensional child array
@@ -41,10 +41,10 @@ if ( isset( $sanitized_form_data ) ) { // this line is redundant.
 
 				$index = array_search( $field_name_raw, array_map( function( $nested_array ) {
 					return $nested_array['id'];
-				}, $template_fields ), true );
+				}, $fields ), true );
 
-				$field_id   = $plugin->get_field_id( $form_id_raw, $template_fields[ $index ]['id'] );
-				$field_text = $template_fields[ $index ]['error'];
+				$field_id   = $plugin->get_field_id( $form_id_raw, $fields[ $index ]['id'] );
+				$field_text = $fields[ $index ]['error'];
 
 				$errors_list_items .= "<li><a href='#{$field_id}'>{$field_text}</a></li>";
 			}
@@ -53,15 +53,15 @@ if ( isset( $sanitized_form_data ) ) { // this line is redundant.
 }
 
 if ( '2' === $submit_status ) {
-	$message = $data['success_message'];
+	$message = $data['messages'][0]['sent'];
 } elseif ( '1' === $submit_status ) {
-	$message = $data['unsent_message'];
+	$message = $data['messages'][0]['unsent'];
 } elseif ( ( '3' === $submit_status ) && $show_errors_list ) {
 	if ( $errors_count > 1 ) {
-		$message = $data['error_message_plural'];
+		$message = $data['messages'][0]['errors'];
 		$message = str_replace( '#', $errors_count, $message );
 	} else {
-		$message = $data['error_message_single'];
+		$message = $data['messages'][0]['error'];
 	}
 }
 

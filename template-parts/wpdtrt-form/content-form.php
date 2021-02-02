@@ -63,14 +63,14 @@ $data = $plugin->get_plugin_data();
 $errors_inline = isset( $errors_inline ) && ( '1' === $errors_inline );
 $errors_list   = isset( $errors_list ) && ( '1' === $errors_list );
 
-if ( key_exists( 'template_fields', $data ) ) {
+if ( key_exists( 'fields', $data ) ) {
 	$form_action       = $_SERVER['REQUEST_URI'];
 	$form_id_raw       = $data['form_id'];
 	$form_id           = $plugin->get_form_id( $form_id_raw );
 	$form_name         = $data['form_name'];
 	$field_id_submit   = $plugin->get_field_id( $form_id_raw, 'submit' );
 	$field_name_submit = $plugin->get_field_name( $form_id_raw, 'submit' );
-	$template_fields   = $data['template_fields'];
+	$fields   = $data['fields'];
 	$submit_status     = $plugin->get_submit_status();
 
 	if ( '2' !== $submit_status ) {
@@ -102,10 +102,10 @@ if ( $render_form ) :
 			</legend>
 			<p class="wpdtrt-form__notes">
 				<?php
-				foreach ( $template_fields as $template_field ) {
-					if ( array_key_exists( 'notes', $template_field ) ) {
-						$field_id   = $plugin->get_field_id( $form_id_raw, $template_field['id'] );
-						$field_text = $template_field['notes'];
+				foreach ( $fields as $field ) {
+					if ( array_key_exists( 'notes', $field ) ) {
+						$field_id   = $plugin->get_field_id( $form_id_raw, $field['id'] );
+						$field_text = $field['notes'];
 
 						echo "<span id='{$field_id}-notes'>{$field_text}</span>";
 					}
@@ -116,7 +116,7 @@ if ( $render_form ) :
 				</span>
 			</p>
 			<?php
-			foreach ( $template_fields as $field ) :
+			foreach ( $fields as $field ) :
 
 				// predeclare variables.
 				$autocomplete = null;

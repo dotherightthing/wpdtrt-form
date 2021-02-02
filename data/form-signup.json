@@ -5,7 +5,7 @@
 	"success_class": "success",
 	"success_message": "Thank you for signing up! I'll email you when new entries are added to the Tour Diary.",
 	"submit": "Submit",
-	"template_fields": [
+	"fields": [
 		{
 			"id": "name",
 			"label": "Name",

@@ -1,16 +1,5 @@
 {
-	"error_class": "error",
-	"error_message_plural": "Please correct the following # errors:",
-	"error_message_single": "Please correct the following error:",
-	"form_id": "contact-form",
-	"form_name": "Contact",
-	"heading": "Send me a message",
-	"legend": "Contact form",
-	"heading_class": "comment-reply-title entry-summary",
-	"success_class": "success",
-	"success_message": "Thank you for contacting me! I'll get back to you as soon as possible.",
-	"submit": "Submit",
-	"template_fields": [
+	"fields": [
 		{
 			"autocomplete": "name",
 			"element": "input",
@@ -26,39 +15,52 @@
 		{
 			"autocomplete": "email",
 			"element": "input",
-	        "error": "Please enter a valid email address",
+			"error": "Please enter a valid email address",
 			"id": "email",
 			"label": "Email",
 			"mail_role": "sender_email",
 			"notes": "Your email address will not be published.",
-	        "required": "true",
-	        "sanitizer": "sanitize_email",
+			"required": "true",
+			"sanitizer": "sanitize_email",
 			"size": "40",
 			"type": "email"
 		},
 		{
-	        "element": "input",
-	        "error": "Please enter a subject",
+			"element": "input",
+			"error": "Please enter a subject",
 			"id": "subject",
 			"label": "Subject",
 			"mail_role": "subject",
 			"required": "true",
-	        "sanitizer": "sanitize_text_field",
-	        "size": "40",
+			"sanitizer": "sanitize_text_field",
+			"size": "40",
 			"type": "text"
 		},
 		{
-	        "cols": "35",
+			"cols": "35",
 			"element": "textarea",
-	        "error": "Please enter your message",
+			"error": "Please enter your message",
 			"id": "message",
 			"label": "Message",
 			"mail_role": "body",
 			"required": "true",
 			"rows": "10",
-	        "sanitizer": "sanitize_textarea_field"
+			"sanitizer": "sanitize_textarea_field"
 		}
 	],
-	"unsent_message": "Sorry, your message could not be sent. Please try again later.",
+	"form_id": "contact-form",
+	"form_name": "Contact",
+	"heading": "Send me a message",
+	"legend": "Contact form",
+	"heading_class": "comment-reply-title entry-summary",
+	"messages": [
+		{
+			"error": "Please correct the following error:",
+			"errors": "Please correct the following # errors:",
+			"sent": "Thank you for contacting me! I'll get back to you as soon as possible.",
+			"unsent": "Sorry, your message could not be sent. Please try again later."
+		}	
+	],
+	"submit": "Submit",
 	"url": "/contact/"
 }
