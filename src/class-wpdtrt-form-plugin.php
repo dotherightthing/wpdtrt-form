@@ -53,11 +53,6 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 *
 	 * Since:
 	 *   0.9.1 - DTRT WordPress Plugin Boilerplate Generator
-	 *
-	 * @todo Replace helper_sendmail_proxy with plugin options
-	 * @todo Autocomplete not working
-	 * @todo Jump to #section-get-in-touch on submit if the email wasn't sent
-	 * @todo Update shortcode to support multiple forms.
 	 */
 	protected function wp_setup() { // phpcs:ignore
 
@@ -378,8 +373,6 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 * @see http://www.wordpresscheatsheets.com/how-to-send-html-emails-from-wordpress-using-wp_mail-function
 	 * @see https://wpshout.com/preventing-form-resubmission-warnings-wordpress-postredirectget-pattern/
 	 * @see https://developer.wordpress.org/reference/functions/wp_redirect/#comment-3973 - nocache_headers()
-	 * @todo Use template loader
-	 * @todo Can get_api_data and get_plugin_data be merged to avoid confusion?
 	 */
 	public function helper_sendmail( $form_id_raw, $form_name, $errors_list ) {
 		$this->get_api_data();

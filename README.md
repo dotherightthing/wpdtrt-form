@@ -4,6 +4,18 @@
 
 Simple, accessible forms.
 
+## Features
+
+* Autocomplete
+* Inline JavaScript validation (optional)
+* Inline Noscript validation (optional)
+* Block Noscript validation error links list (optional)
+* No *Confirm Form Resubmission* prompt on resubmit
+
+## Issues & Roadmap
+
+See [issues](https://github.com/dotherightthing/wpdtrt-form/issues).
+
 ## Setup and Maintenance
 
 Please read [DTRT WordPress Plugin Boilerplate: Workflows](https://github.com/dotherightthing/wpdtrt-plugin-boilerplate/wiki/Workflows).
@@ -44,11 +56,36 @@ Options
 
 Edit the data file to change the field attributes or order: `./data/form-{templatename}.json`
 
-### SPAM management
+### Styling
 
-TODO
+Core CSS properties may be overwritten by changing the variable values in your theme stylesheet.
 
-### Testing emailing of form submission in local development
+See `scss/variables/_css.scss`.
+
+## Dependencies
+
+### JavaScript
+
+Inline validation works with or without JavaScript, but is faster when JavaScript is enabled.
+
+* [jQuery](https://jquery.com/)
+* [jQuery Validation Plugin](https://jqueryvalidation.org/)
+
+## Demo pages
+
+See plugin settings page in WP Admin.
+
+---
+
+## Testing
+
+### Autocomplete
+
+#### Chrome
+
+* Preferences > Auto-fill > Addresses and more > Save and fill addresses
+
+### Emailing of form submission in local development
 
 1. Install and run [MailCatcher](https://mailcatcher.me/) (see <https://wordpress.stackexchange.com/a/195830>):
 
@@ -158,26 +195,3 @@ TODO
     ```
 
 1. Send mail :)
-
-### Styling
-
-Core CSS properties may be overwritten by changing the variable values in your theme stylesheet.
-
-See `scss/variables/_css.scss`.
-
-## Dependencies
-
-### JavaScript
-
-* [jQuery](https://jquery.com/)
-* [jQuery Validation Plugin](https://jqueryvalidation.org/)
-
-## Demo pages
-
-See plugin settings page in WP Admin.
-
-## Roadmap
-
-1. Anti-Spam
-2. Escaping of content in email
-3. Translation support
