@@ -69,7 +69,8 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		add_filter( 'query_vars', [ $this, 'helper_add_query_vars' ], 10, 1 );
 		add_action( 'init', [ $this, 'helper_sendmail_proxy' ] );
 
-		$this->helper_test_wp_mail( 'testmail' );
+		// add_action( 'init', [ $this, 'helper_akismet' ] );.
+		// $this->helper_test_wp_mail( 'testmail' );.
 	}
 
 	/**
@@ -480,5 +481,73 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 				}
 			}
 		}
+	}
+
+	/**
+	 * Akismet
+	 *
+	 * @see https://stackoverflow.com/a/32836893
+	 * @see https://solutionfactor.net/blog/2014/02/01/honeypot-technique-fast-easy-spam-prevention/
+	 * @todo Akismet configuration not working, or doesn't work on local dev
+	 */
+	public function helper_akismet() {
+		if ( function_exists( 'akismet_http_post' ) ) {
+			global $akismet_api_host;
+			global $akismet_api_port;
+			global $debug;
+
+			$data = $this->get_plugin_data();
+			$test = true;
+
+			// plugins/akismet/class.akismet-rest-api.php
+			// /wp-admin/options-general.php?page=akismet-key-config
+			// $akismet_api_key = get_option( 'wordpress_api_key' ); // ok
+			// .
+			$akismet_data = array(
+				'comment_author'        => 'Jen',
+				'comment_author_email'  => 'aduaros555@gmail.com',
+				'comment_author_url'    => 'https://hpjk.dazafore.top/oheyueu-lqbips',
+				'comment_content'       => 'Му husbаnd has got hіs power bаck!',
+				'comment_type'          => 'contact-form',
+				'blog'                  => ( true === $test ) ? 'http://dontbelievethehype.co.nz' : get_bloginfo( 'wpurl' ),
+				'blog_charset'          => 'UTF-8',
+				'blog_lang'             => ( true === $test ) ? 'en' : get_bloginfo( 'language' ), // ISO 639-1.
+				'honeypot_field_name'   => 'wpdtrt_form_honey_pot',
+				'hidden_honeypot_field' => 'Jen',
+				'is_test'               => ( true === $test ) ? true : false,
+				'permalink'             => ( true === $test ) ? 'http://dontbelievethehype.co.nz/contact/' : get_bloginfo( 'wpurl' ) . $data['url'],
+				'referrer'              => ( true === $test ) ? '' : wp_get_referer(),
+				'user_agent'            => ( true === $test ) ? 'dotbot' : $_SERVER['HTTP_USER_AGENT'], // phpcs:ignore
+				'user_ip'               => ( true === $test ) ? '99.99.99.99' : $this->helper_get_user_ip(),
+			);
+
+			$query_string = http_build_query( $akismet_data );
+
+			$response = akismet_http_post( $query_string, $akismet_api_host, '/1.1/comment-check', $akismet_api_port );
+
+			$result = ( is_array( $response ) && isset( $response[1] ) ) ? $response[1] : 'false';
+
+			$debug->log( $akismet_data );
+			$debug->log( $response ); // [1] => false
+		}
+	}
+
+	/**
+	 * Get User IP
+	 *
+	 * @see https://dotlayer.com/how-to-get-users-ip-addresses-on-wordpress-and-display-it-using-shortcodes/
+	 * @see https://www.wpbeginner.com/wp-tutorials/how-to-display-a-users-ip-address-in-wordpress/
+	 * @see https://wordpress.stackexchange.com/questions/382558/wordpress-shortcode-using-wpb-get-ip
+	 */
+	public function helper_get_user_ip() {
+		if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+			$ip = $_SERVER['HTTP_CLIENT_IP']; // ip from shared internet.
+		} elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+			$ip = $_SERVER['HTTP_X_FORWARDED_FOR']; // ip is passed from proxy.
+		} else {
+			$ip = $_SERVER['REMOTE_ADDR']; // phpcs:ignore
+		}
+
+		return apply_filters( 'wpb_get_ip', $ip );
 	}
 }
