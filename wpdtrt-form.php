@@ -133,7 +133,6 @@ if ( is_admin() ) {
 // remove the includes you don't need, edit the files you do need.
 require_once WPDTRT_FORM_PATH . 'src/class-wpdtrt-form-plugin.php';
 require_once WPDTRT_FORM_PATH . 'src/class-wpdtrt-form-shortcode.php';
-require_once WPDTRT_FORM_PATH . 'src/class-wpdtrt-form-widget.php';
 
 // log & trace helpers.
 global $debug;
@@ -158,7 +157,6 @@ register_activation_hook( dirname( __FILE__ ), 'wpdtrt_form_activate' );
 
 add_action( 'init', 'wpdtrt_form_plugin_init', 0 );
 add_action( 'init', 'wpdtrt_form_shortcode_init', 100 );
-add_action( 'widgets_init', 'wpdtrt_form_widget_init', 10 );
 
 register_deactivation_hook( dirname( __FILE__ ), 'wpdtrt_form_deactivate' );
 
@@ -337,24 +335,6 @@ function wpdtrt_form_plugin_init() {
 }
 
 /**
- * Group: Rewrite config
- */
-
-/**
- * Function: wpdtrt_form_rewrite_init
- *
- * Register Rewrite.
- */
-function wpdtrt_form_rewrite_init() {
-
-	global $wpdtrt_form_plugin;
-
-	$wpdtrt_form_rewrite = new WPDTRT_Form_Rewrite(
-		array()
-	);
-}
-
-/**
  * Group: Shortcode config
  */
 
@@ -379,115 +359,4 @@ function wpdtrt_form_shortcode_init() {
 			),
 		)
 	);
-}
-
-/**
- * Group: Taxonomy config
- */
-
-/**
- * Function: wpdtrt_form_taxonomy_init
- *
- * Register Taxonomy.
- *
- * Returns:
- *   object - Taxonomy/
- */
-function wpdtrt_form_taxonomy_init() {
-
-	global $wpdtrt_form_plugin;
-
-	$wpdtrt_form_taxonomy = new WPDTRT_Form_Taxonomy(
-		array(
-			'name'                      => 'wpdtrt_form_things',
-			'plugin'                    => $wpdtrt_form_plugin,
-			'selected_instance_options' => array(
-				'instanceoption1',
-			),
-			'taxonomy_options'          => array(
-				'option1' => array(
-					'type'              => 'text',
-					'label'             => esc_html__( 'Option 1', 'wpdtrt-form' ),
-					'admin_table'       => true,
-					'admin_table_label' => esc_html__( '1', 'wpdtrt-form ' ),
-					'admin_table_sort'  => true,
-					'tip'               => 'Enter something',
-					'todo_condition'    => 'foo !== "bar"',
-				),
-			),
-			'labels'                    => array(
-				'slug'                       => 'wpdtrt_form_thing',
-				'description'                => __( 'Things', 'wpdtrt-form' ),
-				'posttype'                   => 'post',
-				'name'                       => __( 'Things', 'taxonomy general name' ),
-				'singular_name'              => _x( 'Thing', 'taxonomy singular name' ),
-				'menu_name'                  => __( 'Things', 'wpdtrt-form' ),
-				'all_items'                  => __( 'All Things', 'wpdtrt-form' ),
-				'add_new_item'               => __( 'Add New Thing', 'wpdtrt-form' ),
-				'edit_item'                  => __( 'Edit Thing', 'wpdtrt-form' ),
-				'view_item'                  => __( 'View Thing', 'wpdtrt-form' ),
-				'update_item'                => __( 'Update Thing', 'wpdtrt-form' ),
-				'new_item_name'              => __( 'New Thing Name', 'wpdtrt-form' ),
-				'parent_item'                => __( 'Parent Thing', 'wpdtrt-form' ),
-				'parent_item_colon'          => __( 'Parent Thing:', 'wpdtrt-form' ),
-				'search_items'               => __( 'Search Things', 'wpdtrt-form' ),
-				'popular_items'              => __( 'Popular Things', 'wpdtrt-form' ),
-				'separate_items_with_commas' => __( 'Separate Things with commas', 'wpdtrt-form' ),
-				'add_or_remove_items'        => __( 'Add or remove Things', 'wpdtrt-form' ),
-				'choose_from_most_used'      => __( 'Choose from most used Things', 'wpdtrt-form' ),
-				'not_found'                  => __( 'No Things found', 'wpdtrt-form' ),
-			),
-		)
-	);
-
-	// return a reference for unit testing.
-	return $wpdtrt_form_taxonomy;
-}
-
-/**
- * Group: Widget config
- */
-
-/**
- * Function: wpdtrt_form_widget_init
- *
- * Register a WordPress widget, passing in an instance of our custom widget class.
- *
- * Note:
- * - The plugin does not require registration, but widgets and shortcodes do.
- * - widget_init fires before init, unless init has a priority of 0
- *
- * Uses:
- *   ../../../../wp-includes/widgets.php
- *   https://github.com/dotherightthing/wpdtrt/tree/master/library/sidebars.php
- *
- * See:
- * - <https://codex.wordpress.org/Function_Reference/register_widget#Example>
- * - <https://wp-mix.com/wordpress-widget_init-not-working/>
- * - <https://codex.wordpress.org/Plugin_API/Action_Reference>
- *
- * TODO:
- * - Add form field parameters to the options array
- * - Investigate the 'classname' option
- */
-function wpdtrt_form_widget_init() {
-
-	global $wpdtrt_form_plugin;
-
-	$wpdtrt_form_widget = new WPDTRT_Form_Widget(
-		array(
-			'name'                      => 'wpdtrt_form_widget',
-			'title'                     => __( 'DTRT Form Widget', 'wpdtrt-form' ),
-			'description'               => __( 'Simple, accessible form.', 'wpdtrt-form' ),
-			'plugin'                    => $wpdtrt_form_plugin,
-			'template'                  => 'form',
-			'selected_instance_options' => array(
-				'template',
-				'errors_list',
-				'errors_inline',
-			),
-		)
-	);
-
-	register_widget( $wpdtrt_form_widget );
 }
