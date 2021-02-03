@@ -6,7 +6,7 @@ Tags: forms, accessible, WCAG
 Requires at least: 5.6
 Tested up to: 5.6
 Requires PHP: 7.2.20
-Stable tag: 0.3.1
+Stable tag: 0.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,9 @@ Simple, accessible forms.
 See [WordPress Usage](README.md#wordpress-usage).
 
 == Changelog ==
+
+= 0.3.2 =
+* [1068579] Update wpdtrt-npm-scripts to 0.3.30
 
 = 0.3.1 =
 * [d32e6d1] Remove duplicate call to load template data
