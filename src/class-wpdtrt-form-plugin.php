@@ -420,7 +420,7 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 			}
 
 			if ( $sendmail ) {
-				$headers  = 'From: ' . $sanitized_form_data[ $mail_role_field_names['sender_name'] ] . '<' . $sanitized_form_data[ $mail_role_field_names['sender_email'] ] . '>' . "\r\n";
+				$headers  = 'From: ' . $sanitized_form_data[ $mail_role_field_names['sender_name'] ] . ' <' . $sanitized_form_data[ $mail_role_field_names['sender_email'] ] . '>' . "\r\n";
 				$message  = $sanitized_form_data[ $mail_role_field_names['body'] ] . "\r\n\r\n";
 				$message .= '---' . "\r\n\r\n";
 				$message .= "Sent from the {$blogname} {$form_name} form.";
