@@ -34,7 +34,7 @@ $options = get_query_var( 'options', array() );
 extract( $options, EXTR_IF_EXISTS );
 
 // load the data.
-$plugin->get_api_data(); // load and store the external data (once).
+// $plugin->get_api_data(); this is done by helper_sendmail on init.
 // $foo = $plugin->get_api_data_bar();
 //
 // this requires json_decode to use the optional second argument
