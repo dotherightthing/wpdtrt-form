@@ -33,6 +33,8 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 
 		// edit here.
 		parent::__construct( $options );
+
+		// $this->wp_setup(); // in testing, it makes no differecce whether this is in parent or child class, there's still an endless loop.
 	}
 
 	/**
@@ -56,17 +58,37 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 */
 	protected function wp_setup() { // phpcs:ignore
 
-		parent::wp_setup();
+		parent::wp_setup(); // tbis is NOT auto called with the extend.
 
-		// About: add actions and filters here.
+		global $debug;
+		// $debug->log('wpdtrt-form wp_setup');
+
+		// // About: add actions and filters here.
 		add_filter( 'wpdtrt_form_set_api_endpoint', [ $this, 'filter_set_api_endpoint' ] );
 		add_action( 'wp_mail_failed', [ $this, 'helper_wp_mail_failed' ], 10, 1 );
 		add_filter( 'query_vars', [ $this, 'helper_add_query_vars' ], 10, 1 );
-		add_action( 'init', [ $this, 'helper_sendmail_proxy' ] );
+
+		// the above only runs once
+
+		// the below runs repeatedly
+		add_action( 'init', [ $this, 'helper_init_sendmail_proxy' ] );
+
+		remove_filter('template_redirect','redirect_canonical');
+
+		// $this->helper_init_sendmail_proxy();
+
+		// // https://stackoverflow.com/a/14608590.
+		// remove_filter('wp_head','adjacent_posts_rel_link_wp_head',10); // prevent additional init calls.
 
 		// add_action( 'init', [ $this, 'helper_akismet' ] );.
 		// $this->helper_test_wp_mail( 'testmail' );.
+
+		// add_action( 'init', 'stop_heartbeat', 1 ); // prevent additional init calls.
 	}
+
+	// public function stop_heartbeat() {
+	// 	wp_deregister_script( 'heartbeat' );
+	// }
 
 	/**
 	 * Group: Getters and Setters
@@ -352,10 +374,22 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	/**
 	 * Proxy method to send arguments to helper_sendmail()
 	 */
-	public function helper_sendmail_proxy() {
-		$this->helper_sendmail( 'contact-form', 'Contact', array() );
-	}
+	public function helper_init_sendmail_proxy() {
 
+		// Exit function if doing an AJAX request
+		// https://wordpress.stackexchange.com/a/182227
+		// this can happen if the dashboard is open or ??
+		$this->helper_sendmail( 'contact-form', 'Contact', array() );
+
+		// global $debug;
+		// if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+		// 	$debug->log('doing ajax' );
+		// } else {
+		// 	$debug->log('not doing ajax' );
+		// 	$this->helper_sendmail( 'contact-form', 'Contact', array() );
+		// }
+	}
+	
 	/**
 	 * Send an email using $_POST data
 	 *
@@ -377,82 +411,94 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 * @see https://developer.wordpress.org/reference/functions/wp_redirect/#comment-3973 - nocache_headers()
 	 */
 	public function helper_sendmail( $form_id_raw, $form_name, $errors_list ) {
+		global $debug;
+		// $debug->log( 'helper_sendmail' );
+
+		$data = $this->get_plugin_data(); // retrieve the stored external data, this is an empty array if the request failed.
+
 		$this->get_api_data(); // load and store the external data (once).
 
-		$data           = $this->get_plugin_data(); // retrieve the stored external data, this is an empty array if the request failed.
-		$plugin_options = $this->get_plugin_options();
-
-		$anchor_id = key_exists( 'anchor_id', $data ) ? $data['anchor_id'] : '';
-		$fields    = key_exists( 'fields', $data ) ? $data['fields'] : array();
-		$url       = key_exists( 'url', $data ) ? get_bloginfo( 'wpurl' ) . $data['url'] : get_bloginfo( 'wpurl' );
-
-		$field_name_submit     = $this->get_field_name( $form_id_raw, 'submit' );
-		$mail_role_field_names = array( 'submit' => $this->get_field_name( $form_id_raw, 'submit' ) );
-
-		$blogname        = get_option( 'blogname' );
-		$recipient_email = get_option( 'admin_email' );
-
-		$mail_roles      = array( 'sender_name', 'sender_email', 'subject', 'body' );
-		$required_fields = array();
-		$sendmail        = true;
-		$sentmail        = false;
-
-		// if the submit button was clicked, send the email.
-		if ( isset( $_POST[ $field_name_submit ] ) ) {
-			$sanitized_form_data = $this->helper_sanitize_form_data();
-
-			foreach ( $fields as $field ) {
-				$field_name = $this->get_field_name( $form_id_raw, $field['id'] );
-
-				foreach ( $mail_roles as $mail_role ) {
-					if ( array_key_exists( 'mail_role', $field ) && ( $mail_role === $field['mail_role'] ) ) {
-						$mail_role_field_names[ $mail_role ] = $field_name;
-					}
-				}
-
-				if ( array_key_exists( 'required', $field ) && ( 'true' === $field['required'] ) ) {
-					$required_fields[] = $field_name;
-
-					if ( '' === $sanitized_form_data[ $field_name ] ) {
-						$sendmail = false;
-					}
-				}
-			}
-
-			if ( $sendmail ) {
-				$headers  = 'From: ' . $sanitized_form_data[ $mail_role_field_names['sender_name'] ] . '<' . $sanitized_form_data[ $mail_role_field_names['sender_email'] ] . '>' . "\r\n";
-				$message  = $sanitized_form_data[ $mail_role_field_names['body'] ] . "\r\n\r\n";
-				$message .= '---' . "\r\n\r\n";
-				$message .= "Sent from the {$blogname} {$form_name} form.";
-
-				$sentmail = wp_mail(
-					$recipient_email,
-					$sanitized_form_data[ $mail_role_field_names['subject'] ],
-					$message,
-					$headers
-				);
-
-				if ( $sentmail ) {
-					// prevent aggressive long term caching.
-					nocache_headers();
-
-					// this only works before html is output!
-					$url = add_query_arg( 'wpdtrtformsent', '1', ( $url . '#' . $anchor_id ) );
-					wp_safe_redirect( $url, 303 );
-					exit();
-				} else {
-					$this->set_submit_status( '1' ); // ok, refresh resubmits.
-				}
-			} else {
-				$this->set_submit_status( '3' ); // ok, refresh resubmits and revalidates.
-			}
-		} else {
-			if ( array_key_exists( 'wpdtrtformsent', $_GET ) && '1' === $_GET['wpdtrtformsent'] ) {
-				$this->set_submit_status( '2' ); // ok, refresh ok.
-			} else {
-				$this->set_submit_status( '0' ); // ok, refresh ok.
-			}
+		if ( 0 === count( $data ) ) { // phpcs:ignore
+			$this->get_api_data(); // load and store the external data (once).
+			$data = $this->get_plugin_data(); // retrieve the stored external data, this is an empty array if the request failed.
 		}
+
+		// $debug->log( 'the data is' );
+		// $debug->log( $data );
+
+		// $plugin_options = $this->get_plugin_options();
+
+	// 	$anchor_id = key_exists( 'anchor_id', $data ) ? $data['anchor_id'] : '';
+	// 	$fields    = key_exists( 'fields', $data ) ? $data['fields'] : array();
+	// 	$url       = key_exists( 'url', $data ) ? get_bloginfo( 'wpurl' ) . $data['url'] : get_bloginfo( 'wpurl' );
+
+	// 	$field_name_submit     = $this->get_field_name( $form_id_raw, 'submit' );
+	// 	$mail_role_field_names = array( 'submit' => $this->get_field_name( $form_id_raw, 'submit' ) );
+
+	// 	$blogname        = get_option( 'blogname' );
+	// 	$recipient_email = get_option( 'admin_email' );
+
+	// 	$mail_roles      = array( 'sender_name', 'sender_email', 'subject', 'body' );
+	// 	$required_fields = array();
+	// 	$sendmail        = true;
+	// 	$sentmail        = false;
+
+	// 	// if the submit button was clicked, send the email.
+	// 	if ( isset( $_POST[ $field_name_submit ] ) ) {
+	// 		$sanitized_form_data = $this->helper_sanitize_form_data();
+
+	// 		foreach ( $fields as $field ) {
+	// 			$field_name = $this->get_field_name( $form_id_raw, $field['id'] );
+
+	// 			foreach ( $mail_roles as $mail_role ) {
+	// 				if ( array_key_exists( 'mail_role', $field ) && ( $mail_role === $field['mail_role'] ) ) {
+	// 					$mail_role_field_names[ $mail_role ] = $field_name;
+	// 				}
+	// 			}
+
+	// 			if ( array_key_exists( 'required', $field ) && ( 'true' === $field['required'] ) ) {
+	// 				$required_fields[] = $field_name;
+
+	// 				if ( '' === $sanitized_form_data[ $field_name ] ) {
+	// 					$sendmail = false;
+	// 				}
+	// 			}
+	// 		}
+
+	// 		if ( $sendmail ) {
+	// 			$headers  = 'From: ' . $sanitized_form_data[ $mail_role_field_names['sender_name'] ] . '<' . $sanitized_form_data[ $mail_role_field_names['sender_email'] ] . '>' . "\r\n";
+	// 			$message  = $sanitized_form_data[ $mail_role_field_names['body'] ] . "\r\n\r\n";
+	// 			$message .= '---' . "\r\n\r\n";
+	// 			$message .= "Sent from the {$blogname} {$form_name} form.";
+
+	// 			$sentmail = wp_mail(
+	// 				$recipient_email,
+	// 				$sanitized_form_data[ $mail_role_field_names['subject'] ],
+	// 				$message,
+	// 				$headers
+	// 			);
+
+	// 			if ( $sentmail ) {
+	// 				// prevent aggressive long term caching.
+	// 				nocache_headers();
+
+	// 				// this only works before html is output!
+	// 				$url = add_query_arg( 'wpdtrtformsent', '1', ( $url . '#' . $anchor_id ) );
+	// 				wp_safe_redirect( $url, 303 );
+	// 				exit();
+	// 			} else {
+	// 				$this->set_submit_status( '1' ); // ok, refresh resubmits.
+	// 			}
+	// 		} else {
+	// 			$this->set_submit_status( '3' ); // ok, refresh resubmits and revalidates.
+	// 		}
+	// 	} else {
+	// 		if ( array_key_exists( 'wpdtrtformsent', $_GET ) && '1' === $_GET['wpdtrtformsent'] ) {
+	// 			$this->set_submit_status( '2' ); // ok, refresh ok.
+	// 		} else {
+	// 			$this->set_submit_status( '0' ); // ok, refresh ok.
+	// 		}
+	// 	}
 	}
 
 	/**

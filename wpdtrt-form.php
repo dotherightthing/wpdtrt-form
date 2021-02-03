@@ -222,9 +222,22 @@ function wpdtrt_form_deactivate() {
  * - Add a constructor function to WPDTRT_Form_Plugin, to explain the options array
  */
 function wpdtrt_form_plugin_init() {
+	// if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+	// 	global $debug;
+	// 	$debug->log('wpdtrt_form_plugin_init - doing ajax');
+	// } else {
+	// 	global $debug;
+	// 	$debug->log('wpdtrt_form_plugin_init - not doing ajax');
+	// }
+
 	// pass object reference between classes via global
 	// because the object does not exist until the WordPress init action has fired.
 	global $wpdtrt_form_plugin;
+
+	
+	global $debug;
+	$debug->log( 'wpdtrt_form_plugin_init - check plugin_data' );
+	// $debug->log( $options['plugin_data'] );
 
 	/**
 	 * Array: plugin_options
@@ -364,6 +377,14 @@ function wpdtrt_form_rewrite_init() {
  * Register Shortcode.
  */
 function wpdtrt_form_shortcode_init() {
+
+	// if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+	// 	global $debug;
+	// 	$debug->log('wpdtrt_form_shortcode_init - doing ajax');
+	// } else {
+	// 	global $debug;
+	// 	$debug->log('wpdtrt_form_shortcode_init - not doing ajax');
+	// }
 
 	global $wpdtrt_form_plugin;
 
