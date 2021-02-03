@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "wpdtrt-form",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Simple, accessible forms.",
   "keywords": [
     "forms",
