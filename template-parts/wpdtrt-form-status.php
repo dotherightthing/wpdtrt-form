@@ -11,15 +11,17 @@
  * @subpackage  Wpdtrt_Form/views
  */
 
+$heading       = key_exists( 'heading', $data ) ? $data['heading'] : '';
+$heading_class = key_exists( 'heading_class', $data ) ? $data['heading_class'] : '';
+$legend        = key_exists( 'legend', $data ) ? $data['legend'] : '';
+$fields        = key_exists( 'fields', $data ) ? $data['fields'] : array();
+
 $errors_count       = 0;
 $errors_list_items  = '';
-$heading            = $data['heading'];
-$heading_class_attr = '' !== $data['heading_class'] ? " class='{$data['heading_class']}'" : '';
+$heading_class_attr = '' !== $heading_class ? " class='{$data['heading_class']}'" : '';
 $icon_class         = '2' === $submit_status ? 'email' : 'warning';
-$legend             = $data['legend'];
 $message            = '';
 $show_errors_list   = $errors_list;
-$fields             = $data['fields'];
 
 if ( isset( $sanitized_form_data ) ) { // this line is redundant.
 	foreach ( $sanitized_form_data as $key => $sanitized_value ) {

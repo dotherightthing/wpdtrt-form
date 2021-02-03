@@ -43,31 +43,33 @@ $plugin->get_api_data(); // load and store the external data (once).
 $render_form = false;
 
 // get existing plugin data (not get_api_data).
-$data = $plugin->get_plugin_data(); // retrieve the stored external data.
+$data = $plugin->get_plugin_data(); // retrieve the stored external data, this is an empty array if the request failed.
 
 $errors_inline = isset( $errors_inline ) && ( '1' === $errors_inline );
 $errors_list   = isset( $errors_list ) && ( '1' === $errors_list );
 
-if ( key_exists( 'fields', $data ) ) {
-	$form_action       = $_SERVER['REQUEST_URI'];
-	$form_id_raw       = $data['form_id'];
-	$form_id           = $plugin->get_form_id( $form_id_raw );
-	$form_name         = $data['form_name'];
-	$field_id_submit   = $plugin->get_field_id( $form_id_raw, 'submit' );
-	$field_name_submit = $plugin->get_field_name( $form_id_raw, 'submit' );
-	$fields            = $data['fields'];
-	$submit_status     = $plugin->get_submit_status();
+$form_action   = $_SERVER['REQUEST_URI'];
+$form_id_raw   = key_exists( 'form_id', $data ) ? $data['form_id'] : '';
+$form_name     = key_exists( 'form_name', $data ) ? $data['form_name'] : '';
+$fields        = key_exists( 'fields', $data ) ? $data['fields'] : '';
+$legend        = key_exists( 'legend', $data ) ? $data['legend'] : '';
+$submit_label  = key_exists( 'submit', $data ) ? $data['submit'] : '';
+$submit_status = $plugin->get_submit_status();
 
-	if ( '2' !== $submit_status ) {
-		$sanitized_form_data = $plugin->helper_sanitize_form_data(); // submitted data.
-		$render_form         = true;
-	}
+$form_id           = $plugin->get_form_id( $form_id_raw );
+$field_id_submit   = $plugin->get_field_id( $form_id_raw, 'submit' );
+$field_name_submit = $plugin->get_field_name( $form_id_raw, 'submit' );
+
+if ( '2' !== $submit_status ) {
+	$sanitized_form_data = $plugin->helper_sanitize_form_data(); // submitted data.
+	$render_form         = true;
 }
 
 
 // WordPress widget options (not output with shortcode).
 echo $before_widget;
 echo $before_title . $title . $after_title;
+
 ?>
 
 <div class="wpdtrt-form" id="<?php echo $form_id; ?>">
@@ -83,7 +85,7 @@ if ( $render_form ) :
 	<form action="<?php echo $form_action; ?>" method="post" class="wpdtrt-form-template wpdtrt-form-template-<?php echo $template; ?>">
 		<fieldset class="wpdtrt-form__fieldset">
 			<legend class="wpdtrt-form__legend">
-				<?php echo $data['legend']; ?>
+				<?php echo $legend; ?>
 			</legend>
 			<p class="wpdtrt-form__notes">
 				<?php
@@ -159,7 +161,7 @@ if ( $render_form ) :
 			<?php endforeach; ?>
 
 			<div class="wpdtrt-form__submit-wrapper">
-				<input type="submit" name="<?php echo $field_name_submit; ?>" id="<?php echo $field_id_submit; ?>" class="wpdtrt-form__submit" value="<?php echo $data['submit']; ?>">
+				<input type="submit" name="<?php echo $field_name_submit; ?>" id="<?php echo $field_id_submit; ?>" class="wpdtrt-form__submit" value="<?php echo $submit_label; ?>">
 			</div>
 		</fieldset>
 	</form>

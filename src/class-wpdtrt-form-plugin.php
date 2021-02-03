@@ -301,10 +301,12 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		$sanitized_form_data = array();
 
 		// this requires json_decode to use the optional second argument to return an associative array.
-		$data              = $this->get_plugin_data();
-		$form_id_raw       = $data['form_id'];
+		$data = $this->get_plugin_data();
+
+		$fields      = key_exists( 'fields', $data ) ? $data['fields'] : array();
+		$form_id_raw = key_exists( 'form_id', $data ) ? $data['form_id'] : '';
+
 		$field_name_submit = $this->get_field_name( $form_id_raw, 'submit' );
-		$fields            = $data['fields'];
 
 		// if the submit button is clicked, send the email.
 		if ( isset( $_POST[ $field_name_submit ] ) ) {
@@ -375,24 +377,25 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 	 * @see https://developer.wordpress.org/reference/functions/wp_redirect/#comment-3973 - nocache_headers()
 	 */
 	public function helper_sendmail( $form_id_raw, $form_name, $errors_list ) {
-		$this->get_api_data();
-		$data = $this->get_plugin_data();
+		$this->get_api_data(); // load and store the external data (once).
 
-		$anchor_id             = $data['anchor_id'];
-		$blogname              = get_option( 'blogname' );
-		$errors_list           = $errors_list;
+		$data           = $this->get_plugin_data(); // retrieve the stored external data, this is an empty array if the request failed.
+		$plugin_options = $this->get_plugin_options();
+
+		$anchor_id = key_exists( 'anchor_id', $data ) ? $data['anchor_id'] : '';
+		$fields    = key_exists( 'fields', $data ) ? $data['fields'] : array();
+		$url       = key_exists( 'url', $data ) ? get_bloginfo( 'wpurl' ) . $data['url'] : get_bloginfo( 'wpurl' );
+
 		$field_name_submit     = $this->get_field_name( $form_id_raw, 'submit' );
-		$mail_roles            = array( 'sender_name', 'sender_email', 'subject', 'body' );
 		$mail_role_field_names = array( 'submit' => $this->get_field_name( $form_id_raw, 'submit' ) );
-		$plugin_options        = $this->get_plugin_options();
-		$recipient_email       = get_option( 'admin_email' );
-		$required_fields       = array();
-		$sendmail              = true;
-		$sentmail              = false;
-		$fields                = $data['fields'];
-		$url                   = get_bloginfo( 'wpurl' ) . $data['url'];
 
-		global $debug;
+		$blogname        = get_option( 'blogname' );
+		$recipient_email = get_option( 'admin_email' );
+
+		$mail_roles      = array( 'sender_name', 'sender_email', 'subject', 'body' );
+		$required_fields = array();
+		$sendmail        = true;
+		$sentmail        = false;
 
 		// if the submit button was clicked, send the email.
 		if ( isset( $_POST[ $field_name_submit ] ) ) {
