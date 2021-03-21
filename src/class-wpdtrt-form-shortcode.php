@@ -16,7 +16,7 @@
  * Since:
  *   0.9.1 - DTRT WordPress Plugin Boilerplate Generator
  */
-class WPDTRT_Form_Shortcode extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7_15\Shortcode {
+class WPDTRT_Form_Shortcode extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7_16\Shortcode {
 
 	/**
 	 * Constructor: __construct
