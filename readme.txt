@@ -6,7 +6,7 @@ Tags: forms, accessible, WCAG
 Requires at least: 5.6
 Tested up to: 5.6
 Requires PHP: 7.2.20
-Stable tag: 0.3.3
+Stable tag: 0.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,10 @@ Simple, accessible forms.
 See [WordPress Usage](README.md#wordpress-usage).
 
 == Changelog ==
+
+= 0.3.4 =
+* [3a1dff5] Update wpdtrt-plugin-boilerplate from 1.7.15 to 1.7.16
+* [17c97c8] Remove redundant classes
 
 = 0.3.3 =
 * [bd80a7d] Add space between name and email address in email headers (#11)
