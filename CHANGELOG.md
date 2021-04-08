@@ -1,2 +1,2 @@
-* [3a1dff5] Update wpdtrt-plugin-boilerplate from 1.7.15 to 1.7.16
-* [17c97c8] Remove redundant classes
+* [17b94da] Replace subject field with hardcoded value
+* [8e78fe5] Change order of fields on contact form to prioritise message field
