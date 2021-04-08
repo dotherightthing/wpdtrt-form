@@ -389,10 +389,10 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		$field_name_submit     = $this->get_field_name( $form_id_raw, 'submit' );
 		$mail_role_field_names = array( 'submit' => $this->get_field_name( $form_id_raw, 'submit' ) );
 
-		$blogname        = get_option( 'blogname' );
+		$blogname        = html_entity_decode( get_option( 'blogname' ), ENT_QUOTES );
 		$recipient_email = get_option( 'admin_email' );
 
-		$mail_roles      = array( 'sender_name', 'sender_email', 'subject', 'body' );
+		$mail_roles      = array( 'sender_name', 'sender_email', 'body' );
 		$required_fields = array();
 		$sendmail        = true;
 		$sentmail        = false;
@@ -420,14 +420,13 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 			}
 
 			if ( $sendmail ) {
-				$headers  = 'From: ' . $sanitized_form_data[ $mail_role_field_names['sender_name'] ] . ' <' . $sanitized_form_data[ $mail_role_field_names['sender_email'] ] . '>' . "\r\n";
-				$message  = $sanitized_form_data[ $mail_role_field_names['body'] ] . "\r\n\r\n";
-				$message .= '---' . "\r\n\r\n";
-				$message .= "Sent from the {$blogname} {$form_name} form.";
+				$headers = 'From: ' . $sanitized_form_data[ $mail_role_field_names['sender_name'] ] . ' <' . $sanitized_form_data[ $mail_role_field_names['sender_email'] ] . '>' . "\r\n";
+				$message = $sanitized_form_data[ $mail_role_field_names['body'] ] . "\r\n\r\n";
+				$subject = "{$blogname} | {$form_name} form submission";
 
 				$sentmail = wp_mail(
 					$recipient_email,
-					$sanitized_form_data[ $mail_role_field_names['subject'] ],
+					$subject,
 					$message,
 					$headers
 				);

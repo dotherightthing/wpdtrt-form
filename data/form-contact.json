@@ -36,17 +36,6 @@
 			"sanitizer": "sanitize_email",
 			"size": "40",
 			"type": "email"
-		},
-		{
-			"element": "input",
-			"error": "Please enter a subject",
-			"id": "subject",
-			"label": "Subject",
-			"mail_role": "subject",
-			"required": "true",
-			"sanitizer": "sanitize_text_field",
-			"size": "40",
-			"type": "text"
 		}
 	],
 	"form_id": "contact-form",
