@@ -311,7 +311,6 @@ function wpdtrt_form_plugin_init() {
 		'template'      => 'contact',
 		'errors_list'   => '1',
 		'errors_inline' => '1',
-		'number'        => '1',
 	);
 
 	/**
