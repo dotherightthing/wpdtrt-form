@@ -244,6 +244,9 @@ class WPDTRT_Form_Plugin extends DoTheRightThing\WPDTRT_Plugin_Boilerplate\r_1_7
 		if ( key_exists( 'value', $plugin_options['template'] ) ) {
 			$template = $plugin_options['template']['value'];
 			$endpoint = ( WPDTRT_FORM_URL . 'data/form-' . $template . '.json' );
+		} else if ( key_exists( 'default', $plugin_options['template'] ) ) {
+			$template = $plugin_options['template']['default'];
+			$endpoint = ( WPDTRT_FORM_URL . 'data/form-' . $template . '.json' );
 		}
 
 		return $endpoint;

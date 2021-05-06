@@ -242,6 +242,7 @@ function wpdtrt_form_plugin_init() {
 				),
 			),
 			'tip'     => __( '/data/form-{template}.json', 'wpdtrt-form' ),
+			'default' => 'contact'
 		),
 	);
 
