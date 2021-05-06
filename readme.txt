@@ -6,7 +6,7 @@ Tags: forms, accessible, WCAG
 Requires at least: 5.6
 Tested up to: 5.6
 Requires PHP: 7.2.20
-Stable tag: 0.3.5
+Stable tag: 0.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,14 @@ Simple, accessible forms.
 See [WordPress Usage](README.md#wordpress-usage).
 
 == Changelog ==
+
+= 0.3.6 =
+* [aaf73d0] Lint PHP
+* [09bc739] Update dependencies
+* [ee54670] Update wpdtrt-plugin-boilerplate from 1.7.16 to 1.7.17
+* [853d4b2] Revert "Add missing number argument to demo_shortcode_params (dotherightthing/wpdtrt-plugin-boilerplate#192)"
+* [487def9] Make contact form data the default (fixes #17)
+* [ec000cb] Add missing number argument to demo_shortcode_params (dotherightthing/wpdtrt-plugin-boilerplate#192)
 
 = 0.3.5 =
 * [17b94da] Replace subject field with hardcoded value
