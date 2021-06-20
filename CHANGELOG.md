@@ -1,6 +1,4 @@
-* [aaf73d0] Lint PHP
-* [09bc739] Update dependencies
-* [ee54670] Update wpdtrt-plugin-boilerplate from 1.7.16 to 1.7.17
-* [853d4b2] Revert "Add missing number argument to demo_shortcode_params (dotherightthing/wpdtrt-plugin-boilerplate#192)"
-* [487def9] Make contact form data the default (fixes #17)
-* [ec000cb] Add missing number argument to demo_shortcode_params (dotherightthing/wpdtrt-plugin-boilerplate#192)
+* [9ff96fa] Update wpdtrt-scss to 0.1.17
+* [6db6df6] Update wpdtrt-scss to 0.1.14
+* [3dc2de1] Lint PHP
+* [5e20f2f] Update wpdtrt-scss to 0.1.13
