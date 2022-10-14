@@ -8,23 +8,18 @@
 //
 
 // -------------------------------------------------------------------
-// Variables
+// Imports
 // -------------------------------------------------------------------
 
-@import '../node_modules/wpdtrt-scss/scss/variables/scss';
-@import 'variables/scss';
+// Import wpdtrt-scss library helpers
+@use '../node_modules/wpdtrt-scss/scss' as wpdtrt-scss;
+
+// Import local variables
+@use 'variables/scss' as *;
 
 // -------------------------------------------------------------------
-// Mixins
+// Styles
 // -------------------------------------------------------------------
-
-@import '../node_modules/wpdtrt-scss/scss/mixins';
-
-// -------------------------------------------------------------------
-// Extends
-// -------------------------------------------------------------------
-
-@import '../node_modules/wpdtrt-scss/scss/extends';
 
 .wpdtrt-form {
     &__hint {
