@@ -50,7 +50,7 @@
   "dependencies": {
     "jquery": "1.12.4",
     "jquery-validation": "^1.19.3",
-    "wpdtrt-scss": "github:dotherightthing/wpdtrt-scss#semver:*"
+    "wpdtrt-scss": "github:dotherightthing/wpdtrt-scss"
   },
   "devDependencies": {
     "wpdtrt-npm-scripts": "github:dotherightthing/wpdtrt-npm-scripts#semver:*"

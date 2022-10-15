@@ -1,5 +1,5 @@
 /**
- * File: cypress/integration/flows/wpdtrt-form.js
+ * File: cypress/e2e/flows/wpdtrt-form.js
  *
  * Dummy Cypress spec for UI testing. Edit to suit your needs.
  *
