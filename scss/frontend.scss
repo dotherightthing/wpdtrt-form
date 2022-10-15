@@ -20,8 +20,8 @@
 // Import local variables
 @use 'variables/scss' as *;
 
-// Import other libraries
-@use '../icons/icomoon/style.scss' as icomoon;
+// Import local icons (optional)
+@use '../icons/icomoon/style.scss' as *;
 
 // Extend default `$breakpoint` map from library variables
 $breakpoints: map-merge($breakpoints, wpdtrt-scss.$breakpoints);
